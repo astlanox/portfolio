@@ -1,0 +1,64 @@
+---
+import Title from "@components/projects/Title.astro";
+import Thumbnail from "@components/projects/Thumbnail.astro";
+import Description from "@components/projects/Description.astro";
+import Meta from "@components/projects/Meta.astro";
+import Stack from "@components/projects/Stack.astro";
+import Flow from "@components/projects/Flow.astro";
+import Requirement from "@components/projects/Requirement.astro";
+
+import FoundationLayout from "./common/foundationLayout.astro";
+
+const { title, label, thumbnailSrc, description, metaItems, stackItems, flowItems, requirementItems } = Astro.props as {
+  title: string;
+  label: string;
+  thumbnailSrc: string;
+  description: string;
+  metaItems: { title: string; description: string }[];
+  stackItems: string[];
+  flowItems: { title: string; description: string }[];
+  requirementItems: string[];
+};
+---
+
+<FoundationLayout>
+  <article class="article">
+    <div class="info">
+      <div>
+        <Title title={title} label={label} />
+        <Thumbnail src={thumbnailSrc} />
+      </div>
+
+      <Description text={description} />
+      <Meta items={metaItems} />
+      <Stack items={stackItems} />
+      <Flow items={flowItems} />
+    </div>
+
+    <Requirement items={requirementItems} />
+  </article>
+</FoundationLayout>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+
+  .article {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xxx-large;
+
+    @media screen and (min-width: $screen-large) {
+      gap: $space-xxxxx-large;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-x-large;
+
+    @media screen and (min-width: $screen-large) {
+      gap: $space-xxx-large;
+    }
+  }
+</style>

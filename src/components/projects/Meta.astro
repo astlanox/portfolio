@@ -1,0 +1,84 @@
+---
+// FIXME:
+type Item = { title: string; description: string };
+
+const { items } = Astro.props as { items: Item[] };
+---
+
+<div class="container">
+  <div class="inner">
+    {
+      items.map((item, index) => (
+        <dl class="list">
+          <dt class="list-title">{item.title}</dt>
+          <dd class="list-description">{item.description}</dd>
+        </dl>
+      ))
+    }
+  </div>
+</div>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+  @use "@styles/mixins" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xx-large;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (min-width: $screen-medium) {
+      flex-direction: row;
+      gap: $space-xxxx-large;
+    }
+  }
+
+  .list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: $space-small;
+    text-align: center;
+
+    @media screen and (min-width: $screen-medium) {
+      text-align: left;
+    }
+
+    &:not(:first-child) {
+      &::before {
+        position: absolute;
+        top: -24px;
+        left: 50%;
+        width: 80px;
+        height: 1px;
+        content: "";
+        background-color: $color-border;
+        transform: translateX(-50%);
+
+        @media screen and (min-width: $screen-medium) {
+          top: 50%;
+          left: -64px;
+          width: 1px;
+          height: 24px;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &-title {
+      font-size: $font-size-small;
+      text-transform: uppercase;
+    }
+
+    &-description {
+      font-size: $font-size-medium;
+      color: $color-text-primary;
+    }
+  }
+</style>

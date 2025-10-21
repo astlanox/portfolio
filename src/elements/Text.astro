@@ -1,0 +1,35 @@
+---
+const { size = "normal", align } = Astro.props;
+
+const classList = ["text"];
+if (size) classList.push(`text-size-${size}`);
+if (align) classList.push(`text-align-${align}`);
+---
+
+<p class={classList.join(" ") || undefined}><slot /></p>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+
+  .text {
+    line-height: $line-large;
+
+    &-size {
+      &-small {
+        font-size: $font-size-small;
+      }
+      &-normal {
+        font-size: $font-size-normal;
+      }
+      &-medium {
+        font-size: $font-size-medium;
+      }
+    }
+
+    &-align {
+      &-center {
+        text-align: center;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+import Text from "@elements/Text.astro";
+
+// FIXME:
+const { items } = Astro.props as { items: string[] };
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title">
+      What they <span class="title-strong">want?</span>
+    </h2>
+
+    <ul class="list">
+      {
+        items.map((item) => (
+          <li class="list-item">
+            <Text size="medium">{item}</Text>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+  @use "@styles/mixins" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: $space-x-large;
+
+    @media screen and (min-width: $screen-large) {
+      gap: $space-xxx-large;
+    }
+  }
+
+  .title {
+    @include title-secondary;
+
+    text-align: center;
+
+    &-strong {
+      @include title-secondary-strong;
+    }
+  }
+
+  .list {
+    @include container-inner;
+
+    display: flex;
+    flex-direction: column;
+    gap: $space-normal;
+
+    &-item {
+      padding-left: $space-medium;
+      position: relative;
+
+      &:before {
+        content: "";
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        left: 0;
+        top: 14px;
+        border-radius: $radius-circle;
+        background-color: $color-border-strong;
+      }
+    }
+  }
+</style>

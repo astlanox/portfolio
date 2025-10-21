@@ -1,0 +1,21 @@
+@use "../variables" as *;
+@import "https://fonts.googleapis.com/css2?family=Poppins:wght@300;700&display=swap";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Poppins, sans-serif;
+  font-size: $font-size-normal;
+  font-style: normal;
+  font-weight: $font-weight-normal;
+  color: $color-text-secondary;
+  background-color: $color-bg-primary;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

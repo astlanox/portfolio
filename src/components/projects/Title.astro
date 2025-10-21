@@ -1,0 +1,35 @@
+---
+const { title, label } = Astro.props;
+---
+
+<h1 class="container">
+  <div class="title"><span>{title}</span></div>
+  <div class="label"><span>{label}</span></div>
+</h1>
+
+<style lang="scss">
+  @use "@styles/mixins" as *;
+
+  .container {
+    @include container;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .title {
+    order: 2;
+
+    span {
+      @include title-primary;
+
+      text-transform: uppercase;
+    }
+  }
+
+  .label {
+    span {
+      @include title-label;
+    }
+  }
+</style>

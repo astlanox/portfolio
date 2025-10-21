@@ -1,0 +1,41 @@
+---
+import Picture from "@elements/Picture.astro";
+
+const { src } = Astro.props;
+---
+
+<div class="container">
+  <div class="inner">
+    <div class="image">
+      <Picture src={src} width={1200} />
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+  @use "@styles/mixins" as *;
+  .container {
+    @include container;
+  }
+
+  .inner {
+    padding: $space-small;
+    background-color: $color-bg-secondary;
+    border-radius: $radius-normal;
+
+    @media screen and (min-width: $screen-medium) {
+      padding: $space-normal;
+      border-radius: $radius-large;
+    }
+  }
+
+  .image {
+    overflow: hidden;
+    border-radius: calc($radius-normal - 1%);
+
+    @media screen and (min-width: $screen-medium) {
+      border-radius: calc($radius-large - 1%);
+    }
+  }
+</style>

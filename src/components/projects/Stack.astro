@@ -1,0 +1,34 @@
+---
+// FIXME:
+const { items } = Astro.props as { items: string[] };
+---
+
+<div class="container">
+  <ul class="list">
+    {items.map((item) => <li class="list-item">{item}</li>)}
+  </ul>
+</div>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+  @use "@styles/mixins" as *;
+
+  .container {
+    @include container;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-normal;
+    align-items: center;
+    justify-content: center;
+
+    &-item {
+      padding: $space-small $space-normal;
+      color: $color-text-primary;
+      border: 1px solid $color-border;
+      border-radius: $radius-normal;
+    }
+  }
+</style>

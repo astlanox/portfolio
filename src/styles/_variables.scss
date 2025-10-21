@@ -1,0 +1,76 @@
+// * Screen Sizes *//
+$screen-small: 375px;
+$screen-normal: 640px;
+$screen-medium: 768px;
+$screen-large: 1024px;
+$screen-x-large: 1200px;
+
+// * Spaces *//
+$space-base: 8px;
+$space-x-small: calc($space-base / 2);
+$space-small: calc($space-base);
+$space-normal: calc($space-base * 2);
+$space-medium: calc($space-base * 3);
+$space-large: calc($space-base * 4);
+$space-x-large: calc($space-base * 5);
+$space-xx-large: calc($space-base * 6);
+$space-xxx-large: calc($space-base * 10);
+$space-xxxx-large: calc($space-base * 16);
+$space-xxxxx-large: calc($space-base * 25);
+
+// * Colors *//
+$white: #fff;
+$black: #000;
+$gray-100: #f4f4f5;
+$gray-200: #e4e4e7;
+$gray-300: #d4d4d8;
+$gray-400: #a1a1aa;
+$gray-500: #71717a;
+$gray-600: #52525b;
+$gray-700: #3f3f46;
+$gray-800: #27272a;
+$gray-900: #18181b;
+$purple-500: #d339de;
+$blue-500: #5379ec;
+$purple-glow: rgb(123 97 255 / 30%);
+$blue-glow: rgb(0 198 255 / 30%);
+
+// Semantic Colors
+$color-bg-primary: $black;
+$color-bg-secondary: rgba($white, 0.5);
+$color-surface: $gray-900;
+$color-text-primary: $white;
+$color-text-secondary: rgba($white, 0.5);
+$color-text-muted: $gray-500;
+$color-border: rgba($white, 0.3);
+$color-border-strong: rgba($white, 0.8);
+$color-primary: $blue-500;
+$color-secondary: $purple-500;
+$gradient-primary: linear-gradient(
+  to right,
+  $color-primary 0%,
+  $color-secondary 100%
+);
+$color-glow-primary: $purple-glow;
+$color-glow-secondary: $blue-glow;
+
+// * Font Sizes *//
+$font-size-small: 1.2rem;
+$font-size-normal: 1.6rem;
+$font-size-medium: 2rem;
+$font-size-large: clamp(1.8rem, 1.164rem + 2.72vw, 3.2rem);
+$font-size-x-large: clamp(3.2rem, 1.018rem + 9.31vw, 8rem);
+$font-size-xx-large: clamp(4rem, 0.364rem + 15.52vw, 12rem);
+
+// * Font Weights *//
+$font-weight-normal: 300;
+$font-weight-bold: 700;
+
+// * Line Heights *//
+$line-normal: 1.5;
+$line-large: 2;
+
+// * Radiuses *//
+$radius-normal: 2.4rem;
+$radius-large: 6.4rem;
+$radius-circle: 99rem;

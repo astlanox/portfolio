@@ -1,0 +1,26 @@
+---
+import "@styles/style.scss";
+import Footer from "@components/common/Footer.astro";
+import Header from "@components/common/Header.astro";
+import { Titles } from "@constants/meta";
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ?? Titles.SITE}</title>
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>
