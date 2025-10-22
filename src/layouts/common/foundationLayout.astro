@@ -3,7 +3,6 @@ import "@styles/style.scss";
 import Footer from "@components/common/Footer.astro";
 import Header from "@components/common/Header.astro";
 import { Titles } from "@constants/meta";
-
 const { title } = Astro.props;
 ---
 
@@ -17,10 +16,22 @@ const { title } = Astro.props;
   <body>
     <Header />
 
-    <main>
+    <main class="main">
       <slot />
     </main>
 
     <Footer />
   </body>
 </html>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+
+  .main {
+    margin-top: $space-xxx-large;
+
+    @media screen and (min-width: $screen-large) {
+      margin-top: $space-xxxx-large;
+    }
+  }
+</style>

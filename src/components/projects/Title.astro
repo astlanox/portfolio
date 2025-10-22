@@ -9,9 +9,11 @@ const { title, label } = Astro.props;
 
 <style lang="scss">
   @use "@styles/mixins" as *;
+  @use "@styles/variables" as *;
 
   .container {
     @include container;
+
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -21,7 +23,7 @@ const { title, label } = Astro.props;
     order: 2;
 
     span {
-      @include title-primary;
+      @include title-strong($font-size-xxx-large);
 
       text-transform: uppercase;
     }
@@ -29,7 +31,7 @@ const { title, label } = Astro.props;
 
   .label {
     span {
-      @include title-label;
+      @include title-label($font-size-large);
     }
   }
 </style>

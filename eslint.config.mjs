@@ -1,11 +1,54 @@
-import eslintPluginAstro from "eslint-plugin-astro";
+import { defineConfig } from "eslint/config";
+import globals from "globals";
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import astro from "eslint-plugin-astro";
+import prettier from "eslint-plugin-prettier";
 import eslintPluginImport from "eslint-plugin-import";
+// parsers
+const tsParser = tseslint.parser;
+const astroParser = astro.parser;
 
-export default [
-  ...eslintPluginAstro.configs.recommended,
+export default defineConfig([
+  // Global configuration
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+  },
+
+  // Base configs
+  js.configs.recommended,
+  tseslint.configs.recommended,
+
+  // Prettier config
   {
     plugins: {
+      prettier: prettier,
       import: eslintPluginImport,
+    },
+    rules: {
+      // disable warnings, since prettier should format on save
+      "prettier/prettier": "off",
+    },
+  },
+
+  // astro setup with a11y
+  astro.configs.recommended,
+  {
+    files: ["**/*.astro"],
+    languageOptions: {
+      parser: astroParser,
+      parserOptions: {
+        parser: tsParser,
+        extraFileExtensions: [".astro"],
+        sourceType: "module",
+        ecmaVersion: "latest",
+        project: "./tsconfig.json",
+      },
     },
     rules: {
       "astro/no-conflict-set-directives": "error",
@@ -62,4 +105,4 @@ export default [
       ],
     },
   },
-];
+]);

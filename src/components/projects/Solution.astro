@@ -1,0 +1,100 @@
+---
+import Text from "@elements/Text.astro";
+
+type Item = { title: string; label: string; description: string };
+const { items } = Astro.props as { items: Item[] };
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title">
+      How I <span class="title-strong">approached?</span>
+    </h2>
+
+    {
+      items.map((item, index) => (
+        <section class="item">
+          <div class="item-content">
+            <h3 class="item-title">{item.title}</h3>
+            <div>
+              <span class="item-label">{item.label}</span>
+            </div>
+            <div class="item-description">
+              <Text>{item.description}</Text>
+            </div>
+          </div>
+
+          <div class="item-visual" />
+        </section>
+      ))
+    }
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+  @use "@styles/mixins" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+    gap: $space-x-large;
+
+    @media screen and (min-width: $screen-large) {
+      gap: $space-xxx-large;
+    }
+  }
+
+  .title {
+    @include title($font-size-xx-large);
+
+    text-align: center;
+
+    &-strong {
+      @include title-strong($font-size-xx-large);
+    }
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (min-width: $screen-large) {
+      flex-direction: row;
+
+      &:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: $space-normal;
+
+      @media screen and (min-width: $screen-large) {
+        width: 50%;
+      }
+    }
+
+    &-title {
+      order: 2;
+
+      @include title($font-size-x-large);
+    }
+
+    &-label {
+      order: 1;
+
+      @include title-label($font-size-medium);
+    }
+
+    &-description {
+      order: 3;
+    }
+  }
+</style>

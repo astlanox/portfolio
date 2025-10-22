@@ -1,5 +1,19 @@
 ---
+import Text from "@elements/Text.astro";
+import { getCurrentYear } from "@utils/getDate";
 
+const currentYear = getCurrentYear();
 ---
 
-<footer><small>2025 Astlanox.</small></footer>
+<footer class="footer">
+  <Text tag="small" size="x-small" align="center">&copy; {currentYear} Astlanox.</Text>
+</footer>
+
+<style lang="scss">
+  @use "@styles/variables" as *;
+
+  .footer {
+    padding-top: $space-large;
+    padding-bottom: $space-large;
+  }
+</style>

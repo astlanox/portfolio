@@ -37,7 +37,7 @@ $blue-glow: rgb(0 198 255 / 30%);
 
 // Semantic Colors
 $color-bg-primary: $black;
-$color-bg-secondary: rgba($white, 0.5);
+$color-bg-secondary: rgba($white, 0.25);
 $color-surface: $gray-900;
 $color-text-primary: $white;
 $color-text-secondary: rgba($white, 0.5);
@@ -55,12 +55,14 @@ $color-glow-primary: $purple-glow;
 $color-glow-secondary: $blue-glow;
 
 // * Font Sizes *//
+$font-size-x-small: 1.1rem;
 $font-size-small: 1.2rem;
 $font-size-normal: 1.6rem;
 $font-size-medium: 2rem;
-$font-size-large: clamp(1.8rem, 1.164rem + 2.72vw, 3.2rem);
-$font-size-x-large: clamp(3.2rem, 1.018rem + 9.31vw, 8rem);
-$font-size-xx-large: clamp(4rem, 0.364rem + 15.52vw, 12rem);
+$font-size-large: clamp(2.4rem, 2.036rem + 1.55vw, 3.2rem);
+$font-size-x-large: clamp(2.8rem, 1.527rem + 5.43vw, 5.6rem);
+$font-size-xx-large: clamp(4rem, 2.182rem + 7.76vw, 8rem);
+$font-size-xxx-large: clamp(4.8rem, 1.527rem + 13.96vw, 12rem);
 
 // * Font Weights *//
 $font-weight-normal: 300;

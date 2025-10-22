@@ -1,46 +1,61 @@
 ---
-import Title from "@components/projects/Title.astro";
-import Thumbnail from "@components/projects/Thumbnail.astro";
 import Description from "@components/projects/Description.astro";
-import Meta from "@components/projects/Meta.astro";
-import Stack from "@components/projects/Stack.astro";
 import Flow from "@components/projects/Flow.astro";
+import Meta from "@components/projects/Meta.astro";
 import Requirement from "@components/projects/Requirement.astro";
+import Solution from "@components/projects/Solution.astro";
+import Stack from "@components/projects/Stack.astro";
+import Thumbnail from "@components/projects/Thumbnail.astro";
+import Title from "@components/projects/Title.astro";
+import { Urls } from "@constants/meta";
+import Text from "@elements/Text.astro";
 
 import FoundationLayout from "./common/foundationLayout.astro";
-
-const { title, label, thumbnailSrc, description, metaItems, stackItems, flowItems, requirementItems } = Astro.props as {
+const { title, label, thumbnail, description, meta, stacks, flows, requirements, solutions } = Astro.props as {
   title: string;
   label: string;
-  thumbnailSrc: string;
+  thumbnail: string;
   description: string;
-  metaItems: { title: string; description: string }[];
-  stackItems: string[];
-  flowItems: { title: string; description: string }[];
-  requirementItems: string[];
+  meta: { title: string; description: string }[];
+  stacks: string[];
+  flows: { title: string; description: string }[];
+  requirements: string[];
+  solutions: { title: string; description: string }[];
 };
 ---
 
 <FoundationLayout>
+  <nav class="nav">
+    <a href={Urls.PROJECTS}>
+      <Text tag="span" color="primary" transform="capitalize">View all projects</Text>
+    </a>
+  </nav>
+
   <article class="article">
     <div class="info">
       <div>
         <Title title={title} label={label} />
-        <Thumbnail src={thumbnailSrc} />
+        <Thumbnail src={thumbnail} />
       </div>
 
       <Description text={description} />
-      <Meta items={metaItems} />
-      <Stack items={stackItems} />
-      <Flow items={flowItems} />
+      <Meta items={meta} />
+      <Stack items={stacks} />
+      <Flow items={flows} />
     </div>
 
-    <Requirement items={requirementItems} />
+    <Requirement items={requirements} />
+    <Solution items={solutions} />
   </article>
 </FoundationLayout>
 
 <style lang="scss">
   @use "@styles/variables" as *;
+  @use "@styles/mixins" as *;
+
+  .nav {
+    @include container;
+  }
 
   .article {
     display: flex;

@@ -14,8 +14,12 @@ body {
   background-color: $color-bg-primary;
 }
 
+a {
+  text-decoration: none;
+}
+
 img {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
 }

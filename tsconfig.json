@@ -9,7 +9,8 @@
       "@constants/*": ["./src/constants/*"],
       "@elements/*": ["./src/elements/*"],
       "@layouts/*": ["./src/layouts/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@styles/*": ["./src/styles/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

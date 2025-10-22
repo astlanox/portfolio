@@ -1,46 +1,66 @@
 ---
-import thumbnailSrc from "@assets/images/projects/projects_soelu-studio_thumbnail.jpg";
+import thumbnailImage from "@assets/images/projects/projects_soelu-studio_thumbnail.jpg";
 import ProjectLayout from "@layouts/projectLayout.astro";
 ---
 
 <ProjectLayout
   title="Soelu Studio"
   label="Web development"
-  thumbnailSrc={thumbnailSrc}
+  thumbnail={thumbnailImage}
   description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-  metaItems={[
+  meta={[
     { title: "Client", description: "Soelu Inc." },
     { title: "Launched", description: "12/10/2025" },
     { title: "Type", description: "Web development" },
   ]}
-  stackItems={["Astro", "Astro", "Astro", "Astro", "Astro", "Astro", "Astro", "Astro"]}
-  flowItems={[
+  stacks={["Astro", "Astro", "Astro", "Astro", "Astro", "Astro", "Astro", "Astro"]}
+  flows={[
     {
       title: "Planning",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       title: "Planning",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       title: "Planning",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
     {
       title: "Planning",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     },
   ]}
-  requirementItems={[
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
-    "Lorem ipsum dolor sit amet consectetur adipiscing elit.",
+  requirements={[
+    "Establish a new offline studio identity while keeping the core Soelu brand essence",
+    "Maintain a refined, feminine tone consistent with the existing brand image",
+    "Create a scalable site structure to support future expansion",
+    "Reduce developer dependency by introducing an easy-to-manage CMS",
+    "Improve performance and maintainability for long-term, stable operation",
+  ]}
+  solutions={[
+    {
+      title: "Jamstack workflow optimization",
+      label: "Automation",
+      description:
+        "The site was built with Astro and microCMS, automated through GitHub Actions and hosted on Cloudflare Pages. This setup enables content updates to be deployed automatically without developer involvement, significantly reducing release time and ongoing maintenance costs.",
+    },
+    {
+      title: "UI design aligned with brand tone",
+      label: "Branding",
+      description:
+        "Building on Soelu’s established identity, the design translates its calm, elegant tone into the physical studio experience. Soft light, generous spacing, and a clean palette convey comfort and quality while connecting online and offline experiences.",
+    },
+    {
+      title: "Scalable and maintainable code structure",
+      label: "Architecture",
+      description:
+        "Using Astro’s component-based architecture, pages were modularized for reusability and flexibility. The data layer was decoupled from presentation, allowing independent updates to design or content as the brand evolves.",
+    },
   ]}
 />

@@ -79,6 +79,7 @@ const { items } = Astro.props as { items: Item[] };
     @media screen and (min-width: $screen-large) {
       text-align: center;
     }
+
     &-title {
       font-size: $font-size-medium;
       color: $color-text-primary;
@@ -92,9 +93,8 @@ const { items } = Astro.props as { items: Item[] };
       &::before {
         top: -1px;
         left: 0;
-        width: 21px;
-        height: 21px;
-
+        width: 19px;
+        height: 19px;
         background-color: $color-bg-primary;
         border: 1px solid $color-border-strong;
         border-radius: $radius-circle;
@@ -107,15 +107,15 @@ const { items } = Astro.props as { items: Item[] };
       }
 
       &::after {
-        top: 3px;
-        left: 4px;
-        width: 15px;
-        height: 15px;
+        top: 4px;
+        left: 5px;
+        width: 11px;
+        height: 11px;
         background-color: $color-border-strong;
         border-radius: $radius-circle;
 
         @media screen and (min-width: $screen-large) {
-          top: 4px;
+          top: 5px;
           left: 50%;
           transform: translateX(-50%);
         }

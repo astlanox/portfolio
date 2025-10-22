@@ -8,7 +8,7 @@ const { items } = Astro.props as { items: string[] };
 <section class="container">
   <div class="inner">
     <h2 class="title">
-      What they <span class="title-strong">want?</span>
+      What they <span class="title-strong">needed?</span>
     </h2>
 
     <ul class="list">
@@ -42,12 +42,12 @@ const { items } = Astro.props as { items: string[] };
   }
 
   .title {
-    @include title-secondary;
+    @include title($font-size-xx-large);
 
     text-align: center;
 
     &-strong {
-      @include title-secondary-strong;
+      @include title-strong($font-size-xx-large);
     }
   }
 
@@ -59,18 +59,18 @@ const { items } = Astro.props as { items: string[] };
     gap: $space-normal;
 
     &-item {
-      padding-left: $space-medium;
       position: relative;
+      padding-left: $space-medium;
 
-      &:before {
-        content: "";
-        width: 13px;
-        height: 13px;
+      &::before {
         position: absolute;
+        top: 16px;
         left: 0;
-        top: 14px;
-        border-radius: $radius-circle;
+        width: 11px;
+        height: 11px;
+        content: "";
         background-color: $color-border-strong;
+        border-radius: $radius-circle;
       }
     }
   }
