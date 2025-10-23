@@ -1,14 +1,33 @@
 ---
-import { Titles } from "@constants/meta";
+import { Titles, Urls } from "@constants/meta";
 ---
 
-<header class="header">
-  <a>{Titles.SITE}</a>
+<header class="container">
+  <div class="inner">
+    <nav><a href={Urls.BASE}>{Titles.SITE}</a></nav>
+  </div>
 </header>
 
 <style lang="scss">
-  .header {
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
+
+  .container {
+    @include container;
+
     position: fixed;
-    top: 0;
+    top: $space-normal;
+    left: 50%;
+    z-index: $layer-fixed;
+    transform: translateX(-50%);
+  }
+
+  .inner {
+    width: 100%;
+    height: 48px;
+    background-color: $color-bg-header;
+    border: $color-border 1px solid;
+    border-radius: $radius-pill;
+    backdrop-filter: $blur-normal;
   }
 </style>

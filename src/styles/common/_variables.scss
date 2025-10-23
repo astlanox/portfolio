@@ -38,6 +38,7 @@ $blue-glow: rgb(0 198 255 / 30%);
 // Semantic Colors
 $color-bg-primary: $black;
 $color-bg-secondary: rgba($white, 0.25);
+$color-bg-header: rgba($black, 0.5);
 $color-surface: $gray-900;
 $color-text-primary: $white;
 $color-text-secondary: rgba($white, 0.5);
@@ -75,4 +76,12 @@ $line-large: 2;
 // * Radiuses *//
 $radius-normal: 2.4rem;
 $radius-large: 6.4rem;
+$radius-pill: 50rem;
 $radius-circle: 99rem;
+
+// Blurs
+$blur-normal: blur(12px);
+
+// Layers
+$layer-base: 0;
+$layer-fixed: 1;

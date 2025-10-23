@@ -1,17 +1,30 @@
 @use "./variables" as *;
 
+@mixin for-screen-medium {
+  @media screen and (min-width: $screen-medium) {
+    @content;
+  }
+}
+
+@mixin for-screen-large {
+  @media screen and (min-width: $screen-large) {
+    @content;
+  }
+}
+
 @mixin container {
+  width: 100%;
   padding-right: $space-normal;
   padding-left: $space-normal;
   margin-right: auto;
   margin-left: auto;
 
-  @media screen and (min-width: $screen-medium) {
+  @include for-screen-medium {
     padding-right: $space-medium;
     padding-left: $space-medium;
   }
 
-  @media screen and (min-width: $screen-large) {
+  @include for-screen-large {
     max-width: calc($screen-x-large - $space-x-large * 2);
     padding-right: $space-x-large;
     padding-left: $space-x-large;

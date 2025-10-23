@@ -1,6 +1,8 @@
 ---
 const { tag = "p", size = "normal", color, align, transform } = Astro.props;
+
 const Tag = tag;
+
 const classList = ["text"];
 if (size) classList.push(`text-size-${size}`);
 if (color) classList.push(`text-color-${color}`);
@@ -11,7 +13,8 @@ if (transform) classList.push(`text-transform-${transform}`);
 <Tag class={classList.join(" ") || undefined}><slot /></Tag>
 
 <style lang="scss">
-  @use "@styles/variables" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .text {
     display: block;

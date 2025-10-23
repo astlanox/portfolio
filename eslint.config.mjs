@@ -5,10 +5,11 @@ import tseslint from "typescript-eslint";
 import astro from "eslint-plugin-astro";
 import prettier from "eslint-plugin-prettier";
 import eslintPluginImport from "eslint-plugin-import";
+
 // parsers
 const tsParser = tseslint.parser;
-const astroParser = astro.parser;
 
+const astroParser = astro.parser;
 export default defineConfig([
   // Global configuration
   {
@@ -33,6 +34,24 @@ export default defineConfig([
     rules: {
       // disable warnings, since prettier should format on save
       "prettier/prettier": "off",
+      "padding-line-between-statements": [
+        "error",
+        {
+          blankLine: "always",
+          prev: "*",
+          next: "const",
+        },
+        {
+          blankLine: "always",
+          prev: "import",
+          next: "*",
+        },
+        {
+          blankLine: "never",
+          prev: "import",
+          next: "import",
+        },
+      ],
     },
   },
 
@@ -99,7 +118,6 @@ export default defineConfig([
             },
           ],
           pathGroupsExcludedImportTypes: ["builtin", "external"],
-          "newlines-between": "always",
           alphabetize: { order: "asc", caseInsensitive: true },
         },
       ],

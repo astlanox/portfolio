@@ -9,8 +9,8 @@ import Thumbnail from "@components/projects/Thumbnail.astro";
 import Title from "@components/projects/Title.astro";
 import { Urls } from "@constants/meta";
 import Text from "@elements/Text.astro";
-
 import FoundationLayout from "./common/foundationLayout.astro";
+
 const { title, label, thumbnail, description, meta, stacks, flows, requirements, solutions } = Astro.props as {
   title: string;
   label: string;
@@ -50,8 +50,8 @@ const { title, label, thumbnail, description, meta, stacks, flows, requirements,
 </FoundationLayout>
 
 <style lang="scss">
-  @use "@styles/variables" as *;
-  @use "@styles/mixins" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .nav {
     @include container;
@@ -61,9 +61,11 @@ const { title, label, thumbnail, description, meta, stacks, flows, requirements,
     display: flex;
     flex-direction: column;
     gap: $space-xxx-large;
+    margin-top: $space-x-large;
 
-    @media screen and (min-width: $screen-large) {
+    @include for-screen-large {
       gap: $space-xxxxx-large;
+      margin-top: $space-xx-large;
     }
   }
 
@@ -72,7 +74,7 @@ const { title, label, thumbnail, description, meta, stacks, flows, requirements,
     flex-direction: column;
     gap: $space-x-large;
 
-    @media screen and (min-width: $screen-large) {
+    @include for-screen-large {
       gap: $space-xxx-large;
     }
   }

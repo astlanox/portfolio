@@ -1,5 +1,4 @@
 ---
-// FIXME:
 const { items } = Astro.props as { items: string[] };
 ---
 
@@ -10,8 +9,8 @@ const { items } = Astro.props as { items: string[] };
 </div>
 
 <style lang="scss">
-  @use "@styles/variables" as *;
-  @use "@styles/mixins" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .container {
     @include container;

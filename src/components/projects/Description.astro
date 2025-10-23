@@ -13,7 +13,8 @@ const { text } = Astro.props;
 </div>
 
 <style lang="scss">
-  @use "@styles/mixins" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .container {
     @include container;

@@ -1,7 +1,6 @@
 ---
 import Text from "@elements/Text.astro";
 
-// FIXME:
 type Item = { title: string; description: string };
 
 const { items } = Astro.props as { items: Item[] };
@@ -10,7 +9,7 @@ const { items } = Astro.props as { items: Item[] };
 <div class="container">
   <ol class="list">
     {
-      items.map((item, index) => (
+      items.map((item) => (
         <li class="list-item">
           <dl class="description">
             <dt class="description-title">{item.title}</dt>
@@ -25,8 +24,8 @@ const { items } = Astro.props as { items: Item[] };
 </div>
 
 <style lang="scss">
-  @use "@styles/variables" as *;
-  @use "@styles/mixins" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .container {
     @include container;
@@ -37,7 +36,7 @@ const { items } = Astro.props as { items: Item[] };
     flex-direction: column;
     gap: $space-large;
 
-    @media screen and (min-width: $screen-large) {
+    @include for-screen-large {
       flex-direction: row;
     }
 
@@ -45,7 +44,7 @@ const { items } = Astro.props as { items: Item[] };
       position: relative;
       padding-left: $space-large;
 
-      @media screen and (min-width: $screen-large) {
+      @include for-screen-large {
         padding-top: $space-large;
         padding-left: 0;
       }
@@ -60,7 +59,7 @@ const { items } = Astro.props as { items: Item[] };
           content: "";
           background-color: $color-border;
 
-          @media screen and (min-width: $screen-large) {
+          @include for-screen-large {
             top: 11px;
             left: calc(50% + 8px);
             width: calc(100% + $space-large / 2);
@@ -76,7 +75,7 @@ const { items } = Astro.props as { items: Item[] };
     flex-direction: column;
     gap: $space-normal;
 
-    @media screen and (min-width: $screen-large) {
+    @include for-screen-large {
       text-align: center;
     }
 
@@ -99,7 +98,7 @@ const { items } = Astro.props as { items: Item[] };
         border: 1px solid $color-border-strong;
         border-radius: $radius-circle;
 
-        @media screen and (min-width: $screen-large) {
+        @include for-screen-large {
           top: 0;
           left: 50%;
           transform: translateX(-50%);
@@ -114,7 +113,7 @@ const { items } = Astro.props as { items: Item[] };
         background-color: $color-border-strong;
         border-radius: $radius-circle;
 
-        @media screen and (min-width: $screen-large) {
+        @include for-screen-large {
           top: 5px;
           left: 50%;
           transform: translateX(-50%);

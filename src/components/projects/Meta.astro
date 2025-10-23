@@ -1,5 +1,4 @@
 ---
-// FIXME:
 type Item = { title: string; description: string };
 
 const { items } = Astro.props as { items: Item[] };
@@ -8,7 +7,7 @@ const { items } = Astro.props as { items: Item[] };
 <div class="container">
   <div class="inner">
     {
-      items.map((item, index) => (
+      items.map((item) => (
         <dl class="list">
           <dt class="list-title">{item.title}</dt>
           <dd class="list-description">{item.description}</dd>
@@ -19,8 +18,8 @@ const { items } = Astro.props as { items: Item[] };
 </div>
 
 <style lang="scss">
-  @use "@styles/variables" as *;
-  @use "@styles/mixins" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .container {
     @include container;
@@ -33,7 +32,7 @@ const { items } = Astro.props as { items: Item[] };
     align-items: center;
     justify-content: center;
 
-    @media screen and (min-width: $screen-medium) {
+    @include for-screen-medium {
       flex-direction: row;
       gap: $space-xxxx-large;
     }
@@ -46,7 +45,7 @@ const { items } = Astro.props as { items: Item[] };
     gap: $space-small;
     text-align: center;
 
-    @media screen and (min-width: $screen-medium) {
+    @include for-screen-medium {
       text-align: left;
     }
 
@@ -61,7 +60,7 @@ const { items } = Astro.props as { items: Item[] };
         background-color: $color-border;
         transform: translateX(-50%);
 
-        @media screen and (min-width: $screen-medium) {
+        @include for-screen-medium {
           top: 50%;
           left: -64px;
           width: 1px;

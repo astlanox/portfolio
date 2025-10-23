@@ -1,7 +1,6 @@
 ---
 import Text from "@elements/Text.astro";
 
-// FIXME:
 const { items } = Astro.props as { items: string[] };
 ---
 
@@ -24,8 +23,8 @@ const { items } = Astro.props as { items: string[] };
 </section>
 
 <style lang="scss">
-  @use "@styles/variables" as *;
-  @use "@styles/mixins" as *;
+  @use "@styles/common/variables" as *;
+  @use "@styles/common/mixins" as *;
 
   .container {
     @include container;
@@ -36,7 +35,7 @@ const { items } = Astro.props as { items: string[] };
     flex-direction: column;
     gap: $space-x-large;
 
-    @media screen and (min-width: $screen-large) {
+    @include for-screen-large {
       gap: $space-xxx-large;
     }
   }
