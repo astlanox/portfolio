@@ -17,15 +17,19 @@ const { items } = Astro.props as { items: Item[] };
         <section class="item">
           <div class="item-content">
             <h3 class="item-title">{item.title}</h3>
+
             <div>
               <span class="item-label">{item.label}</span>
             </div>
+
             <div class="item-description">
               <Text>{item.description}</Text>
             </div>
           </div>
 
-          <div class="item-visual" />
+          <div class="item-visual">
+            <div class="image" />
+          </div>
         </section>
       ))
     }
@@ -62,7 +66,10 @@ const { items } = Astro.props as { items: Item[] };
 
   .item {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: $space-medium;
+    padding-top: $space-normal;
+    padding-bottom: $space-normal;
 
     @include for-screen-large {
       flex-direction: row;
@@ -82,6 +89,16 @@ const { items } = Astro.props as { items: Item[] };
       }
     }
 
+    &-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      @include for-screen-large {
+        width: 50%;
+      }
+    }
+
     &-title {
       order: 2;
 
@@ -96,6 +113,13 @@ const { items } = Astro.props as { items: Item[] };
 
     &-description {
       order: 3;
+    }
+
+    .image {
+      aspect-ratio: 3 / 2;
+      background-color: $color-bg-image;
+      width: 100%;
+      border-radius: $radius-normal;
     }
   }
 </style>
