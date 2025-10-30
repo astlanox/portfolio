@@ -1,5 +1,5 @@
 ---
-import Text from "@elements/Text.astro";
+import Text from "@/elements/Text.astro";
 
 const { text } = Astro.props;
 ---
@@ -13,8 +13,8 @@ const { text } = Astro.props;
 </div>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
     @include container;

@@ -83,7 +83,6 @@ export default defineConfig([
             "sibling",
             "index",
             "object",
-            "type",
           ],
           pathGroups: [
             {

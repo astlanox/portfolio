@@ -1,27 +1,51 @@
 ---
-import { Titles, Urls } from "@constants/meta";
+import LogoImage from "@/assets/images/common/logo.svg";
+import { Titles, Urls } from "@/constants/meta";
+import Image from "@/elements/Image.astro";
 ---
 
 <header class="container">
-  <div class="inner">
-    <nav><a href={Urls.BASE}>{Titles.SITE}</a></nav>
-  </div>
+  <nav class="nav">
+    <ul class="list">
+      <li class="list-item">
+        <a href={Urls.BASE}>
+          <Image src={LogoImage} alt={Titles.SITE} />
+        </a>
+      </li>
+    </ul>
+  </nav>
 </header>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
-    @include container;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: $space-normal;
+    padding-left: $space-normal;
+
+    @include for-screen-medium {
+      height: 120px;
+      padding-right: $space-medium;
+      padding-left: $space-medium;
+    }
+
+    @include for-screen-large {
+      padding-right: $space-x-large;
+      padding-left: $space-x-large;
+    }
   }
 
-  .inner {
-    width: 100%;
-    height: 48px;
-    background-color: $color-bg-header;
-    border: $color-border 1px solid;
-    border-radius: $radius-pill;
-    backdrop-filter: $blur-normal;
+  .list {
+    &-item {
+      width: 32%;
+      min-width: 120px;
+      max-width: 180px;
+    }
   }
 </style>

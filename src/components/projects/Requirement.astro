@@ -1,7 +1,8 @@
 ---
-import Text from "@elements/Text.astro";
+import Text from "@/elements/Text.astro";
+import type { Requirement } from "@/types/project";
 
-const { items } = Astro.props as { items: string[] };
+const { items } = Astro.props as { items: Requirement[] };
 ---
 
 <section class="container">
@@ -14,7 +15,7 @@ const { items } = Astro.props as { items: string[] };
       {
         items.map((item) => (
           <li class="list-item">
-            <Text size="medium">{item}</Text>
+            <Text size="medium">{item.body}</Text>
           </li>
         ))
       }
@@ -23,8 +24,8 @@ const { items } = Astro.props as { items: string[] };
 </section>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
     @include container;

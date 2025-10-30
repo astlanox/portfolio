@@ -1,16 +1,18 @@
 ---
-const { items } = Astro.props as { items: string[] };
+import type { Category } from "@/types/project";
+
+const { items } = Astro.props as { items: Category[] };
 ---
 
 <div class="container">
   <ul class="list">
-    {items.map((item) => <li class="list-item">{item}</li>)}
+    {items.map((item) => <li class="list-item">{item.name}</li>)}
   </ul>
 </div>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
     @include container;

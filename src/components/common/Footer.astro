@@ -1,6 +1,6 @@
 ---
-import Text from "@elements/Text.astro";
-import { getCurrentYear } from "@utils/getDate";
+import Text from "@/elements/Text.astro";
+import { getCurrentYear } from "@/utils/getDate";
 
 const currentYear = getCurrentYear();
 ---
@@ -10,8 +10,8 @@ const currentYear = getCurrentYear();
 </footer>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .footer {
     padding-top: $space-large;

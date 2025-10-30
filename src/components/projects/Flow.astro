@@ -1,9 +1,8 @@
 ---
-import Text from "@elements/Text.astro";
+import Text from "@/elements/Text.astro";
+import type { Flow } from "@/types/project";
 
-type Item = { title: string; description: string };
-
-const { items } = Astro.props as { items: Item[] };
+const { items } = Astro.props as { items: Flow[] };
 ---
 
 <div class="container">
@@ -14,7 +13,7 @@ const { items } = Astro.props as { items: Item[] };
           <dl class="description">
             <dt class="description-title">{item.title}</dt>
             <dd>
-              <Text>{item.description}</Text>
+              <Text>{item.body}</Text>
             </dd>
           </dl>
         </li>
@@ -24,8 +23,8 @@ const { items } = Astro.props as { items: Item[] };
 </div>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
     @include container;

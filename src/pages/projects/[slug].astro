@@ -1,0 +1,79 @@
+---
+import Description from "@/components/projects/Description.astro";
+import Flow from "@/components/projects/Flow.astro";
+import Meta from "@/components/projects/Meta.astro";
+import Requirement from "@/components/projects/Requirement.astro";
+import Solution from "@/components/projects/Solution.astro";
+import Stack from "@/components/projects/Stack.astro";
+import Thumbnail from "@/components/projects/Thumbnail.astro";
+import Title from "@/components/projects/Title.astro";
+import { Urls } from "@/constants/meta";
+import Text from "@/elements/Text.astro";
+import Layout from "@/layouts/layout.astro";
+import fetchApi from "@/libs/cms";
+import type { Project } from "@/types/project";
+
+export async function getStaticPaths() {
+  const projects = await fetchApi<Project[]>({ endpoint: "projects?pLevel", wrappedByKey: "data" });
+
+  return projects.map((item) => ({ params: { slug: item.slug }, props: item }));
+}
+type Props = Project;
+
+const project = Astro.props;
+---
+
+<Layout>
+  <!-- FIXME: -->
+  <!-- <nav class="nav">
+    <a href={Urls.PROJECTS}>
+      <Text tag="span" color="primary" transform="capitalize">View all projects</Text>
+    </a>
+  </nav> -->
+
+  <article class="article">
+    <div class="info">
+      <div>
+        <Title title={project.title} label={project.label} />
+        <Thumbnail src={project.thumbnail?.url} width={project.thumbnail?.width} height={project.thumbnail?.height} />
+      </div>
+
+      <Description text={project.description} />
+      <Meta items={project.metas} />
+      <Stack items={project.categories} />
+      <Flow items={project.flows} />
+    </div>
+
+    <Requirement items={project.requirements} />
+    <Solution items={project.solutions} />
+  </article>
+</Layout>
+
+<style lang="scss">
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
+
+  .nav {
+    @include container;
+  }
+
+  .article {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xxx-large;
+
+    @include for-screen-large {
+      gap: $space-xxxxx-large;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: $space-x-large;
+
+    @include for-screen-large {
+      gap: $space-xxx-large;
+    }
+  }
+</style>

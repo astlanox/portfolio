@@ -1,0 +1,20 @@
+---
+import { Urls } from "@/constants/meta";
+import Layout from "@/layouts/layout.astro";
+import fetchApi from "@/libs/cms";
+import type { Project } from "@/types/project";
+
+const projects = await fetchApi<Project[]>({ endpoint: "projects", wrappedByKey: "data" });
+---
+
+<Layout>
+  <ul>
+    {
+      projects.map((item) => (
+        <li>
+          <a href={Urls.PROJECTS + "/" + item.slug}>{item.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>

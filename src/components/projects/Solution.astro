@@ -1,9 +1,10 @@
 ---
-import Text from "@elements/Text.astro";
+import Picture from "@/elements/Picture.astro";
+import Text from "@/elements/Text.astro";
+import { parseRichText } from "@/utils/parseRichText";
+import type { Solution } from "@/types/project";
 
-type Item = { title: string; label: string; description: string };
-
-const { items } = Astro.props as { items: Item[] };
+const { items } = Astro.props as { items: Solution[] };
 ---
 
 <section class="container">
@@ -16,19 +17,21 @@ const { items } = Astro.props as { items: Item[] };
       items.map((item) => (
         <section class="item">
           <div class="item-content">
-            <h3 class="item-title">{item.title}</h3>
+            <h3 class="item-title" set:html={parseRichText(item.title)} />
 
             <div>
               <span class="item-label">{item.label}</span>
             </div>
 
             <div class="item-description">
-              <Text>{item.description}</Text>
+              <Text>{item.body}</Text>
             </div>
           </div>
 
           <div class="item-visual">
-            <div class="image" />
+            <div class="image">
+              <Picture src={item.image.url} />
+            </div>
           </div>
         </section>
       ))
@@ -37,8 +40,8 @@ const { items } = Astro.props as { items: Item[] };
 </section>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
     @include container;
@@ -94,6 +97,7 @@ const { items } = Astro.props as { items: Item[] };
       flex-direction: column;
       align-items: center;
       justify-content: center;
+
       @include for-screen-large {
         width: 50%;
       }
@@ -103,6 +107,10 @@ const { items } = Astro.props as { items: Item[] };
       order: 2;
 
       @include title($font-size-x-large);
+
+      :global(strong) {
+        @include title-strong($font-size-x-large);
+      }
     }
 
     &-label {
@@ -116,10 +124,7 @@ const { items } = Astro.props as { items: Item[] };
     }
 
     .image {
-      aspect-ratio: 3 / 2;
-      background-color: $color-bg-image;
       width: 100%;
-      border-radius: $radius-normal;
     }
   }
 </style>

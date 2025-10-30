@@ -1,7 +1,7 @@
 ---
-type Item = { title: string; description: string };
+import type { Meta } from "@/types/project";
 
-const { items } = Astro.props as { items: Item[] };
+const { items } = Astro.props as { items: Meta[] };
 ---
 
 <div class="container">
@@ -10,7 +10,7 @@ const { items } = Astro.props as { items: Item[] };
       items.map((item) => (
         <dl class="list">
           <dt class="list-title">{item.title}</dt>
-          <dd class="list-description">{item.description}</dd>
+          <dd class="list-description">{item.body}</dd>
         </dl>
       ))
     }
@@ -18,8 +18,8 @@ const { items } = Astro.props as { items: Item[] };
 </div>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .container {
     @include container;

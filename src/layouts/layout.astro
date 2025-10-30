@@ -1,10 +1,10 @@
 ---
-import Footer from "@components/common/Footer.astro";
-import Header from "@components/common/Header.astro";
-import { Titles } from "@constants/meta";
+import Footer from "@/components/common/Footer.astro";
+import Header from "@/components/common/Header.astro";
+import { Titles } from "@/constants/meta";
 
 const { title } = Astro.props;
-import "@styles/style.scss";
+import "@/styles/style.scss";
 ---
 
 <html lang="en">
@@ -26,14 +26,18 @@ import "@styles/style.scss";
 </html>
 
 <style lang="scss">
-  @use "@styles/common/variables" as *;
-  @use "@styles/common/mixins" as *;
+  @use "@/styles/common/variables" as *;
+  @use "@/styles/common/mixins" as *;
 
   .main {
-    margin-top: $space-xxx-large;
+    margin-top: $space-normal;
 
-    @include for-screen-large {
-      margin-top: $space-xxxx-large;
+    @include for-screen-medium {
+      margin-top: $space-large;
+    }
+
+    @include for-screen-medium {
+      margin-top: $space-xx-large;
     }
   }
 </style>
