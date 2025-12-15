@@ -2,18 +2,17 @@
 import LogoImage from "@/assets/images/common/logo.svg";
 import { Titles, Urls } from "@/constants/meta";
 import Image from "@/elements/Image.astro";
+import Cta from "./Cta.astro";
 ---
 
 <header class="container">
   <nav class="nav">
-    <ul class="list">
-      <li class="list-item">
-        <a href={Urls.BASE}>
-          <Image src={LogoImage} alt={Titles.SITE} />
-        </a>
-      </li>
-    </ul>
+    <a href={Urls.BASE}>
+      <Image src={LogoImage} alt={Titles.SITE} />
+    </a>
   </nav>
+
+  <Cta />
 </header>
 
 <style lang="scss">
@@ -24,8 +23,8 @@ import Image from "@/elements/Image.astro";
     width: 100%;
     height: 80px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     padding-right: $space-normal;
     padding-left: $space-normal;
 
@@ -41,11 +40,11 @@ import Image from "@/elements/Image.astro";
     }
   }
 
-  .list {
-    &-item {
-      width: 32%;
-      min-width: 120px;
-      max-width: 180px;
+  .nav {
+    width: 120px;
+
+    @include for-screen-large {
+      width: 160px;
     }
   }
 </style>

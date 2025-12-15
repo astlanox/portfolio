@@ -1,7 +1,11 @@
 ---
+import { Urls } from "@/constants/meta";
+import Text from "@/elements/Text.astro";
 import FoundationLayout from "@/layouts/layout.astro";
 ---
 
 <FoundationLayout>
-  <h1>Astro</h1>
+  <a href={Urls.PROJECT_LIST}>
+    <Text tag="span" color="primary" transform="capitalize">View all projects</Text>
+  </a>
 </FoundationLayout>

@@ -12,7 +12,7 @@ const projects = await fetchApi<Project[]>({ endpoint: "projects", wrappedByKey:
     {
       projects.map((item) => (
         <li>
-          <a href={Urls.PROJECTS + "/" + item.slug}>{item.title}</a>
+          <a href={Urls.PROJECT_LIST + "/" + item.slug}>{item.title}</a>
         </li>
       ))
     }

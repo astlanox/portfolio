@@ -1,12 +1,14 @@
 ---
-const { tag = "p", size = "normal", color, align, transform } = Astro.props;
+const { tag = "p", size = "", weight = "", color = "", align = "", transform = "", nowrap } = Astro.props;
 
 const Tag = tag;
 
 const classList = ["text"];
 if (size) classList.push(`text-size-${size}`);
+if (weight) classList.push(`text-weight-${weight}`);
 if (color) classList.push(`text-color-${color}`);
 if (align) classList.push(`text-align-${align}`);
+if (nowrap) classList.push("text-nowrap");
 if (transform) classList.push(`text-transform-${transform}`);
 ---
 
@@ -38,9 +40,24 @@ if (transform) classList.push(`text-transform-${transform}`);
       }
     }
 
+    &-weight {
+      &-normal {
+        font-weight: $font-weight-normal;
+      }
+      &-medium {
+        font-weight: $font-weight-medium;
+      }
+      &-bold {
+        font-weight: $font-weight-bold;
+      }
+    }
+
     &-color {
       &-primary {
         color: $color-text-primary;
+      }
+      &-dark {
+        color: $color-text-dark;
       }
     }
 
@@ -54,6 +71,10 @@ if (transform) classList.push(`text-transform-${transform}`);
       &-capitalize {
         text-transform: capitalize;
       }
+    }
+
+    &-nowrap {
+      white-space: nowrap;
     }
   }
 </style>
