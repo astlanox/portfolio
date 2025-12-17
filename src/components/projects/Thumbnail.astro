@@ -19,11 +19,11 @@ const { src } = Astro.props;
   .container {
     @include container;
 
-    box-shadow: 0px 0px 24px 16px #000000;
     position: relative;
+    box-shadow: 0 0 24px 16px #000;
 
     @include for-screen-medium {
-      box-shadow: 0px 0px 40px 24px #000000;
+      box-shadow: 0 0 40px 24px #000;
     }
   }
 

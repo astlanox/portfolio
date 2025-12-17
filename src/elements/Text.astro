@@ -1,11 +1,12 @@
 ---
-const { tag = "p", size = "", weight = "", color = "", align = "", transform = "", nowrap } = Astro.props;
+const { tag = "p", size = "", weight = "", height = "", color = "", align = "", transform = "", nowrap } = Astro.props;
 
 const Tag = tag;
 
 const classList = ["text"];
 if (size) classList.push(`text-size-${size}`);
 if (weight) classList.push(`text-weight-${weight}`);
+if (height) classList.push(`text-height-${height}`);
 if (color) classList.push(`text-color-${color}`);
 if (align) classList.push(`text-align-${align}`);
 if (nowrap) classList.push("text-nowrap");
@@ -20,7 +21,7 @@ if (transform) classList.push(`text-transform-${transform}`);
 
   .text {
     display: block;
-    line-height: $line-large;
+    line-height: $line-height-wide;
 
     &-size {
       &-x-small {
@@ -44,11 +45,27 @@ if (transform) classList.push(`text-transform-${transform}`);
       &-normal {
         font-weight: $font-weight-normal;
       }
+
       &-medium {
         font-weight: $font-weight-medium;
       }
+
       &-bold {
         font-weight: $font-weight-bold;
+      }
+    }
+
+    &-height {
+      &-thin {
+        line-height: $line-height-thin;
+      }
+
+      &-normal {
+        line-height: $line-height-normal;
+      }
+
+      &-wide {
+        line-height: $line-height-wide;
       }
     }
 
@@ -56,8 +73,13 @@ if (transform) classList.push(`text-transform-${transform}`);
       &-primary {
         color: $color-text-primary;
       }
-      &-dark {
-        color: $color-text-dark;
+
+      &-black {
+        color: $color-text-black;
+      }
+
+      &-white {
+        color: $color-text-white;
       }
     }
 

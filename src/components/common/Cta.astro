@@ -55,21 +55,21 @@ import Text from "@/elements/Text.astro";
 
   .glass {
     position: relative;
+    overflow: hidden;
     background: transparent;
     border-radius: 2rem;
-    overflow: hidden;
     box-shadow:
-      0 6px 6px rgba(0, 0, 0, 0.2),
-      0 0 20px rgba(0, 0, 0, 0.1);
+      0 6px 6px rgb(0 0 0 / 20%),
+      0 0 20px rgb(0 0 0 / 10%);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
 
     &-filter {
       position: absolute;
       inset: 0;
       z-index: 0;
-      backdrop-filter: blur(4px);
-      filter: url(#lg-dist);
       isolation: isolate;
+      filter: url("#lg-dist");
+      backdrop-filter: blur(4px);
     }
 
     &-overlay {
@@ -83,8 +83,8 @@ import Text from "@/elements/Text.astro";
       position: absolute;
       inset: 0;
       z-index: $layer-popup;
-      border-radius: inherit;
       overflow: hidden;
+      border-radius: inherit;
       box-shadow:
         inset 1px 1px 0 $color-glass-highlight,
         inset 0 0 5px $color-glass-highlight;
@@ -95,15 +95,15 @@ import Text from "@/elements/Text.astro";
     position: relative;
     z-index: $layer-fixed;
     display: flex;
-    padding: $space-small $space-small $space-small $space-medium;
+    gap: $space-normal;
     align-items: center;
     justify-content: center;
-    gap: $space-normal;
+    padding: $space-small $space-small $space-small $space-medium;
   }
 
   .button {
+    padding: $space-small $space-medium;
     background-color: $color-bg-secondary;
     border-radius: $radius-pill;
-    padding: $space-small $space-medium;
   }
 </style>

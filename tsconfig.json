@@ -10,9 +10,11 @@
       "@/elements/*": ["./src/elements/*"],
       "@/layouts/*": ["./src/layouts/*"],
       "@/libs/*": ["./src/libs/*"],
+      "@/scripts/*": ["./src/scripts/*"],
       "@/styles/*": ["./src/styles/*"],
       "@/types/*": ["./src/types/*"],
       "@/utils/*": ["./src/utils/*"]
     }
-  }
+  },
+  "files": ["node_modules/gsap/types/index.d.ts"]
 }

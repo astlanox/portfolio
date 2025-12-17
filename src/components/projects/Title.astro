@@ -23,9 +23,7 @@ const { title, label } = Astro.props;
     order: 2;
 
     span {
-      @include title-strong($font-size-xxx-large);
-
-      text-transform: uppercase;
+      @include title-strong($font-size-xxx-large, uppercase);
     }
   }
 

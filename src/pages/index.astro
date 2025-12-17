@@ -1,4 +1,5 @@
 ---
+import Expertise from "@/components/home/Expertise.astro";
 import { Urls } from "@/constants/meta";
 import Text from "@/elements/Text.astro";
 import FoundationLayout from "@/layouts/layout.astro";
@@ -8,4 +9,6 @@ import FoundationLayout from "@/layouts/layout.astro";
   <a href={Urls.PROJECT_LIST}>
     <Text tag="span" color="primary" transform="capitalize">View all projects</Text>
   </a>
+
+  <Expertise />
 </FoundationLayout>

@@ -13,6 +13,7 @@
 }
 
 @mixin container {
+  position: relative;
   width: 100%;
   padding-right: $space-normal;
   padding-left: $space-normal;
@@ -42,11 +43,12 @@
   font-weight: $font-weight-bold;
 }
 
-@mixin title-strong($font-size) {
+@mixin title-strong($font-size, $text-transform: capitalize) {
   font-size: $font-size;
   font-weight: $font-weight-bold;
   color: $color-text-primary;
-  text-transform: capitalize;
+  text-transform: $text-transform;
+  letter-spacing: $letter-spacing-wide;
 }
 
 @mixin title-label($font-size) {
@@ -56,4 +58,10 @@
   background: $gradient-primary;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@mixin box($gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
 }

@@ -3,7 +3,7 @@ $screen-small: 375px;
 $screen-normal: 640px;
 $screen-medium: 768px;
 $screen-large: 1024px;
-$screen-x-large: 1200px;
+$screen-x-large: 1440px;
 
 // * Spaces *//
 $space-base: 8px;
@@ -40,11 +40,13 @@ $color-bg-primary: $black;
 $color-bg-secondary: $white;
 $color-bg-image: rgba($white, 0.25);
 $color-bg-header: rgba($black, 0.5);
+$color-bg-backdrop: rgba($black, 0.5);
 $color-bg-image: rgba($white, 0.1);
 $color-surface: $gray-900;
 $color-text-primary: $white;
 $color-text-secondary: rgba($white, 0.5);
-$color-text-dark: $black;
+$color-text-white: $white;
+$color-text-black: $black;
 $color-text-muted: $gray-500;
 $color-border: rgba($white, 0.3);
 $color-border-strong: rgba($white, 0.8);
@@ -76,10 +78,16 @@ $font-weight-medium: 500;
 $font-weight-bold: 700;
 
 // * Line Heights *//
-$line-normal: 1.5;
-$line-large: 2;
+$line-height-thin: 1;
+$line-height-normal: 1.5;
+$line-height-wide: 2;
+
+// Letter Spacings
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 3%;
 
 // * Radiuses *//
+$radius-small: 0.8rem;
 $radius-normal: 2.4rem;
 $radius-large: 6.4rem;
 $radius-pill: 50rem;
