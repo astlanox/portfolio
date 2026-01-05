@@ -11,8 +11,8 @@ const { items } = Astro.props as { items: Category[] };
 </div>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -21,15 +21,15 @@ const { items } = Astro.props as { items: Category[] };
   .list {
     display: flex;
     flex-wrap: wrap;
-    gap: $space-normal;
+    gap: space(nm);
     align-items: center;
     justify-content: center;
 
     &-item {
-      padding: $space-small $space-normal;
-      color: $color-text-primary;
-      border: 1px solid $color-border;
-      border-radius: $radius-normal;
+      padding: space(sm) space(nm);
+      color: t(text, primary);
+      border: 1px solid t(border, default);
+      border-radius: radius(nm);
     }
   }
 </style>

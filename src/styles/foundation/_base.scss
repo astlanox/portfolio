@@ -1,0 +1,29 @@
+@use "../tokens" as *;
+@use "../utilities" as *;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Poppins, sans-serif;
+  font-size: fs(md);
+  font-style: normal;
+  font-weight: fw(normal);
+  color: t(text, secondary);
+  background-color: t(bg, primary);
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}

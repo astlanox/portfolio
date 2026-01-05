@@ -1,0 +1,34 @@
+$space-base: 8px;
+
+$space: (
+  xs: $space-base * 0.5,
+  sm: $space-base * 1,
+  nm: $space-base * 2,
+  md: $space-base * 3,
+  lg: $space-base * 4,
+  xl: $space-base * 5,
+  2xl: $space-base * 6,
+  3xl: $space-base * 10,
+  4xl: $space-base * 16,
+  5xl: $space-base * 25,
+);
+
+$radius: (
+  sm: 0.8rem,
+  nm: 2.4rem,
+  md: 6.4rem,
+  pill: 50rem,
+  circle: 99rem,
+);
+
+$layer: (
+  base: 0,
+  overlay: 1,
+  popup: 2,
+  fixed: 3,
+);
+
+$blur: (
+  light: blur(8px),
+  normal: blur(12px),
+);

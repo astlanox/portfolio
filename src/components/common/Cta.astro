@@ -43,8 +43,8 @@ import Text from "@/elements/Text.astro";
 </div>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .inner {
     display: flex;
@@ -75,35 +75,35 @@ import Text from "@/elements/Text.astro";
     &-overlay {
       position: absolute;
       inset: 0;
-      z-index: $layer-overlay;
-      background: $color-glass-bg;
+      z-index: layer(overlay);
+      background: t(glass, bg);
     }
 
     &-specular {
       position: absolute;
       inset: 0;
-      z-index: $layer-popup;
+      z-index: layer(popup);
       overflow: hidden;
       border-radius: inherit;
       box-shadow:
-        inset 1px 1px 0 $color-glass-highlight,
-        inset 0 0 5px $color-glass-highlight;
+        inset 1px 1px 0 t(glass, highlight),
+        inset 0 0 5px t(glass, highlight);
     }
   }
 
   .content {
     position: relative;
-    z-index: $layer-fixed;
+    z-index: layer(fixed);
     display: flex;
-    gap: $space-normal;
+    gap: space(nm);
     align-items: center;
     justify-content: center;
-    padding: $space-small $space-small $space-small $space-medium;
+    padding: space(sm) space(sm) space(sm) space(md);
   }
 
   .button {
-    padding: $space-small $space-medium;
-    background-color: $color-bg-secondary;
-    border-radius: $radius-pill;
+    padding: space(sm) space(md);
+    background-color: t(bg, secondary);
+    border-radius: radius(pill);
   }
 </style>

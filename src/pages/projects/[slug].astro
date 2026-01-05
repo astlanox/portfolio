@@ -53,8 +53,8 @@ const project = Astro.props;
 </Layout>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .nav {
     @include container;
@@ -63,32 +63,32 @@ const project = Astro.props;
   .article {
     display: flex;
     flex-direction: column;
-    gap: $space-xxx-large;
+    gap: space(3xl);
 
-    @include for-screen-large {
-      gap: $space-xxxxx-large;
+    @include up(xl) {
+      gap: space(5xl);
     }
   }
 
   .info {
     display: flex;
     flex-direction: column;
-    gap: $space-x-large;
+    gap: space(xl);
 
-    @include for-screen-large {
-      gap: $space-xxx-large;
+    @include up(xl) {
+      gap: space(3xl);
     }
   }
 
   .aside {
     position: fixed;
-    bottom: $space-normal;
+    bottom: space(nm);
     left: 50%;
-    z-index: $layer-fixed;
+    z-index: layer(fixed);
     transform: translateX(-50%);
 
     @include for-screen-medium {
-      bottom: $space-medium;
+      bottom: space(md);
     }
   }
 </style>

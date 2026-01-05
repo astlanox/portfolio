@@ -1,0 +1,51 @@
+@use "./functions" as fn;
+
+// 既にあるなら残す
+@mixin up($bp) {
+  @media (min-width: fn.bp($bp)) {
+    @content;
+  }
+}
+
+// layout
+@mixin container($max-width: 1200px, $pad: md) {
+  width: 100%;
+  max-width: $max-width;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: fn.space($pad);
+  padding-left: fn.space($pad);
+}
+
+// old alias: screen-medium = 768px = bp(lg)
+@mixin for-screen-medium {
+  @include up(lg) {
+    @content;
+  }
+}
+
+@mixin box($gap: md) {
+  display: flex;
+  flex-direction: column;
+  gap: fn.space($gap);
+}
+
+@mixin title($font-size, $transform: null) {
+  font-size: $font-size;
+  font-weight: fn.fw(bold);
+
+  @if $transform != null {
+    text-transform: $transform;
+  }
+}
+
+@mixin title-strong($font-size, $transform: null) {
+  font-size: $font-size;
+  font-weight: fn.fw(bold);
+  line-height: fn.lh(thin);
+  letter-spacing: fn.ls(normal);
+
+  @if $transform != null {
+    text-transform: $transform;
+  }
+}

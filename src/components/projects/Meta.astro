@@ -18,8 +18,8 @@ const { items } = Astro.props as { items: Meta[] };
 </div>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -28,13 +28,13 @@ const { items } = Astro.props as { items: Meta[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: $space-xx-large;
+    gap: space(2xl);
     align-items: center;
     justify-content: center;
 
     @include for-screen-medium {
       flex-direction: row;
-      gap: $space-xxxx-large;
+      gap: space(4xl);
     }
   }
 
@@ -42,7 +42,7 @@ const { items } = Astro.props as { items: Meta[] };
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: $space-small;
+    gap: space(sm);
     text-align: center;
 
     @include for-screen-medium {
@@ -57,7 +57,7 @@ const { items } = Astro.props as { items: Meta[] };
         width: 80px;
         height: 1px;
         content: "";
-        background-color: $color-border;
+        background-color: t(border, default);
         transform: translateX(-50%);
 
         @include for-screen-medium {
@@ -71,13 +71,13 @@ const { items } = Astro.props as { items: Meta[] };
     }
 
     &-title {
-      font-size: $font-size-small;
+      font-size: fs(sm);
       text-transform: uppercase;
     }
 
     &-description {
-      font-size: $font-size-medium;
-      color: $color-text-primary;
+      font-size: fs(md);
+      color: t(text, primary);
     }
   }
 </style>

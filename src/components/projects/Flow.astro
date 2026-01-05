@@ -23,8 +23,8 @@ const { items } = Astro.props as { items: Flow[] };
 </div>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -33,18 +33,18 @@ const { items } = Astro.props as { items: Flow[] };
   .list {
     display: flex;
     flex-direction: column;
-    gap: $space-large;
+    gap: space(lg);
 
-    @include for-screen-large {
+    @include up(xl) {
       flex-direction: row;
     }
 
     &-item {
       position: relative;
-      padding-left: $space-large;
+      padding-left: space(lg);
 
-      @include for-screen-large {
-        padding-top: $space-large;
+      @include up(xl) {
+        padding-top: space(lg);
         padding-left: 0;
       }
 
@@ -54,14 +54,14 @@ const { items } = Astro.props as { items: Flow[] };
           top: 20px;
           left: 11px;
           width: 1px;
-          height: calc(100% + $space-large / 2);
+          height: calc(100% + space(lg) / 2);
           content: "";
-          background-color: $color-border;
+          background-color: t(border, default);
 
-          @include for-screen-large {
+          @include up(xl) {
             top: 11px;
             left: calc(50% + 8px);
-            width: calc(100% + $space-large / 2);
+            width: calc(100% + space(lg) / 2);
             height: 1px;
           }
         }
@@ -72,15 +72,15 @@ const { items } = Astro.props as { items: Flow[] };
   .description {
     display: flex;
     flex-direction: column;
-    gap: $space-normal;
+    gap: space(nm);
 
-    @include for-screen-large {
+    @include up(xl) {
       text-align: center;
     }
 
     &-title {
-      font-size: $font-size-medium;
-      color: $color-text-primary;
+      font-size: fs(md);
+      color: t(text, primary);
 
       &::before,
       &::after {
@@ -93,11 +93,11 @@ const { items } = Astro.props as { items: Flow[] };
         left: 0;
         width: 19px;
         height: 19px;
-        background-color: $color-bg-primary;
-        border: 1px solid $color-border-strong;
-        border-radius: $radius-circle;
+        background-color: t(bg, primary);
+        border: 1px solid t(border, default)-strong;
+        border-radius: radius(circle);
 
-        @include for-screen-large {
+        @include up(xl) {
           top: 0;
           left: 50%;
           transform: translateX(-50%);
@@ -109,10 +109,10 @@ const { items } = Astro.props as { items: Flow[] };
         left: 5px;
         width: 11px;
         height: 11px;
-        background-color: $color-border-strong;
-        border-radius: $radius-circle;
+        background-color: t(border, default)-strong;
+        border-radius: radius(circle);
 
-        @include for-screen-large {
+        @include up(xl) {
           top: 5px;
           left: 50%;
           transform: translateX(-50%);

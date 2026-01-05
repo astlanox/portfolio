@@ -1,5 +1,6 @@
-@use "common/variables" as *;
-@use "common/mixins" as *;
-@use "common/reset";
-@use "common/base";
-@use "common/globals";
+@use "tokens" as *;
+@use "utilities" as *;
+
+@use "foundation/reset";
+@use "foundation/globals";
+@use "foundation/base";

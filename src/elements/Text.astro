@@ -16,70 +16,70 @@ if (transform) classList.push(`text-transform-${transform}`);
 <Tag class={classList.join(" ") || undefined}><slot /></Tag>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .text {
     display: block;
-    line-height: $line-height-wide;
+    line-height: lh(wide);
 
     &-size {
       &-x-small {
-        font-size: $font-size-x-small;
+        font-size: fs(xs);
       }
 
       &-small {
-        font-size: $font-size-small;
+        font-size: fs(sm);
       }
 
       &-normal {
-        font-size: $font-size-normal;
+        font-size: fs(nm);
       }
 
       &-medium {
-        font-size: $font-size-medium;
+        font-size: fs(md);
       }
     }
 
     &-weight {
       &-normal {
-        font-weight: $font-weight-normal;
+        font-weight: fw(normal);
       }
 
       &-medium {
-        font-weight: $font-weight-medium;
+        font-weight: fw(medium);
       }
 
       &-bold {
-        font-weight: $font-weight-bold;
+        font-weight: fw(bold);
       }
     }
 
     &-height {
       &-thin {
-        line-height: $line-height-thin;
+        line-height: lh(thin);
       }
 
       &-normal {
-        line-height: $line-height-normal;
+        line-height: lh(normal);
       }
 
       &-wide {
-        line-height: $line-height-wide;
+        line-height: lh(wide);
       }
     }
 
     &-color {
       &-primary {
-        color: $color-text-primary;
+        color: t(text, primary);
       }
 
       &-black {
-        color: $color-text-black;
+        color: t(text, black);
       }
 
       &-white {
-        color: $color-text-white;
+        color: t(text, white);
       }
     }
 

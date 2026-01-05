@@ -8,8 +8,8 @@ const { title, label } = Astro.props;
 </h1>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -23,13 +23,13 @@ const { title, label } = Astro.props;
     order: 2;
 
     span {
-      @include title-strong($font-size-xxx-large, uppercase);
+      @include title-strong(fs(3xl), uppercase);
     }
   }
 
   .label {
     span {
-      @include title-label($font-size-large);
+      @include title-label(fs(lg));
     }
   }
 </style>

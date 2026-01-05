@@ -24,8 +24,8 @@ const { items } = Astro.props as { items: Requirement[] };
 </section>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -34,20 +34,20 @@ const { items } = Astro.props as { items: Requirement[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: $space-x-large;
+    gap: space(xl);
 
-    @include for-screen-large {
-      gap: $space-xxx-large;
+    @include up(xl) {
+      gap: space(3xl);
     }
   }
 
   .title {
-    @include title($font-size-xx-large);
+    @include title(fs(2xl));
 
     text-align: center;
 
     &-strong {
-      @include title-strong($font-size-xx-large);
+      @include title-strong(fs(2xl));
     }
   }
 
@@ -56,11 +56,11 @@ const { items } = Astro.props as { items: Requirement[] };
 
     display: flex;
     flex-direction: column;
-    gap: $space-normal;
+    gap: space(nm);
 
     &-item {
       position: relative;
-      padding-left: $space-medium;
+      padding-left: space(md);
 
       &::before {
         position: absolute;
@@ -69,8 +69,8 @@ const { items } = Astro.props as { items: Requirement[] };
         width: 11px;
         height: 11px;
         content: "";
-        background-color: $color-border-strong;
-        border-radius: $radius-circle;
+        background-color: t(border, default)-strong;
+        border-radius: radius(circle);
       }
     }
   }

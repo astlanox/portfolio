@@ -13,8 +13,8 @@ const { src } = Astro.props;
 </div>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -28,22 +28,22 @@ const { src } = Astro.props;
   }
 
   .inner {
-    padding: $space-small;
-    background-color: $color-bg-image;
-    border-radius: $radius-normal;
+    padding: space(sm);
+    background-color: t(bg, image);
+    border-radius: radius(nm);
 
     @include for-screen-medium {
-      padding: $space-normal;
-      border-radius: $radius-large;
+      padding: space(nm);
+      border-radius: radius(lg);
     }
   }
 
   .image {
     overflow: hidden;
-    border-radius: calc($radius-normal - 1%);
+    border-radius: calc(radius(nm) - 1%);
 
     @include for-screen-medium {
-      border-radius: calc($radius-large - 1%);
+      border-radius: calc(radius(lg) - 1%);
     }
   }
 </style>

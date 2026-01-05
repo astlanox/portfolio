@@ -2,21 +2,6 @@
 import IconHtml from "@/assets/icons/icon_html.svg";
 import Text from "@/elements/Text.astro";
 
-// const categories = [
-//   { name: "HTML", logo: IconHtml },
-//   { name: "CSS", logo: IconHtml },
-//   { name: "JavaScript", logo: IconHtml },
-//   { name: "EJS", logo: IconHtml },
-//   { name: "Pug", logo: IconHtml },
-//   { name: "Sass", logo: IconHtml },
-//   { name: "Post CSS", logo: IconHtml },
-//   { name: "Tailscale CSS", logo: IconHtml },
-//   { name: "GSAP", logo: IconHtml },
-//   { name: "Node.js", logo: IconHtml },
-//   { name: "Gulp", logo: IconHtml },
-//   { name: "Git", logo: IconHtml },
-// ];
-
 const contents = [
   {
     title: "Web Development",
@@ -122,8 +107,8 @@ const contents = [
 </div>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -132,23 +117,23 @@ const contents = [
   }
 
   .inner {
-    padding-top: $space-xxx-large;
-    padding-bottom: $space-xxx-large;
+    padding-top: space(3xl);
+    padding-bottom: space(3xl);
   }
 
   .title {
-    @include title-strong($font-size-x-large, uppercase);
+    @include title-strong(fs(xl), uppercase);
   }
 
   .list {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: $space-normal;
-    margin-top: $space-normal;
+    gap: space(nm);
+    margin-top: space(nm);
 
     @include for-screen-medium {
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      margin-top: $space-x-large;
+      margin-top: space(xl);
     }
 
     &-item {
@@ -183,16 +168,16 @@ const contents = [
   }
 
   .article {
-    @include box($space-normal);
+    @include box(space(nm));
 
     position: relative;
     justify-content: flex-end;
-    padding: $space-xxx-large $space-medium $space-medium;
+    padding: space(3xl) space(md) space(md);
     cursor: pointer;
-    background-color: $color-bg-transparent-dark-light;
-    border: 1px solid $color-border;
-    border-radius: $radius-normal;
-    backdrop-filter: $blur-normal;
+    background-color: t(bg, transparent-dark-light);
+    border: 1px solid t(border, default);
+    border-radius: radius(nm);
+    backdrop-filter: blur(normal);
 
     &:before,
     &:after {
@@ -202,7 +187,7 @@ const contents = [
       left: 24px;
       width: 16px;
       height: 1px;
-      background-color: $color-text-white;
+      background-color: t(text, white);
     }
 
     &:after {
@@ -210,21 +195,21 @@ const contents = [
     }
 
     &-title {
-      @include title-strong($font-size-medium);
+      @include title-strong(fs(md));
     }
 
     &-categories {
       flex-wrap: wrap;
-      gap: $space-small;
+      gap: space(sm);
 
       &-item {
         display: flex;
-        gap: $space-small;
+        gap: space(sm);
         align-items: center;
         justify-content: center;
-        padding: $space-x-small $space-small $space-x-small $space-x-small;
-        border: 1px solid $color-border;
-        border-radius: $radius-small;
+        padding: space(xs) space(sm) space(xs) space(xs);
+        border: 1px solid t(border, default);
+        border-radius: radius(sm);
       }
     }
 
@@ -254,11 +239,11 @@ const contents = [
       position: fixed;
       top: 50%;
       left: 50%;
-      z-index: $layer-fixed;
-      width: $screen-normal;
-      max-width: calc(100% - $space-normal * 2);
-      background-color: $color-bg-primary;
-      border-radius: $radius-normal;
+      z-index: layer(fixed);
+      width: container(nm);
+      max-width: calc(100% - space(nm) * 2);
+      background-color: t(bg, primary);
+      border-radius: radius(nm);
       transform: translateX(-50%) translateY(-50%);
     }
 
@@ -269,9 +254,9 @@ const contents = [
       visibility: hidden;
       width: 100vw;
       height: 100vh;
-      background-color: $color-bg-transparent-dark;
+      background-color: t(bg, transparent-dark);
       opacity: 0;
-      backdrop-filter: $blur-normal;
+      backdrop-filter: blur(normal);
       transition: 0.25s;
     }
   }

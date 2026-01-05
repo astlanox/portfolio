@@ -1,0 +1,34 @@
+// tokens/_typography.scss
+
+// Font Sizes (from: $font-size-*)
+$font-size: (
+  xs: 1.1rem,
+  sm: 1.2rem,
+  nm: 1.6rem,
+  md: 2rem,
+  lg: clamp(2rem, 1.455rem + 2.33vw, 3.2rem),
+  xl: clamp(2.8rem, 1.527rem + 5.43vw, 5.6rem),
+  2xl: clamp(4rem, 2.182rem + 7.76vw, 8rem),
+  3xl: clamp(4.8rem, 1.527rem + 13.96vw, 12rem),
+);
+
+// Font Weights (from: $font-weight-*)
+$font-weight: (
+  normal: 300,
+  medium: 500,
+  bold: 700,
+);
+
+// Line Heights (from: $line-height-*)
+$line-height: (
+  thin: 1,
+  normal: 1.5,
+  wide: 2,
+);
+
+// Letter Spacings (from: $letter-spacing-*)
+// NOTE: keep your original unit choice (percent) as-is
+$letter-spacing: (
+  normal: 0,
+  wide: 8%,
+);

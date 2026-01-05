@@ -1,0 +1,57 @@
+@use "./foundations" as f;
+
+// helper (theme内でpaletteを取りやすくするだけ)
+@function _p($keys...) {
+  $cur: f.$palette;
+  @each $k in $keys {
+    $cur: map-get($cur, $k);
+  }
+  @return $cur;
+}
+
+$semantic: (
+  bg: (
+    primary: _p(black),
+    secondary: _p(white),
+    transparent-dark-light: rgb(0 0 0 / 25%),
+    // from: rgba($black, 0.25)
+    transparent-dark: rgb(0 0 0 / 50%),
+    // from: rgba($black, 0.5)
+    image: rgb(255 255 255 / 10%),
+    // from: rgba($white, 0.1)
+  ),
+
+  surface: _p(gray, 900),
+  text: (
+    primary: _p(white),
+    secondary: rgb(255 255 255 / 50%),
+    // from: rgba($white, 0.5)
+    white: _p(white),
+    black: _p(black),
+    muted: _p(gray, 500),
+  ),
+
+  border: (
+    default: rgb(255 255 255 / 30%),
+    // from: rgba($white, 0.3)
+    strong: rgb(255 255 255 / 80%),
+    // from: rgba($white, 0.8)
+  ),
+
+  gradient: (
+    primary: linear-gradient(to right, _p(blue, 500) 0%, _p(purple, 500) 100%),
+    secondary: linear-gradient(to right, _p(blue, 200) 0%, _p(purple, 100) 100%),
+  ),
+
+  glow: (
+    primary: _p(glow, purple),
+    secondary: _p(glow, blue),
+  ),
+
+  glass: (
+    bg: rgb(255 255 255 / 10%),
+    // from: rgba($white, 0.1)
+    highlight: rgb(255 255 255 / 40%),
+    // from: rgba($white, 0.4)
+  ),
+);

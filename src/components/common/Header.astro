@@ -16,8 +16,8 @@ import Cta from "./Cta.astro";
 </header>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     display: flex;
@@ -25,25 +25,25 @@ import Cta from "./Cta.astro";
     justify-content: space-between;
     width: 100%;
     height: 80px;
-    padding-right: $space-normal;
-    padding-left: $space-normal;
+    padding-right: space(nm);
+    padding-left: space(nm);
 
     @include for-screen-medium {
       height: 120px;
-      padding-right: $space-medium;
-      padding-left: $space-medium;
+      padding-right: space(md);
+      padding-left: space(md);
     }
 
-    @include for-screen-large {
-      padding-right: $space-x-large;
-      padding-left: $space-x-large;
+    @include up(xl) {
+      padding-right: space(xl);
+      padding-left: space(xl);
     }
   }
 
   .nav {
     width: 120px;
 
-    @include for-screen-large {
+    @include up(xl) {
       width: 160px;
     }
   }

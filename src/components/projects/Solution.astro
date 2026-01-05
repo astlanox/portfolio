@@ -40,8 +40,8 @@ const { items } = Astro.props as { items: Solution[] };
 </section>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .container {
     @include container;
@@ -50,31 +50,31 @@ const { items } = Astro.props as { items: Solution[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: $space-x-large;
+    gap: space(xl);
 
-    @include for-screen-large {
-      gap: $space-xxx-large;
+    @include up(xl) {
+      gap: space(3xl);
     }
   }
 
   .title {
-    @include title($font-size-xx-large);
+    @include title(fs(2xl));
 
     text-align: center;
 
     &-strong {
-      @include title-strong($font-size-xx-large);
+      @include title-strong(fs(2xl));
     }
   }
 
   .item {
     display: flex;
     flex-direction: column-reverse;
-    gap: $space-medium;
-    padding-top: $space-normal;
-    padding-bottom: $space-normal;
+    gap: space(md);
+    padding-top: space(nm);
+    padding-bottom: space(nm);
 
-    @include for-screen-large {
+    @include up(xl) {
       flex-direction: row;
 
       &:nth-child(even) {
@@ -85,9 +85,9 @@ const { items } = Astro.props as { items: Solution[] };
     &-content {
       display: flex;
       flex-direction: column;
-      gap: $space-normal;
+      gap: space(nm);
 
-      @include for-screen-large {
+      @include up(xl) {
         width: 50%;
       }
     }
@@ -98,7 +98,7 @@ const { items } = Astro.props as { items: Solution[] };
       align-items: center;
       justify-content: center;
 
-      @include for-screen-large {
+      @include up(xl) {
         width: 50%;
       }
     }
@@ -106,17 +106,17 @@ const { items } = Astro.props as { items: Solution[] };
     &-title {
       order: 2;
 
-      @include title($font-size-x-large);
+      @include title(fs(xl));
 
       :global(strong) {
-        @include title-strong($font-size-x-large);
+        @include title-strong(fs(xl));
       }
     }
 
     &-label {
       order: 1;
 
-      @include title-label($font-size-medium);
+      @include title-label(fs(md));
     }
 
     &-description {

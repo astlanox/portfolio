@@ -10,11 +10,11 @@ const currentYear = getCurrentYear();
 </footer>
 
 <style lang="scss">
-  @use "@/styles/common/variables" as *;
-  @use "@/styles/common/mixins" as *;
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
 
   .footer {
-    padding-top: $space-large;
-    padding-bottom: $space-large;
+    padding-top: space(lg);
+    padding-bottom: space(lg);
   }
 </style>

@@ -1,0 +1,59 @@
+@use "../tokens/foundations" as f;
+@use "../tokens/scale" as s;
+@use "../tokens/theme" as th;
+@use "../tokens/typography" as ty;
+@use "../tokens/layout" as l;
+
+@function _get($map, $keys...) {
+  $cur: $map;
+  @each $k in $keys {
+    $cur: map-get($cur, $k);
+  }
+  @return $cur;
+}
+
+@function bp($key) {
+  @return map-get(f.$breakpoints, $key);
+}
+@function space($key) {
+  @return map-get(s.$space, $key);
+}
+@function radius($key) {
+  @return map-get(s.$radius, $key);
+}
+@function layer($key) {
+  @return map-get(s.$layer, $key);
+}
+@function blur($key) {
+  @return map-get(s.$blur, $key);
+}
+
+// palette: color(gray, 500) / color(white)
+@function color($keys...) {
+  @return _get(f.$palette, $keys...);
+}
+
+// semantic: t(text, primary) / t(bg, primary)
+@function t($keys...) {
+  @return _get(th.$semantic, $keys...);
+}
+
+// typography: fs(md) / fw(bold) / lh(normal) / ls(wide)
+@function fs($key) {
+  @return map-get(ty.$font-size, $key);
+}
+
+@function fw($key) {
+  @return map-get(ty.$font-weight, $key);
+}
+
+@function lh($key) {
+  @return map-get(ty.$line-height, $key);
+}
+
+@function ls($key) {
+  @return map-get(ty.$letter-spacing, $key);
+}
+@function container($key) {
+  @return map-get(l.$container, $key);
+}
