@@ -38,9 +38,8 @@ $blue-glow: rgb(0 198 255 / 30%);
 // Semantic Colors
 $color-bg-primary: $black;
 $color-bg-secondary: $white;
-$color-bg-image: rgba($white, 0.25);
-$color-bg-header: rgba($black, 0.5);
-$color-bg-backdrop: rgba($black, 0.5);
+$color-bg-transparent-dark-light: rgba($black, 0.25);
+$color-bg-transparent-dark: rgba($black, 0.5);
 $color-bg-image: rgba($white, 0.1);
 $color-surface: $gray-900;
 $color-text-primary: $white;
@@ -101,3 +100,7 @@ $layer-base: 0;
 $layer-overlay: 1;
 $layer-popup: 2;
 $layer-fixed: 3;
+
+// Blurs
+$blur-light: blur(8px);
+$blur-normal: blur(12px);

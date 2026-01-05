@@ -13,7 +13,6 @@
 }
 
 @mixin container {
-  position: relative;
   width: 100%;
   padding-right: $space-normal;
   padding-left: $space-normal;
@@ -27,8 +26,8 @@
 
   @include for-screen-large {
     max-width: calc($screen-x-large - $space-x-large * 2);
-    padding-right: $space-x-large;
-    padding-left: $space-x-large;
+    padding-right: $space-xxx-large;
+    padding-left: $space-xxx-large;
   }
 }
 

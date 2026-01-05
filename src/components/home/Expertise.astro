@@ -82,7 +82,7 @@ const contents = [
 ];
 ---
 
-<section class="container">
+<section class="container js-bgMarquee">
   <div class="inner">
     <h2 class="title">Expertise</h2>
 
@@ -127,11 +127,13 @@ const contents = [
 
   .container {
     @include container;
+
+    position: relative;
   }
 
   .inner {
-    padding-top: $space-large;
-    padding-bottom: $space-large;
+    padding-top: $space-xxx-large;
+    padding-bottom: $space-xxx-large;
   }
 
   .title {
@@ -187,9 +189,25 @@ const contents = [
     justify-content: flex-end;
     padding: $space-xxx-large $space-medium $space-medium;
     cursor: pointer;
-    background-color: $color-bg-primary;
+    background-color: $color-bg-transparent-dark-light;
     border: 1px solid $color-border;
     border-radius: $radius-normal;
+    backdrop-filter: $blur-normal;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 32px;
+      left: 24px;
+      width: 16px;
+      height: 1px;
+      background-color: $color-text-white;
+    }
+
+    &:after {
+      transform: rotate(90deg);
+    }
 
     &-title {
       @include title-strong($font-size-medium);
@@ -218,6 +236,15 @@ const contents = [
 
   .modal {
     &.is-open {
+      .article:before {
+        transform: rotate(45deg);
+        transition: 1s;
+      }
+      .article:after {
+        transform: rotate(135deg);
+        transition: 1s;
+      }
+
       .modal-backdrop {
         visibility: visible;
       }
@@ -242,12 +269,13 @@ const contents = [
       visibility: hidden;
       width: 100vw;
       height: 100vh;
-      background-color: $color-bg-backdrop;
+      background-color: $color-bg-transparent-dark;
       opacity: 0;
-      backdrop-filter: blur(10px);
+      backdrop-filter: $blur-normal;
       transition: 0.25s;
     }
   }
 </style>
 
-<script src="@/scripts/test.ts"></script>
+<script src="@/scripts/flipModal.ts"></script>
+<script src="@/scripts/bgMarquee.ts"></script>

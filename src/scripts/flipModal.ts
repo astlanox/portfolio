@@ -18,12 +18,9 @@ const init = () => {
 
   let activeArticle: Element | null = null;
 
-  let lastFocused: Element | null = null;
-
   const open = (article: Element) => {
     if (activeArticle) return;
     activeArticle = article;
-    lastFocused = document.activeElement;
 
     const placeholder = document.createElement("div");
     placeholder.style.height = `${(article as HTMLElement).offsetHeight}px`;
@@ -81,19 +78,9 @@ const init = () => {
 
   articles.forEach((article) => {
     on(article, "click", () => open(article));
-    // article.addEventListener("keydown", (e) => {
-    // if (e.key === "Enter" || e.key === " ") {
-    // e.preventDefault();
-    // open(article);
-    // }
-    // });
   });
 
   on(backdrop, "click", close);
-  // document.addEventListener("keydown", (e) => {
-  // if (e.key === "Escape") close();
-  // });
-  // };
 };
 
 if (document.readyState === "loading") {
