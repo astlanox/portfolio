@@ -25,5 +25,5 @@
   ],
   "stylelint.validate": ["css", "scss", "postcss", "astro"],
   "prettier.documentSelectors": ["**/*.astro"],
-  "cSpell.words": ["xlarge", "xsmall", "xxxlarge"]
+  "cSpell.words": ["Astlanox", "xlarge", "xsmall", "xxxlarge"]
 }
