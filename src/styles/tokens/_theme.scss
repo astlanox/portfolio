@@ -24,7 +24,17 @@
 }
 
 $semantic: (
-  bg: (
+  canvas: (
     primary: palette-get(black),
+  ),
+  text: (
+    primary: palette-get(white),
+    secondary: palette-get(gray, 300),
+    hero: linear-gradient(
+        to right,
+        palette-get(blue, 200) 0%,
+        palette-get(purple, 100) 100%
+      ),
+    role: palette-get(blue, 100),
   ),
 );

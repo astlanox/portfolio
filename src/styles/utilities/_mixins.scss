@@ -21,6 +21,16 @@
   margin-left: auto;
 }
 
+@mixin inner {
+  padding-top: fn.sp(large);
+  padding-bottom: fn.sp(large);
+
+  @include up(xlarge) {
+    padding-top: fn.sp(xxxlarge);
+    padding-bottom: fn.sp(xxxlarge);
+  }
+}
+
 @mixin box($gap: medium) {
   display: flex;
   flex-direction: column;

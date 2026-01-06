@@ -1,15 +1,36 @@
 ---
+import { Image } from "astro:assets";
+import { Urls } from "@/constants/meta";
+import Link from "@/elements/Link.astro";
+import Text from "@/elements/Text.astro";
+import ImageItem01 from "./_images/projects_item-01.png";
 
+const items = [
+  { title: "Soelu Studio", url: `${Urls.PROJECT_LIST}/soelu-studio/`, image: ImageItem01 },
+  { title: "Soelu LP", url: `${Urls.PROJECT_LIST}/soelu-landing-page/`, image: ImageItem01 },
+  { title: "hogehoge", url: `${Urls.PROJECT_LIST}/hogehoge/`, image: ImageItem01 },
+  { title: "hugahuga", url: `${Urls.PROJECT_LIST}/hugahuga/`, image: ImageItem01 },
+  { title: "mochimochi", url: `${Urls.PROJECT_LIST}/mochimochi/`, image: ImageItem01 },
+];
 ---
 
 <section class="container">
-  <h2 class="title">Projects</h2>
-
-  <ul class="list">
-    <li class="list-item">
-      <Text>Soelu studio</Text>
-    </li>
-  </ul>
+  <div class="inner">
+    <h2 class="title">Projects</h2>
+    <ul class="list">
+      {
+        items.map((item) => (
+          <li class="list-item" style={`background-image:url(${item.image.src})`}>
+            <Link url={item.url}>
+              <div class="list-item-title">
+                <Text color="primary">{item.title}</Text>
+              </div>
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </section>
 
 <style lang="scss">
@@ -20,16 +41,88 @@
     @include container;
   }
 
+  .inner {
+    @include inner;
+
+    position: relative;
+  }
+
   .title {
     @include title(fs(xlarge));
+
+    @include up(xlarge) {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
   }
 
   .list {
     display: grid;
-    gap: sc(normal);
+    gap: sp(normal);
+    margin-top: sp(large);
 
-    // &-item {
-    //     background-color: ;
-    // }
+    @include up(xlarge) {
+      grid-template-rows: repeat(5, 1fr);
+      grid-template-columns: repeat(12, 1fr);
+      height: 780px;
+      margin-top: 0;
+    }
+
+    &-item {
+      @include box;
+
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background-position: center;
+      background-size: cover;
+      border-radius: rd(normal);
+
+      @include up(xlarge) {
+        aspect-ratio: unset;
+
+        &:nth-child(1) {
+          grid-row: span 2 / span 2;
+          grid-column: span 4 / span 4;
+        }
+
+        &:nth-child(2) {
+          grid-row: span 2 / span 2;
+          grid-column: span 4 / span 4;
+          grid-column-start: 5;
+        }
+
+        &:nth-child(3) {
+          grid-row: span 3 / span 3;
+          grid-column: span 4 / span 4;
+          grid-column-start: 9;
+        }
+
+        &:nth-child(4) {
+          grid-row: span 3 / span 3;
+          grid-row-start: 3;
+          grid-column: span 4 / span 4;
+        }
+
+        &:nth-child(5) {
+          grid-row: span 2 / span 2;
+          grid-row-start: 4;
+          grid-column: span 8 / span 8;
+          grid-column-start: 5;
+        }
+      }
+
+      &-title {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 </style>

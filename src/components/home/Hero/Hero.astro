@@ -1,25 +1,26 @@
 ---
-import ImageHero from "./_images/hero_img.png";
 import Image from "@/elements/Image.astro";
 import Text from "@/elements/Text.astro";
+import ImageHero from "./_images/hero_img.png";
 ---
 
 <section class="container">
-  <div class="content">
-    <h1 class="title">
-      Hi, I am <br />
-      <span class="title-strong">Astlanox</span>.
-    </h1>
-    <p class="role">Web developer</p>
-    <Text>
-      Frontend-focused web developer with a strong UI / UX background, bridging design and development to build modern,
-      scalable websites, focused on clarity, usability, and long-term maintainability.
-    </Text>
-  </div>
-
-  <div class="visual">
-    <div class="visual-img">
-      <Image src={ImageHero} alt="" />
+  <div class="inner">
+    <div class="content">
+      <h1 class="title">
+        Hi, I am <br />
+        <span class="title-strong">Astlanox</span>.
+      </h1>
+      <p class="role">Web developer</p>
+      <Text>
+        Frontend-focused web developer with a strong UI / UX background, bridging design and development to build
+        modern, scalable websites, focused on clarity, usability, and long-term maintainability.
+      </Text>
+    </div>
+    <div class="visual">
+      <div class="visual-img">
+        <Image src={ImageHero} alt="" />
+      </div>
     </div>
   </div>
 </section>
@@ -37,35 +38,31 @@ import Text from "@/elements/Text.astro";
     text-align: center;
   }
 
+  .inner {
+    @include inner;
+  }
+
   .content {
     @include box;
     @include container-inner;
-
-    padding-top: sp(xlarge);
-    padding-bottom: sp(xlarge);
-
-    @include up(xlarge) {
-      padding-top: sp(xxxlarge);
-      padding-bottom: sp(xxxlarge);
-    }
   }
 
   .title {
-    background: t(text, accent);
+    background: t(text, hero);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
     @include title(fs(xlarge));
 
     &-strong {
-      @include title(fs(2xlarge), uppercase);
+      @include title(fs(xxlarge), uppercase);
     }
   }
 
   .role {
     @include title(fs(medium), uppercase);
 
-    color: t(text, accent-light);
+    color: t(text, role);
 
     &::before {
       content: "ROLE: ";

@@ -1,0 +1,13 @@
+---
+const { url = "", target = "_self" } = Astro.props;
+---
+
+<a href={url} target={target} class="link"><slot /></a>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+
+  .link {
+    color: t(text, primary);
+  }
+</style>
