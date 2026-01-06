@@ -6,44 +6,34 @@
   }
 }
 
-@mixin container($max-width: 1200px, $pad: md) {
+@mixin container($max-width: 1200px) {
   width: 100%;
   max-width: $max-width;
-  padding-right: fn.space($pad);
-  padding-left: fn.space($pad);
+  padding-right: fn.sp(normal);
+  padding-left: fn.sp(normal);
   margin-right: auto;
   margin-left: auto;
 }
 
 @mixin container-inner {
-  max-width: fn.container(normal);
+  max-width: fn.ct(small);
   margin-right: auto;
   margin-left: auto;
 }
 
-@mixin box($gap: md) {
+@mixin box($gap: medium) {
   display: flex;
   flex-direction: column;
-  gap: fn.space($gap);
+  gap: fn.sp($gap);
 }
 
 @mixin title($font-size, $transform: null) {
   font-family: Orbitron, sans-serif;
   font-size: $font-size;
   font-weight: fn.fw(bold);
-  color: fn.t(text, primary);
-
-  @if $transform {
-    text-transform: $transform;
-  }
-}
-
-@mixin title-strong($font-size, $transform: null) {
-  font-family: Orbitron, sans-serif;
-  font-size: $font-size;
-  font-weight: fn.fw(bold);
   line-height: fn.lh(thin);
-  letter-spacing: fn.ls(normal);
+  color: fn.t(text, primary);
+  letter-spacing: fn.ls(wide);
 
   @if $transform {
     text-transform: $transform;
@@ -54,7 +44,7 @@
   font-size: $font-size;
   font-weight: fn.fw(bold);
   text-transform: capitalize;
-  background: fn.color(gradient);
+  background: fn.cl(gradient);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }

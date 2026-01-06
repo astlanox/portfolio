@@ -8,7 +8,7 @@ const { items } = Astro.props as { items: Requirement[] };
 <section class="container">
   <div class="inner">
     <h2 class="title">
-      What they <span class="title-strong">needed?</span>
+      What they <span class="title">needed?</span>
     </h2>
 
     <ul class="list">
@@ -34,20 +34,20 @@ const { items } = Astro.props as { items: Requirement[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: space("xl");
+    gap: sp("xlarge");
 
-    @include up("xl") {
-      gap: space("3xl");
+    @include up("xlarge") {
+      gap: sp("xxxlarge");
     }
   }
 
   .title {
-    @include title(fs("2xl"));
+    @include title(fs("2xlarge"));
 
     text-align: center;
 
     &-strong {
-      @include title-strong(fs("2xl"));
+      @include title(fs("2xlarge"));
     }
   }
 
@@ -56,11 +56,11 @@ const { items } = Astro.props as { items: Requirement[] };
 
     display: flex;
     flex-direction: column;
-    gap: space(nm);
+    gap: sp(normal);
 
     &-item {
       position: relative;
-      padding-left: space(md);
+      padding-left: sp(medium);
 
       &::before {
         position: absolute;
@@ -70,7 +70,7 @@ const { items } = Astro.props as { items: Requirement[] };
         height: 11px;
         content: "";
         background-color: t(border, default)-strong;
-        border-radius: radius(circle);
+        border-radius: rd(circle);
       }
     }
   }

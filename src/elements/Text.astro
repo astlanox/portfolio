@@ -1,5 +1,16 @@
 ---
-const { tag = "p", size = "", weight = "", height = "", color = "", align = "", transform = "", nowrap } = Astro.props;
+const {
+  tag = "p",
+  size = "",
+  weight = "",
+  height = "",
+  color = "",
+  align = "",
+  transform = "",
+  nowrap,
+  class: className = "",
+  style = "",
+} = Astro.props;
 
 const Tag = tag;
 
@@ -11,87 +22,57 @@ if (color) classList.push(`text-color-${color}`);
 if (align) classList.push(`text-align-${align}`);
 if (nowrap) classList.push("text-nowrap");
 if (transform) classList.push(`text-transform-${transform}`);
+if (className) classList.push(className);
 ---
 
-<Tag class={classList.join(" ") || undefined}><slot /></Tag>
+<Tag class={classList.join(" ") || undefined} style={style || undefined}><slot /></Tag>
 
 <style lang="scss">
+  @use "sass:map";
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
 
   .text {
-    display: block;
+    font-size: fs(normal);
+    font-style: normal;
+    font-weight: fw(normal);
     line-height: lh(wide);
+    color: t(text, secondary);
+    letter-spacing: ls(normal);
 
-    &-size {
-      &-x-small {
-        font-size: fs(xs);
-      }
-
-      &-small {
-        font-size: fs(sm);
-      }
-
-      &-normal {
-        font-size: fs(nm);
-      }
-
-      &-medium {
-        font-size: fs(md);
+    @each $key, $val in $font-size {
+      &-size-#{$key} {
+        font-size: $val;
       }
     }
 
-    &-weight {
-      &-normal {
-        font-weight: fw(normal);
-      }
-
-      &-medium {
-        font-weight: fw(medium);
-      }
-
-      &-bold {
-        font-weight: fw(bold);
+    @each $key, $val in $font-weight {
+      &-weight-#{$key} {
+        font-weight: $val;
       }
     }
 
-    &-height {
-      &-thin {
-        line-height: lh(thin);
-      }
-
-      &-normal {
-        line-height: lh(normal);
-      }
-
-      &-wide {
-        line-height: lh(wide);
+    @each $key, $val in $line-height {
+      &-height-#{$key} {
+        line-height: $val;
       }
     }
 
-    &-color {
-      &-primary {
-        color: t(text, primary);
-      }
-
-      &-black {
-        color: t(text, black);
-      }
-
-      &-white {
-        color: t(text, white);
+    @each $key, $val in map.get($semantic, text) {
+      &-color-#{$key} {
+        color: $val;
       }
     }
 
-    &-align {
-      &-center {
-        text-align: center;
+    @each $align in (left, center, right) {
+      &-align-#{$align} {
+        text-align: $align;
       }
     }
 
-    &-transform {
-      &-capitalize {
-        text-transform: capitalize;
+    @each $transform in (none, capitalize, uppercase, lowercase) {
+      &-transform-#{$transform} {
+        text-transform: $transform;
       }
     }
 

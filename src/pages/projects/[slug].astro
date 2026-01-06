@@ -63,32 +63,32 @@ const project = Astro.props;
   .article {
     display: flex;
     flex-direction: column;
-    gap: space("3xl");
+    gap: sp("xxxlarge");
 
-    @include up("xl") {
-      gap: space("5xl");
+    @include up("xlarge") {
+      gap: sp("5xl");
     }
   }
 
   .info {
     display: flex;
     flex-direction: column;
-    gap: space("xl");
+    gap: sp("xlarge");
 
-    @include up("xl") {
-      gap: space("3xl");
+    @include up("xlarge") {
+      gap: sp("xxxlarge");
     }
   }
 
   .aside {
     position: fixed;
-    bottom: space(nm);
+    bottom: sp(normal);
     left: 50%;
-    z-index: layer(fixed);
+    z-index: ly(fixed);
     transform: translateX(-50%);
 
-    @include up(md) {
-      bottom: space(md);
+    @include up(medium) {
+      bottom: sp(medium);
     }
   }
 </style>

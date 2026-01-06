@@ -1,0 +1,267 @@
+---
+import IconHtml from "@/assets/icons/icon_html.svg";
+import Text from "@/elements/Text.astro";
+
+const contents = [
+  {
+    title: "Web Development",
+    summary: "Building reliable, maintainable websites that work smoothly across devices, browsers, and environments.",
+    detail:
+      "I develop websites with long-term maintenance and scalability in mind. Beyond simply making pages work, I consider structure, consistency, and future updates. My work emphasizes stability, cross-browser compatibility, and clean implementation so projects remain easy to manage as content and requirements evolve.",
+    categories: [
+      { name: "HTML", logo: IconHtml },
+      { name: "CSS", logo: IconHtml },
+      { name: "JavaScript", logo: IconHtml },
+      { name: "EJS", logo: IconHtml },
+      { name: "Pug", logo: IconHtml },
+      { name: "Sass", logo: IconHtml },
+      { name: "Post CSS", logo: IconHtml },
+      { name: "Tailscale CSS", logo: IconHtml },
+      { name: "GSAP", logo: IconHtml },
+      { name: "Node.js", logo: IconHtml },
+      { name: "Gulp", logo: IconHtml },
+      { name: "Git", logo: IconHtml },
+    ],
+  },
+  {
+    title: "UI / UX Design",
+    summary: "Designing clear, intuitive user experiences focused on usability, accessibility, and business goals.",
+    detail:
+      "I design user interfaces and experiences that prioritize clarity, ease of use, and logical information flow. My approach balances visual consistency with practical usability, ensuring users can understand and complete tasks without friction. I focus on real-world use cases such as navigation, comparison, and decision-making rather than purely decorative design.",
+    categories: [
+      { name: "HTML", logo: IconHtml },
+      { name: "CSS", logo: IconHtml },
+    ],
+  },
+  {
+    title: "Frontend Engineering",
+    summary:
+      "Implementing interactive, responsive interfaces that translate design intent into precise, reliable functionality.",
+    detail:
+      "I specialize in turning design into accurate, interactive frontend behavior. This includes handling dynamic UI states, user interactions, and edge cases without breaking the visual design. I focus on predictable behavior and readable structure, making complex interfaces easier to understand, extend, and debug over time.",
+    categories: [
+      { name: "HTML", logo: IconHtml },
+      { name: "CSS", logo: IconHtml },
+    ],
+  },
+  {
+    title: "CMS Integration",
+    summary: "Integrating CMS to enable flexible updates.",
+    detail:
+      "I integrate both traditional CMS and headless CMS solutions into websites and web applications. This includes connecting content APIs to modern frontends, structuring content for reuse, and ensuring editors can manage updates without affecting presentation. By supporting headless CMS architectures, I enable flexible, scalable content delivery across different platforms and layouts.",
+    categories: [
+      { name: "HTML", logo: IconHtml },
+      { name: "CSS", logo: IconHtml },
+    ],
+  },
+  {
+    title: "Performance & Optimization",
+    summary: "Optimizing website performance to deliver fast loading times and smooth user experiences.",
+    detail:
+      "I focus on improving performance at both structural and user-perceived levels. This includes reducing unnecessary complexity, improving load speed, and ensuring smooth interactions. Performance is treated as part of the user experience, helping sites feel responsive, professional, and trustworthy in real-world conditions.",
+    categories: [
+      { name: "HTML", logo: IconHtml },
+      { name: "CSS", logo: IconHtml },
+    ],
+  },
+];
+---
+
+<section class="container js-bgMarquee">
+  <div class="inner">
+    <h2 class="title">Expertise</h2>
+
+    <ul class="list">
+      {
+        contents.map((item) => (
+          <li class="list-item">
+            <article class="article js-article" tabindex="0" role="button">
+              <h3 class="article-title">{item.title}</h3>
+              <div class="article-summary">
+                <Text height="normal">{item.summary}</Text>
+              </div>
+              <div class="article-detail">
+                <Text height="normal">{item.detail}</Text>
+              </div>
+              <div class="article-categories">
+                {item.categories?.map((category) => (
+                  <div class="article-categories-item">
+                    <category.logo width="24" height="24" />
+                    <Text color="white" height="thin">
+                      {category.name}
+                    </Text>
+                  </div>
+                ))}
+              </div>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<div class="modal js-modal" aria-hidden="true">
+  <div class="modal-backdrop js-backdrop"></div>
+  <div class="modal-panel js-modalPanel" role="dialog" aria-modal="true"></div>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+
+    position: relative;
+  }
+
+  .inner {
+    padding-top: sp("xxxlarge");
+    padding-bottom: sp("xxxlarge");
+  }
+
+  .title {
+    @include title(fs("xlarge"), uppercase);
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: sp(normal);
+    margin-top: sp(normal);
+
+    @include up(medium) {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      margin-top: sp("xlarge");
+    }
+
+    &-item {
+      @include up(medium) {
+        &:nth-child(1) {
+          grid-row: 1 / 3;
+          grid-column: 9 / 13;
+          order: 3;
+        }
+
+        &:nth-child(2) {
+          grid-column: 4 / 9;
+          order: 2;
+        }
+
+        &:nth-child(3) {
+          grid-column: 1 / 5;
+          order: 4;
+        }
+
+        &:nth-child(4) {
+          grid-column: 1 / 4;
+          order: 1;
+        }
+
+        &:nth-child(5) {
+          grid-column: 5 / 9;
+          order: 5;
+        }
+      }
+    }
+  }
+
+  .article {
+    @include box(sp(normal));
+
+    position: relative;
+    justify-content: flex-end;
+    padding: sp("xxxlarge") sp(medium) sp(medium);
+    cursor: pointer;
+    background-color: t(bg, transparent-dark-light);
+    border: 1px solid t(border, default);
+    border-radius: rd(normal);
+    backdrop-filter: bl(normal);
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 32px;
+      left: 24px;
+      width: 16px;
+      height: 1px;
+      content: "";
+      background-color: t(text, white);
+    }
+
+    &::after {
+      transform: rotate(90deg);
+    }
+
+    &-title {
+      @include title(fs(medium));
+    }
+
+    &-categories {
+      flex-wrap: wrap;
+      gap: sp(small);
+
+      &-item {
+        display: flex;
+        gap: sp(small);
+        align-items: center;
+        justify-content: center;
+        padding: sp(xsmall) sp(small) sp(xsmall) sp(xsmall);
+        border: 1px solid t(border, default);
+        border-radius: rd(small);
+      }
+    }
+
+    &-categories,
+    &-detail {
+      display: none;
+    }
+  }
+
+  .modal {
+    &-panel {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: ly(fixed);
+      width: ct(normal);
+      max-width: calc(100% - sp(normal) * 2);
+      background-color: t(bg, primary);
+      border-radius: rd(normal);
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+    &-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      visibility: hidden;
+      width: 100vw;
+      height: 100vh;
+      background-color: t(bg, transparent-dark);
+      opacity: 0;
+      backdrop-filter: bl(normal);
+      transition: 0.25s;
+    }
+
+    &.is-open {
+      .article::before {
+        transform: rotate(45deg);
+        transition: 1s;
+      }
+
+      .article::after {
+        transform: rotate(135deg);
+        transition: 1s;
+      }
+
+      .modal-backdrop {
+        visibility: visible;
+      }
+    }
+  }
+</style>
+
+<script src="@/scripts/flipModal.ts"></script>
+<script src="@/scripts/bgMarquee.ts"></script>

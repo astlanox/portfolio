@@ -1,12 +1,12 @@
 $container: (
-  sm: 640px,
-  md: 960px,
-  lg: 1200px,
+  small: 640px,
+  medium: 960px,
+  large: 1200px,
 );
 $breakpoints: (
-  sm: 375px,
-  md: 640px,
-  lg: 768px,
-  xl: 1024px,
-  2xl: 1440px,
+  small: 375px,
+  medium: 640px,
+  large: 768px,
+  xlarge: 1024px,
+  2xlarge: 1440px,
 );

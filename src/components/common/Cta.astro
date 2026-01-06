@@ -10,14 +10,14 @@ import Text from "@/elements/Text.astro";
       <div class="glass-overlay"></div>
       <div class="glass-specular"></div>
       <div class="content">
-        <Text color="primary" nowrap>Let's talk now</Text>
+        <div class="text">
+          <Text size="small" color="primary" nowrap>Let's talk now</Text>
+        </div>
 
-        <div>
-          <div class="button">
-            <a href={Urls.CONTACT}>
-              <Text color="dark" weight="medium" nowrap>Get in Touch</Text>
-            </a>
-          </div>
+        <div class="button">
+          <a href={Urls.CONTACT}>
+            <Text size="small" color="black" weight="medium" nowrap>Get in Touch</Text>
+          </a>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@ import Text from "@/elements/Text.astro";
       <div class="glass-specular"></div>
 
       <svg style="display: none">
-        <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
+        <filter id="large-dist" x="0%" y="0%" width="100%" height="100%">
           <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise">
           </feTurbulence>
           <feGaussianBlur in="noise" stdDeviation="2" result="blurred"></feGaussianBlur>
@@ -57,7 +57,7 @@ import Text from "@/elements/Text.astro";
     position: relative;
     overflow: hidden;
     background: transparent;
-    border-radius: 2rem;
+    border-radius: rd(small);
     box-shadow:
       0 6px 6px rgb(0 0 0 / 20%),
       0 0 20px rgb(0 0 0 / 10%);
@@ -68,21 +68,21 @@ import Text from "@/elements/Text.astro";
       inset: 0;
       z-index: 0;
       isolation: isolate;
-      filter: url("#lg-dist");
-      backdrop-filter: blur(4px);
+      filter: url("#large-dist");
+      backdrop-filter: bl(4px);
     }
 
     &-overlay {
       position: absolute;
       inset: 0;
-      z-index: layer(overlay);
+      z-index: ly(overlay);
       background: t(glass, bg);
     }
 
     &-specular {
       position: absolute;
       inset: 0;
-      z-index: layer(popup);
+      z-index: ly(popup);
       overflow: hidden;
       border-radius: inherit;
       box-shadow:
@@ -93,17 +93,20 @@ import Text from "@/elements/Text.astro";
 
   .content {
     position: relative;
-    z-index: layer(fixed);
+    z-index: ly(fixed);
     display: flex;
-    gap: space(nm);
+    gap: sp(normal);
     align-items: center;
     justify-content: center;
-    padding: space(sm) space(sm) space(sm) space(md);
+    padding: sp(small) sp(small) sp(small) sp(medium);
   }
 
+  // .text {
+  //   display: none;
+  // }
   .button {
-    padding: space(sm) space(md);
+    padding: sp(small) sp(normal);
     background-color: t(bg, secondary);
-    border-radius: radius(pill);
+    border-radius: rd(pill);
   }
 </style>

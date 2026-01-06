@@ -21,15 +21,15 @@ const { items } = Astro.props as { items: Category[] };
   .list {
     display: flex;
     flex-wrap: wrap;
-    gap: space(nm);
+    gap: sp(normal);
     align-items: center;
     justify-content: center;
 
     &-item {
-      padding: space(sm) space(nm);
+      padding: sp(small) sp(normal);
       color: t(text, primary);
       border: 1px solid t(border, default);
-      border-radius: radius(nm);
+      border-radius: rd(normal);
     }
   }
 </style>

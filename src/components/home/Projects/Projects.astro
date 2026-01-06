@@ -1,0 +1,35 @@
+---
+
+---
+
+<section class="container">
+  <h2 class="title">Projects</h2>
+
+  <ul class="list">
+    <li class="list-item">
+      <Text>Soelu studio</Text>
+    </li>
+  </ul>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .title {
+    @include title(fs(xlarge));
+  }
+
+  .list {
+    display: grid;
+    gap: sc(normal);
+
+    // &-item {
+    //     background-color: ;
+    // }
+  }
+</style>

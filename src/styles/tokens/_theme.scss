@@ -12,56 +12,44 @@
 }
 
 $semantic: (
-  bg: (
-    primary: palette-get(black),
-    secondary: palette-get(white),
-    transparent-dark-light: rgb(0 0 0 / 25%),
-    // from: rgba($black, 0.25)
-    transparent-dark: rgb(0 0 0 / 50%),
-    // from: rgba($black, 0.5)
-    image: rgb(255 255 255 / 10%),
-    // from: rgba($white, 0.1)
+  text: (
+    // primary: palette-get(white),
+    // secondary: rgb(255 255 255 / 50%),
+    // white: palette-get(white),
+    // black: palette-get(black),
+    // muted: palette-get(gray, 500),
+    // accent: linear-gradient(
+    //     to right,
+    //     palette-get(blue, 200) 0%,
+    //     palette-get(purple, 100) 100%
+    //   ),
+    // accent-light: palette-get(blue, 100),
+    // accent-strong: linear-gradient(
+    //     to right,
+    //     palette-get(blue, 500) 0%,
+    //     palette-get(purple, 500) 100%
+     //   ),
   ),
 
-  surface: palette-get(gray, 900),
-  text: (
-    primary: palette-get(white),
-    secondary: rgb(255 255 255 / 50%),
-    // from: rgba($white, 0.5)
-    white: palette-get(white),
-    black: palette-get(black),
-    muted: palette-get(gray, 500),
+  background: (
+    // primary: palette-get(black),
+    // secondary: palette-get(white),
+    // transparent-dark-light: rgb(0 0 0 / 25%),
+    // transparent-dark: rgb(0 0 0 / 50%),
+     // image: rgb(255 255 255 / 10%),
   ),
 
   border: (
-    default: rgb(255 255 255 / 30%),
-    // from: rgba($white, 0.3)
-    strong: rgb(255 255 255 / 80%),
-    // from: rgba($white, 0.8)
+    // default: rgb(255 255 255 / 30%),
+     // strong: rgb(255 255 255 / 80%),
   ),
 
-  gradient: (
-    primary: linear-gradient(
-        to right,
-        palette-get(blue, 500) 0%,
-        palette-get(purple, 500) 100%
-      ),
-    secondary: linear-gradient(
-        to right,
-        palette-get(blue, 200) 0%,
-        palette-get(purple, 100) 100%
-      ),
-  ),
-
-  glow: (
-    primary: palette-get(glow, purple),
-    secondary: palette-get(glow, blue),
-  ),
-
-  glass: (
-    bg: rgb(255 255 255 / 10%),
-    // from: rgba($white, 0.1)
-    highlight: rgb(255 255 255 / 40%),
-    // from: rgba($white, 0.4)
-  ),
+  // glow: (
+  //   primary: palette-get(glow, purple),
+  //   secondary: palette-get(glow, blue),
+  // ),
+  // glass: (
+  //   background: rgb(255 255 255 / 10%),
+  //   highlight: rgb(255 255 255 / 40%),
+   // ),
 );

@@ -28,13 +28,13 @@ const { items } = Astro.props as { items: Meta[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: space("2xl");
+    gap: sp("2xlarge");
     align-items: center;
     justify-content: center;
 
-    @include up(md) {
+    @include up(medium) {
       flex-direction: row;
-      gap: space("4xl");
+      gap: sp("4xl");
     }
   }
 
@@ -42,10 +42,10 @@ const { items } = Astro.props as { items: Meta[] };
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: space(sm);
+    gap: sp(small);
     text-align: center;
 
-    @include up(md) {
+    @include up(medium) {
       text-align: left;
     }
 
@@ -60,7 +60,7 @@ const { items } = Astro.props as { items: Meta[] };
         background-color: t(border, default);
         transform: translateX(-50%);
 
-        @include up(md) {
+        @include up(medium) {
           top: 50%;
           left: -64px;
           width: 1px;
@@ -71,12 +71,12 @@ const { items } = Astro.props as { items: Meta[] };
     }
 
     &-title {
-      font-size: fs(sm);
+      font-size: fs(small);
       text-transform: uppercase;
     }
 
     &-description {
-      font-size: fs(md);
+      font-size: fs(medium);
       color: t(text, primary);
     }
   }

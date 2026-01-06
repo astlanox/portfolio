@@ -15,37 +15,38 @@
   @return $cur;
 }
 
+@function ct($key) {
+  @return map.get(l.$container, $key);
+}
+
 @function bp($key) {
   @return map.get(l.$breakpoints, $key);
 }
 
-@function space($key) {
+@function sp($key) {
   @return map.get(s.$space, $key);
 }
 
-@function radius($key) {
+@function rd($key) {
   @return map.get(s.$radius, $key);
 }
 
-@function layer($key) {
+@function ly($key) {
   @return map.get(s.$layer, $key);
 }
 
-@function blur($key) {
+@function bl($key) {
   @return map.get(s.$blur, $key);
 }
 
-// palette: color(gray, 500) / color(white)
-@function color($keys...) {
+@function cl($keys...) {
   @return map-deep-get(c.$palette, $keys...);
 }
 
-// semantic: t(text, primary) / t(bg, primary)
 @function t($keys...) {
   @return map-deep-get(th.$semantic, $keys...);
 }
 
-// typography: fs(md) / fw(bold) / lh(normal) / ls(wide)
 @function fs($key) {
   @return map.get(ty.$font-size, $key);
 }
@@ -60,8 +61,4 @@
 
 @function ls($key) {
   @return map.get(ty.$letter-spacing, $key);
-}
-
-@function container($key) {
-  @return map.get(l.$container, $key);
 }

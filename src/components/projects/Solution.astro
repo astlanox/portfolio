@@ -10,7 +10,7 @@ const { items } = Astro.props as { items: Solution[] };
 <section class="container">
   <div class="inner">
     <h2 class="title">
-      How I <span class="title-strong">approached?</span>
+      How I <span class="title">approached?</span>
     </h2>
 
     {
@@ -50,31 +50,31 @@ const { items } = Astro.props as { items: Solution[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: space("xl");
+    gap: sp("xlarge");
 
-    @include up("xl") {
-      gap: space("3xl");
+    @include up("xlarge") {
+      gap: sp("xxxlarge");
     }
   }
 
   .title {
-    @include title(fs("2xl"));
+    @include title(fs("2xlarge"));
 
     text-align: center;
 
     &-strong {
-      @include title-strong(fs("2xl"));
+      @include title(fs("2xlarge"));
     }
   }
 
   .item {
     display: flex;
     flex-direction: column-reverse;
-    gap: space(md);
-    padding-top: space(nm);
-    padding-bottom: space(nm);
+    gap: sp(medium);
+    padding-top: sp(normal);
+    padding-bottom: sp(normal);
 
-    @include up("xl") {
+    @include up("xlarge") {
       flex-direction: row;
 
       &:nth-child(even) {
@@ -85,9 +85,9 @@ const { items } = Astro.props as { items: Solution[] };
     &-content {
       display: flex;
       flex-direction: column;
-      gap: space(nm);
+      gap: sp(normal);
 
-      @include up("xl") {
+      @include up("xlarge") {
         width: 50%;
       }
     }
@@ -98,7 +98,7 @@ const { items } = Astro.props as { items: Solution[] };
       align-items: center;
       justify-content: center;
 
-      @include up("xl") {
+      @include up("xlarge") {
         width: 50%;
       }
     }
@@ -106,17 +106,17 @@ const { items } = Astro.props as { items: Solution[] };
     &-title {
       order: 2;
 
-      @include title(fs("xl"));
+      @include title(fs("xlarge"));
 
       // :global(strong) {
-      //   @include title-strong(fs("xl"));
+      //   @include title(fs("xlarge"));
       // }
     }
 
     &-label {
       order: 1;
 
-      @include title-label(fs(md));
+      @include title-label(fs(medium));
     }
 
     &-description {

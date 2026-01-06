@@ -22,28 +22,28 @@ const { src } = Astro.props;
     position: relative;
     box-shadow: 0 0 24px 16px #000;
 
-    @include up(md) {
+    @include up(medium) {
       box-shadow: 0 0 40px 24px #000;
     }
   }
 
   .inner {
-    padding: space(sm);
+    padding: sp(small);
     background-color: t(bg, image);
-    border-radius: radius(nm);
+    border-radius: rd(normal);
 
-    @include up(md) {
-      padding: space(nm);
-      border-radius: radius(md);
+    @include up(medium) {
+      padding: sp(normal);
+      border-radius: rd(medium);
     }
   }
 
   .image {
     overflow: hidden;
-    border-radius: calc(radius(nm) - 1%);
+    border-radius: calc(rd(normal) - 1%);
 
-    @include up(md) {
-      border-radius: calc(radius(md) - 1%);
+    @include up(medium) {
+      border-radius: calc(rd(medium) - 1%);
     }
   }
 </style>
