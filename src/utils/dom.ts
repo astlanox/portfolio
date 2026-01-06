@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export const qs = <T extends Element>(
   sel: string,
   root: ParentNode = document,
@@ -53,6 +55,7 @@ export const once = <
   options?: boolean | AddEventListenerOptions,
 ): void => {
   if (!el) return;
+
   const opts =
     typeof options === "boolean"
       ? { capture: options, once: true }

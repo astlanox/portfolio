@@ -117,12 +117,12 @@ const contents = [
   }
 
   .inner {
-    padding-top: space(3xl);
-    padding-bottom: space(3xl);
+    padding-top: space("3xl");
+    padding-bottom: space("3xl");
   }
 
   .title {
-    @include title-strong(fs(xl), uppercase);
+    @include title-strong(fs("xl"), uppercase);
   }
 
   .list {
@@ -133,7 +133,7 @@ const contents = [
 
     @include up(md) {
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      margin-top: space(xl);
+      margin-top: space("xl");
     }
 
     &-item {
@@ -172,25 +172,25 @@ const contents = [
 
     position: relative;
     justify-content: flex-end;
-    padding: space(3xl) space(md) space(md);
+    padding: space("3xl") space(md) space(md);
     cursor: pointer;
     background-color: t(bg, transparent-dark-light);
     border: 1px solid t(border, default);
     border-radius: radius(nm);
     backdrop-filter: blur(normal);
 
-    &:before,
-    &:after {
-      content: "";
+    &::before,
+    &::after {
       position: absolute;
       top: 32px;
       left: 24px;
       width: 16px;
       height: 1px;
+      content: "";
       background-color: t(text, white);
     }
 
-    &:after {
+    &::after {
       transform: rotate(90deg);
     }
 
@@ -220,21 +220,6 @@ const contents = [
   }
 
   .modal {
-    &.is-open {
-      .article:before {
-        transform: rotate(45deg);
-        transition: 1s;
-      }
-      .article:after {
-        transform: rotate(135deg);
-        transition: 1s;
-      }
-
-      .modal-backdrop {
-        visibility: visible;
-      }
-    }
-
     &-panel {
       position: fixed;
       top: 50%;
@@ -258,6 +243,22 @@ const contents = [
       opacity: 0;
       backdrop-filter: blur(normal);
       transition: 0.25s;
+    }
+
+    &.is-open {
+      .article::before {
+        transform: rotate(45deg);
+        transition: 1s;
+      }
+
+      .article::after {
+        transform: rotate(135deg);
+        transition: 1s;
+      }
+
+      .modal-backdrop {
+        visibility: visible;
+      }
     }
   }
 </style>

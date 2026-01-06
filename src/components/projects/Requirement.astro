@@ -34,20 +34,20 @@ const { items } = Astro.props as { items: Requirement[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: space(xl);
+    gap: space("xl");
 
-    @include up(xl) {
-      gap: space(3xl);
+    @include up("xl") {
+      gap: space("3xl");
     }
   }
 
   .title {
-    @include title(fs(2xl));
+    @include title(fs("2xl"));
 
     text-align: center;
 
     &-strong {
-      @include title-strong(fs(2xl));
+      @include title-strong(fs("2xl"));
     }
   }
 

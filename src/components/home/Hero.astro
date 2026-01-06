@@ -25,20 +25,20 @@
 
   .title {
     background: t(gradient, secondary);
-    -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(fs(xl));
+    @include title(fs("xl"));
 
     &-strong {
-      @include title-strong(fs(2xl), uppercase);
+      @include title-strong(fs("2xl"), uppercase);
     }
   }
 
   .role {
     @include title(fs(md), uppercase);
 
-    &:before {
+    &::before {
       content: "MODE: ";
     }
   }

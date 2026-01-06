@@ -35,7 +35,7 @@ const { items } = Astro.props as { items: Flow[] };
     flex-direction: column;
     gap: space(lg);
 
-    @include up(xl) {
+    @include up("xl") {
       flex-direction: row;
     }
 
@@ -43,7 +43,7 @@ const { items } = Astro.props as { items: Flow[] };
       position: relative;
       padding-left: space(lg);
 
-      @include up(xl) {
+      @include up("xl") {
         padding-top: space(lg);
         padding-left: 0;
       }
@@ -58,7 +58,7 @@ const { items } = Astro.props as { items: Flow[] };
           content: "";
           background-color: t(border, default);
 
-          @include up(xl) {
+          @include up("xl") {
             top: 11px;
             left: calc(50% + 8px);
             width: calc(100% + space(lg) / 2);
@@ -74,7 +74,7 @@ const { items } = Astro.props as { items: Flow[] };
     flex-direction: column;
     gap: space(nm);
 
-    @include up(xl) {
+    @include up("xl") {
       text-align: center;
     }
 
@@ -97,7 +97,7 @@ const { items } = Astro.props as { items: Flow[] };
         border: 1px solid t(border, default)-strong;
         border-radius: radius(circle);
 
-        @include up(xl) {
+        @include up("xl") {
           top: 0;
           left: 50%;
           transform: translateX(-50%);
@@ -112,7 +112,7 @@ const { items } = Astro.props as { items: Flow[] };
         background-color: t(border, default)-strong;
         border-radius: radius(circle);
 
-        @include up(xl) {
+        @include up("xl") {
           top: 5px;
           left: 50%;
           transform: translateX(-50%);

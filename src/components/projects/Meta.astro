@@ -28,13 +28,13 @@ const { items } = Astro.props as { items: Meta[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: space(2xl);
+    gap: space("2xl");
     align-items: center;
     justify-content: center;
 
     @include up(md) {
       flex-direction: row;
-      gap: space(4xl);
+      gap: space("4xl");
     }
   }
 

@@ -1,19 +1,20 @@
 @use "sass:map";
 @use "./color" as c;
 
-// helper (theme内でpaletteを取りやすくするだけ)
-@function _p($keys...) {
+@function palette-get($keys...) {
   $cur: c.$palette;
+
   @each $k in $keys {
     $cur: map.get($cur, $k);
   }
+
   @return $cur;
 }
 
 $semantic: (
   bg: (
-    primary: _p(black),
-    secondary: _p(white),
+    primary: palette-get(black),
+    secondary: palette-get(white),
     transparent-dark-light: rgb(0 0 0 / 25%),
     // from: rgba($black, 0.25)
     transparent-dark: rgb(0 0 0 / 50%),
@@ -22,14 +23,14 @@ $semantic: (
     // from: rgba($white, 0.1)
   ),
 
-  surface: _p(gray, 900),
+  surface: palette-get(gray, 900),
   text: (
-    primary: _p(white),
+    primary: palette-get(white),
     secondary: rgb(255 255 255 / 50%),
     // from: rgba($white, 0.5)
-    white: _p(white),
-    black: _p(black),
-    muted: _p(gray, 500),
+    white: palette-get(white),
+    black: palette-get(black),
+    muted: palette-get(gray, 500),
   ),
 
   border: (
@@ -40,13 +41,21 @@ $semantic: (
   ),
 
   gradient: (
-    primary: linear-gradient(to right, _p(blue, 500) 0%, _p(purple, 500) 100%),
-    secondary: linear-gradient(to right, _p(blue, 200) 0%, _p(purple, 100) 100%),
+    primary: linear-gradient(
+        to right,
+        palette-get(blue, 500) 0%,
+        palette-get(purple, 500) 100%
+      ),
+    secondary: linear-gradient(
+        to right,
+        palette-get(blue, 200) 0%,
+        palette-get(purple, 100) 100%
+      ),
   ),
 
   glow: (
-    primary: _p(glow, purple),
-    secondary: _p(glow, blue),
+    primary: palette-get(glow, purple),
+    secondary: palette-get(glow, blue),
   ),
 
   glass: (

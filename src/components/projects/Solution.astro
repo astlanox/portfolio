@@ -1,8 +1,8 @@
 ---
 import Picture from "@/elements/Picture.astro";
 import Text from "@/elements/Text.astro";
-import { parseRichText } from "@/utils/parseRichText";
 import type { Solution } from "@/types/project";
+import { parseRichText } from "@/utils/parseRichText";
 
 const { items } = Astro.props as { items: Solution[] };
 ---
@@ -50,20 +50,20 @@ const { items } = Astro.props as { items: Solution[] };
   .inner {
     display: flex;
     flex-direction: column;
-    gap: space(xl);
+    gap: space("xl");
 
-    @include up(xl) {
-      gap: space(3xl);
+    @include up("xl") {
+      gap: space("3xl");
     }
   }
 
   .title {
-    @include title(fs(2xl));
+    @include title(fs("2xl"));
 
     text-align: center;
 
     &-strong {
-      @include title-strong(fs(2xl));
+      @include title-strong(fs("2xl"));
     }
   }
 
@@ -74,7 +74,7 @@ const { items } = Astro.props as { items: Solution[] };
     padding-top: space(nm);
     padding-bottom: space(nm);
 
-    @include up(xl) {
+    @include up("xl") {
       flex-direction: row;
 
       &:nth-child(even) {
@@ -87,7 +87,7 @@ const { items } = Astro.props as { items: Solution[] };
       flex-direction: column;
       gap: space(nm);
 
-      @include up(xl) {
+      @include up("xl") {
         width: 50%;
       }
     }
@@ -98,7 +98,7 @@ const { items } = Astro.props as { items: Solution[] };
       align-items: center;
       justify-content: center;
 
-      @include up(xl) {
+      @include up("xl") {
         width: 50%;
       }
     }
@@ -106,11 +106,11 @@ const { items } = Astro.props as { items: Solution[] };
     &-title {
       order: 2;
 
-      @include title(fs(xl));
+      @include title(fs("xl"));
 
-      :global(strong) {
-        @include title-strong(fs(xl));
-      }
+      // :global(strong) {
+      //   @include title-strong(fs("xl"));
+      // }
     }
 
     &-label {
