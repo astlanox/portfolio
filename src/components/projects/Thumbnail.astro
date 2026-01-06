@@ -22,7 +22,7 @@ const { src } = Astro.props;
     position: relative;
     box-shadow: 0 0 24px 16px #000;
 
-    @include for-screen-medium {
+    @include up(md) {
       box-shadow: 0 0 40px 24px #000;
     }
   }
@@ -32,9 +32,9 @@ const { src } = Astro.props;
     background-color: t(bg, image);
     border-radius: radius(nm);
 
-    @include for-screen-medium {
+    @include up(md) {
       padding: space(nm);
-      border-radius: radius(lg);
+      border-radius: radius(md);
     }
   }
 
@@ -42,8 +42,8 @@ const { src } = Astro.props;
     overflow: hidden;
     border-radius: calc(radius(nm) - 1%);
 
-    @include for-screen-medium {
-      border-radius: calc(radius(lg) - 1%);
+    @include up(md) {
+      border-radius: calc(radius(md) - 1%);
     }
   }
 </style>

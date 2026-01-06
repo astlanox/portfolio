@@ -32,7 +32,7 @@ const { items } = Astro.props as { items: Meta[] };
     align-items: center;
     justify-content: center;
 
-    @include for-screen-medium {
+    @include up(md) {
       flex-direction: row;
       gap: space(4xl);
     }
@@ -45,7 +45,7 @@ const { items } = Astro.props as { items: Meta[] };
     gap: space(sm);
     text-align: center;
 
-    @include for-screen-medium {
+    @include up(md) {
       text-align: left;
     }
 
@@ -60,7 +60,7 @@ const { items } = Astro.props as { items: Meta[] };
         background-color: t(border, default);
         transform: translateX(-50%);
 
-        @include for-screen-medium {
+        @include up(md) {
           top: 50%;
           left: -64px;
           width: 1px;

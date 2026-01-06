@@ -87,7 +87,7 @@ const project = Astro.props;
     z-index: layer(fixed);
     transform: translateX(-50%);
 
-    @include for-screen-medium {
+    @include up(md) {
       bottom: space(md);
     }
   }

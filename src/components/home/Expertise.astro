@@ -131,13 +131,13 @@ const contents = [
     gap: space(nm);
     margin-top: space(nm);
 
-    @include for-screen-medium {
+    @include up(md) {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       margin-top: space(xl);
     }
 
     &-item {
-      @include for-screen-medium {
+      @include up(md) {
         &:nth-child(1) {
           grid-row: 1 / 3;
           grid-column: 9 / 13;

@@ -1,10 +1,11 @@
-@use "./foundations" as f;
+@use "sass:map";
+@use "./color" as c;
 
 // helper (theme内でpaletteを取りやすくするだけ)
 @function _p($keys...) {
-  $cur: f.$palette;
+  $cur: c.$palette;
   @each $k in $keys {
-    $cur: map-get($cur, $k);
+    $cur: map.get($cur, $k);
   }
   @return $cur;
 }
