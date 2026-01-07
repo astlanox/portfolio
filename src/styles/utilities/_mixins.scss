@@ -22,8 +22,8 @@
 }
 
 @mixin inner {
-  padding-top: fn.sp(large);
-  padding-bottom: fn.sp(large);
+  padding-top: fn.sp(xlarge);
+  padding-bottom: fn.sp(xlarge);
 
   @include up(xlarge) {
     padding-top: fn.sp(xxxlarge);

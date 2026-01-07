@@ -19,12 +19,13 @@ $radius: (
   circle: 99rem,
 );
 $layer: (
+  background: -1,
   base: 0,
   overlay: 1,
   popup: 2,
   fixed: 3,
 );
 $blur: (
-  light: bl(8px),
-  normal: bl(12px),
+  light: 8px,
+  normal: 12px,
 );

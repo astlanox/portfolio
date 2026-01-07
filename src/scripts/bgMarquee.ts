@@ -1,6 +1,6 @@
 import { qs } from "@/utils/dom";
 
-const init = () => {
+const init = (words: string[]): void => {
   const targetElement = qs(".js-bgMarquee") as HTMLElement | null;
   if (!targetElement) return;
 
@@ -10,21 +10,6 @@ const init = () => {
     marqueeEl.className = "bg-marquee";
     targetElement.appendChild(marqueeEl);
   }
-
-  const words: string[] = [
-    "CMS",
-    "TYPESCRIPT",
-    "REACT",
-    "VUE",
-    "ASTRO",
-    "STRAPI",
-    "GRAPHQL",
-    "SASS",
-    "CSS",
-    "PERFORMANCE",
-    "ACCESSIBILITY",
-    "UI/UX",
-  ];
 
   const speedPxPerSec = 8;
 
@@ -38,12 +23,23 @@ const init = () => {
 
   const minRowGapPx = 96;
 
-  const createWordsEl = (): HTMLDivElement => {
+  const shuffle = <T>(array: T[]): T[] => {
+    const a = [...array];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const createWordsEl = (rowIndex: number): HTMLDivElement => {
     const el = document.createElement("div");
     el.className = "bg-marquee-words";
 
     const frag = document.createDocumentFragment();
-    for (const word of words) {
+
+    const rowWords = shuffle(words);
+    for (const word of rowWords) {
       const wordEl = document.createElement("div");
       wordEl.className = "bg-marquee-word";
       wordEl.textContent = word;
@@ -80,7 +76,7 @@ const init = () => {
     const probeTrack = document.createElement("div");
     probeTrack.className = "bg-marquee-track";
 
-    const probeOne = createWordsEl();
+    const probeOne = createWordsEl(0);
 
     probeTrack.append(probeOne, probeOne.cloneNode(true));
     probeRow.appendChild(probeTrack);
@@ -125,7 +121,7 @@ const init = () => {
       const track = document.createElement("div");
       track.className = "bg-marquee-track";
 
-      const one = createWordsEl();
+      const one = createWordsEl(i);
 
       track.append(one, one.cloneNode(true));
       row.appendChild(track);
@@ -152,4 +148,6 @@ const init = () => {
   }
 };
 
-init();
+export const initBgMarquee = (words: string[]): void => {
+  init(words);
+};

@@ -1,6 +1,7 @@
 ---
 import IconHtml from "@/assets/icons/icon_html.svg";
 import Text from "@/elements/Text.astro";
+
 const contents = [
   {
     title: "Web Development",
@@ -64,9 +65,11 @@ const contents = [
     ],
   },
 ];
+
+const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categories?.map((c) => c.name) ?? [])));
 ---
 
-<section class="container js-bgMarquee">
+<section class="container js-bgMarquee" data-marquee-words={JSON.stringify(marqueeWords)}>
   <div class="inner">
     <h2 class="title">Expertise</h2>
 
@@ -184,3 +187,16 @@ const contents = [
     }
   }
 </style>
+
+<script>
+  import { initBgMarquee } from "@/scripts/bgMarquee";
+
+  const section = document.querySelector(".js-bgMarquee");
+  if (section) {
+    const wordsAttr = section.getAttribute("data-marquee-words");
+    if (wordsAttr) {
+      const words = JSON.parse(wordsAttr);
+      initBgMarquee(words);
+    }
+  }
+</script>

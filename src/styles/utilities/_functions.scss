@@ -36,7 +36,7 @@
 }
 
 @function bl($key) {
-  @return map.get(s.$blur, $key);
+  @return blur(map.get(s.$blur, $key));
 }
 
 @function cl($keys...) {
