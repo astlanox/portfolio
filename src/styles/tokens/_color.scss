@@ -3,24 +3,24 @@ $palette: (
   black: #000,
 
   gray: (
-    100: #f4f4f5,
-    200: #e4e4e7,
-    300: #9c9c9c,
+    100: #9c9c9c,
+    200: #2f2f2f,
+  ),
+
+  aqua: (
+    100: #c0e8e8,
   ),
 
   blue: (
-    100: #c0e8e8,
-    200: #adc3f4,
-    300: #5379ec,
+    100: #adc3f4,
   ),
 
   purple: (
     100: #f4c1f6,
-    300: #d339de,
   ),
 
-  glow: (
-    purple: rgb(123 97 255 / 30%),
-    blue: rgb(0 198 255 / 30%),
-  ),
+  // glow: (
+  //   purple: rgb(123 97 255 / 30%),
+  //   blue: rgb(0 198 255 / 30%),
+   // ),
 );

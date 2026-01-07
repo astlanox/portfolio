@@ -26,15 +26,19 @@
 $semantic: (
   canvas: (
     primary: palette-get(black),
+    transparent: rgb(palette-get(black), 10%),
   ),
   text: (
     primary: palette-get(white),
-    secondary: palette-get(gray, 300),
+    secondary: palette-get(gray, 100),
     hero: linear-gradient(
         to right,
-        palette-get(blue, 200) 0%,
+        palette-get(blue, 100) 0%,
         palette-get(purple, 100) 100%
       ),
-    role: palette-get(blue, 100),
+    role: palette-get(aqua, 100),
+  ),
+  border: (
+    primary: palette-get(gray, 200),
   ),
 );

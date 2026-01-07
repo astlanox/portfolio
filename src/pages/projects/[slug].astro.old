@@ -65,7 +65,7 @@ const project = Astro.props;
     flex-direction: column;
     gap: sp("xxxlarge");
 
-    @include up("xlarge") {
+    @include up(xlarge) {
       gap: sp("5xl");
     }
   }
@@ -73,9 +73,9 @@ const project = Astro.props;
   .info {
     display: flex;
     flex-direction: column;
-    gap: sp("xlarge");
+    gap: sp(xlarge);
 
-    @include up("xlarge") {
+    @include up(xlarge) {
       gap: sp("xxxlarge");
     }
   }
@@ -87,7 +87,7 @@ const project = Astro.props;
     z-index: ly(fixed);
     transform: translateX(-50%);
 
-    @include up(medium) {
+    @include up(xlarge) {
       bottom: sp(medium);
     }
   }
