@@ -17,6 +17,7 @@ import ImageHero from "./_images/hero_img.png";
         modern, scalable websites, focused on clarity, usability, and long-term maintainability.
       </Text>
     </div>
+
     <div class="visual">
       <div class="visual-img">
         <Image src={ImageHero} alt="" />
@@ -40,6 +41,11 @@ import ImageHero from "./_images/hero_img.png";
 
   .inner {
     @include inner;
+    @include box(xlarge);
+
+    @include up(xlarge) {
+      @include box(xxxlarge);
+    }
   }
 
   .content {
