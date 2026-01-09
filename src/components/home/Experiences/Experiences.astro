@@ -1,0 +1,149 @@
+---
+import Text from "@/elements/Text.astro";
+
+const experiences = [
+  {
+    title: "Self-Employed",
+    period: "April 2018 - Present",
+    role: "Web Developer & UI / UX Designer",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    title: "LY Corporation Inc",
+    period: "April 2020 - April 2025",
+    role: "Front-end Engineer",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+  {
+    title: "Kiramex Inc",
+    period: "April 2020 - April 2025",
+    role: "Mentor",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  },
+];
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title">Experiences</h2>
+
+    <ul class="list">
+      {
+        experiences.map((item) => {
+          return (
+            <li class="list-item">
+              <dl class="description">
+                <dt class="description-title">
+                  <Text size="medium" weight="bold" color="primary">
+                    {item.title}
+                  </Text>
+                  <Text size="small" height="thin">
+                    {item.period}
+                  </Text>
+                </dt>
+
+                <dd class="description-detail">
+                  <Text weight="medium" color="primary">
+                    {item.role}
+                  </Text>
+                  <Text>{item.description}</Text>
+                </dd>
+              </dl>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  $description-title-width: 240px;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+  }
+
+  .title {
+    @include title(primary, xlarge, uppercase);
+
+    text-align: center;
+  }
+
+  .list {
+    margin-top: sp(large);
+
+    @include container-inner;
+    @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxlarge);
+
+      margin-top: sp("xlarge");
+    }
+
+    &-item {
+      position: relative;
+
+      &:not(:last-child) {
+        &::before {
+          position: absolute;
+          top: 30px;
+          left: 10px;
+          width: 1px;
+          height: calc(100% + 11px);
+          content: "";
+          background-color: t(ui, timeline);
+
+          @include up(xlarge) {
+            left: calc($description-title-width - 9px);
+            height: calc(100% + 27px);
+          }
+        }
+      }
+    }
+  }
+
+  .description {
+    @include up(xlarge) {
+      display: flex;
+      align-items: flex-start;
+      justify-self: center;
+    }
+
+    &-title {
+      @include ui-node(9px, 0);
+
+      padding-left: sp(large);
+
+      @include up(xlarge) {
+        @include ui-node(9px, calc(100% - 19px));
+
+        min-width: $description-title-width;
+        padding-right: sp(large);
+        padding-left: 0;
+        text-align: right;
+      }
+    }
+
+    &-detail {
+      padding-left: sp(large);
+      margin-top: sp(normal);
+
+      @include up(xlarge) {
+        padding-left: sp(normal);
+        margin-top: sp(xsmall);
+      }
+    }
+  }
+</style>

@@ -30,7 +30,7 @@ $semantic: (
   ),
   text: (
     primary: palette-get(white),
-    secondary: palette-get(gray, 100),
+    secondary: palette-get(gray, 200),
     hero: linear-gradient(
         to right,
         palette-get(blue, 100) 0%,
@@ -39,6 +39,10 @@ $semantic: (
     role: palette-get(aqua, 100),
   ),
   border: (
-    primary: palette-get(gray, 200),
+    primary: palette-get(gray, 300),
+  ),
+  ui: (
+    node: palette-get(gray, 100),
+    timeline: palette-get(gray, 200),
   ),
 );

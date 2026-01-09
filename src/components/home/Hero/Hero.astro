@@ -58,17 +58,15 @@ import ImageHero from "./_images/hero_img.png";
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(fs(xlarge));
+    @include title(primary, xlarge);
 
     &-strong {
-      @include title(fs(xxlarge), uppercase);
+      @include title(primary, xxlarge, uppercase);
     }
   }
 
   .role {
-    @include title(fs(medium), uppercase);
-
-    color: t(text, role);
+    @include title(role, medium, uppercase);
 
     &::before {
       content: "ROLE: ";

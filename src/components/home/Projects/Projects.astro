@@ -48,10 +48,10 @@ const items = [
   }
 
   .title {
-    @include title(fs(xlarge), uppercase);
+    @include title(primary, fs(xlarge), uppercase);
 
     @include up(xlarge) {
-      @include title(fs(large), uppercase);
+      @include title(primary, large, uppercase);
 
       position: absolute;
       top: 50%;

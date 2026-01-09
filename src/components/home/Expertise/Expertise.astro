@@ -77,13 +77,18 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
       {
         contents.map((item) => (
           <li class="list-item">
-            <article class="article js-article" tabindex="0" role="button">
-              <h3 class="article-title">{item.title}</h3>
+            <dl class="description" tabindex="0" role="button">
+              <dt class="description-title">
+                {item.title}
+                <Text size="medium" weight="bold" color="primary" height="thin">
+                  {item.title}
+                </Text>
+              </dt>
 
-              <div class="article-summary">
+              <dd class="description-detail">
                 <Text height="normal">{item.summary}</Text>
-              </div>
-            </article>
+              </dd>
+            </dl>
           </li>
         ))
       }
@@ -107,14 +112,14 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
   }
 
   .title {
-    @include title(fs("xlarge"), uppercase);
+    @include title(primary, xlarge, uppercase);
   }
 
   .list {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: sp(normal);
-    margin-top: sp(normal);
+    margin-top: sp(large);
 
     @include up(xlarge) {
       grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -161,7 +166,7 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
     }
   }
 
-  .article {
+  .description {
     @include box(normal);
 
     position: relative;
@@ -180,10 +185,6 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
 
     &::after {
       transform: rotate(90deg);
-    }
-
-    &-title {
-      @include title(fs(medium));
     }
   }
 </style>

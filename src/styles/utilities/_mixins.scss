@@ -6,9 +6,9 @@
   }
 }
 
-@mixin container($max-width: 1200px) {
+@mixin container {
   width: 100%;
-  max-width: $max-width;
+  max-width: fn.ct(large);
   padding-right: fn.sp(normal);
   padding-left: fn.sp(normal);
   margin-right: auto;
@@ -37,12 +37,12 @@
   gap: fn.sp($gap);
 }
 
-@mixin title($font-size, $transform: null) {
+@mixin title($color, $font-size, $transform: null) {
   font-family: Orbitron, sans-serif;
-  font-size: $font-size;
+  font-size: fn.fs($font-size);
   font-weight: fn.fw(bold);
   line-height: fn.lh(thin);
-  color: fn.t(text, primary);
+  color: fn.t(text, $color);
   letter-spacing: fn.ls(wide);
 
   @if $transform {
@@ -51,10 +51,48 @@
 }
 
 @mixin title-label($font-size) {
-  font-size: $font-size;
+  font-size: fn.fs($font-size);
   font-weight: fn.fw(bold);
   text-transform: capitalize;
   background: fn.cl(gradient);
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+@mixin ui-node($top: 0, $left: 0) {
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    border-radius: fn.rd(circle);
+  }
+
+  &::before {
+    top: $top;
+    left: $left;
+    width: 19px;
+    height: 19px;
+    background-color: fn.t(canvas, primary);
+    border: 1px solid fn.t(ui, node);
+  }
+
+  &::after {
+    @if $top == 0 {
+      top: 4px;
+    } @else {
+      top: calc(#{$top} + 4px);
+    }
+
+    @if $left == 0 {
+      left: 4px;
+    } @else {
+      left: calc(#{$left} + 4px);
+    }
+
+    width: 13px;
+    height: 13px;
+    background-color: fn.t(ui, node);
+  }
 }
