@@ -1,0 +1,94 @@
+---
+import Icon from "@/assets/icons/icon_html.svg";
+import Image from "@/elements/Image.astro";
+import Text from "@/elements/Text.astro";
+
+const stacks = [
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+  { name: "Astro", image: Icon },
+  { name: "React", image: Icon },
+  { name: "Tailwind CSS", image: Icon },
+];
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title">Stacks</h2>
+
+    <ul class="list">
+      {
+        stacks.map((stack) => (
+          <li class="list-item">
+            <Image src={stack.image} alt={stack.name} />
+            <Text color="primary">{stack.name}</Text>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  $description-title-width: 240px;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+    @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxxlarge);
+
+      flex-direction: row;
+    }
+  }
+
+  .title {
+    @include title(primary, xlarge, uppercase);
+
+    text-align: center;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: sp(small);
+
+    @include up(xlarge) {
+      gap: sp(normal);
+    }
+
+    &-item {
+      display: flex;
+      gap: sp(small);
+      align-items: center;
+      justify-content: center;
+      padding: sp(small) sp(normal) sp(small) sp(small);
+      border: 1px solid t(border, primary);
+      border-radius: rd(small);
+    }
+  }
+</style>
