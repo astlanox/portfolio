@@ -1,4 +1,5 @@
 ---
+import Cta from "@/components/common/Cta.astro";
 import Footer from "@/components/common/Footer.astro";
 import Header from "@/components/common/Header.astro";
 import { Titles } from "@/constants/meta";
@@ -25,6 +26,10 @@ import "@/styles/style.scss";
 
     <main>
       <slot />
+
+      <nav class="nav js-cta">
+        <Cta />
+      </nav>
     </main>
 
     <Footer />
@@ -34,4 +39,32 @@ import "@/styles/style.scss";
 <style lang="scss">
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
+
+  .nav {
+    position: fixed;
+    bottom: sp(normal);
+    left: 50%;
+    z-index: ly(fixed);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(-50%) translateY(100%);
+    transition: 0.25s ease-in-out;
+
+    @include up(xlarge) {
+      bottom: sp(medium);
+    }
+
+    &.is-show {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0%);
+      transition: 0.25s ease-in-out;
+
+      &:hover {
+        transform: translateX(-50%) translateY(0%) scale(103%);
+      }
+    }
+  }
 </style>
+
+<script src="@/scripts/ctaObserver.ts"></script>

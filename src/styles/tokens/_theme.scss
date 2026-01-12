@@ -27,6 +27,7 @@ $semantic: (
   canvas: (
     primary: palette-get(black),
     transparent: rgb(palette-get(black), 10%),
+    white: palette-get(white),
   ),
   text: (
     primary: palette-get(white),
@@ -37,6 +38,7 @@ $semantic: (
         palette-get(purple, 100) 100%
       ),
     accent: palette-get(aqua, 100),
+    black: palette-get(black),
   ),
   border: (
     primary: palette-get(gray, 300),

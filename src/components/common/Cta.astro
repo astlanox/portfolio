@@ -1,112 +1,92 @@
 ---
+import IconSignal from "@/assets/icons/icon_signal.svg";
 import { Urls } from "@/constants/meta";
+import Button from "@/elements/Button.astro";
 import Text from "@/elements/Text.astro";
+
+const { isSmall = false } = Astro.props;
+
+const classList = ["container"];
+if (isSmall) classList.push("container-small");
 ---
 
-<div class="container">
-  <div class="inner">
-    <div class="glass">
-      <div class="glass-filter"></div>
-      <div class="glass-overlay"></div>
-      <div class="glass-specular"></div>
-      <div class="content">
-        <div class="text">
-          <Text size="small" color="primary" nowrap>Let's talk now</Text>
-        </div>
-
-        <div class="button">
-          <a href={Urls.CONTACT}>
-            <Text size="small" color="black" weight="medium" nowrap>Get in Touch</Text>
-          </a>
-        </div>
+<div class={classList.join(" ") || undefined}>
+  <div class="content">
+    <div class="content-inner">
+      <div class="content-text">
+        <Text color="primary" size="small" nowrap>Let's talk now</Text>
       </div>
+
+      <Button link={Urls.CONTACT} label={isSmall ? "" : "Open channel"}>
+        <IconSignal slot="icon" />
+      </Button>
     </div>
   </div>
 
-  <div class="inner">
-    <div class="glass">
-      <div class="glass-filter"></div>
-      <div class="glass-overlay"></div>
-      <div class="glass-specular"></div>
-
-      <svg style="display: none">
-        <filter id="large-dist" x="0%" y="0%" width="100%" height="100%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise">
-          </feTurbulence>
-          <feGaussianBlur in="noise" stdDeviation="2" result="blurred"></feGaussianBlur>
-          <feDisplacementMap in="SourceGraphic" in2="blurred" scale="70" xChannelSelector="R" yChannelSelector="G">
-          </feDisplacementMap>
-        </filter>
-      </svg>
-    </div>
-  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <defs>
+      <filter id="glass-distortion" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.008" numOctaves="2" seed="92" result="noise">
+        </feTurbulence>
+        <feGaussianBlur in="noise" stdDeviation="2" result="blurred"></feGaussianBlur>
+        <feDisplacementMap in="SourceGraphic" in2="blurred" scale="77" xChannelSelector="R" yChannelSelector="G">
+        </feDisplacementMap>
+      </filter>
+    </defs>
+  </svg>
 </div>
 
-<!-- <style lang="scss">
+<style lang="scss">
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
 
-  .inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .glass {
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    border-radius: rd(small);
-    box-shadow:
-      0 6px 6px rgb(0 0 0 / 20%),
-      0 0 20px rgb(0 0 0 / 10%);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 2.2);
-
-    &-filter {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      isolation: isolate;
-      filter: url("#large-dist");
-      backdrop-filter: bl(4px);
-    }
-
-    &-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: ly(overlay);
-      background: t(glass, bg);
-    }
-
-    &-specular {
-      position: absolute;
-      inset: 0;
-      z-index: ly(popup);
-      overflow: hidden;
-      border-radius: inherit;
-      box-shadow:
-        inset 1px 1px 0 t(glass, highlight),
-        inset 0 0 5px t(glass, highlight);
-    }
-  }
-
   .content {
     position: relative;
-    z-index: ly(fixed);
-    display: flex;
-    gap: sp(normal);
-    align-items: center;
-    justify-content: center;
-    padding: sp(small) sp(small) sp(small) sp(medium);
+    border-radius: rd(small);
+    box-shadow: 0 6px 24px rgb(0 0 0 / 20%);
+    isolation: isolate;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      border-radius: rd(small);
+    }
+
+    &::before {
+      z-index: 0;
+      background-color: t(canvas, transparent);
+      box-shadow: inset 0 0 8px -4px cl(white);
+    }
+
+    &::after {
+      z-index: -1;
+      filter: url("#glass-distortion");
+      backdrop-filter: blur(0);
+    }
+
+    &-inner {
+      display: flex;
+      gap: sp(normal);
+      align-items: center;
+      justify-content: center;
+      padding: sp(small) sp(small) sp(small) sp(normal);
+      backdrop-filter: blur(1px);
+    }
   }
 
-  // .text {
-  //   display: none;
-  // }
-  .button {
-    padding: sp(small) sp(normal);
-    background-color: t(bg, secondary);
-    border-radius: rd(pill);
+  .container-small {
+    .content-inner {
+      padding: sp(small);
+    }
+
+    .content-text {
+      display: none;
+    }
   }
-</style> -->
+</style>

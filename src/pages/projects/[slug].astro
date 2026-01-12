@@ -1,5 +1,4 @@
 ---
-import Cta from "@/components/common/Cta.astro";
 import Description from "@/components/projects/Description/Description.astro";
 import Flow from "@/components/projects/Flow/Flow.astro";
 import Meta from "@/components/projects/Meta/Meta.astro";
@@ -46,10 +45,6 @@ const project = Astro.props;
     <Requirement items={project.requirements} />
     <Solution items={project.solutions} />
   </article>
-
-  <aside class="aside">
-    <Cta />
-  </aside>
 </Layout>
 
 <style lang="scss">
@@ -66,18 +61,6 @@ const project = Astro.props;
 
     @include up(xlarge) {
       @include box(xxxlarge);
-    }
-  }
-
-  .aside {
-    position: fixed;
-    bottom: sp(normal);
-    left: 50%;
-    z-index: ly(fixed);
-    transform: translateX(-50%);
-
-    @include up(xlarge) {
-      bottom: sp(medium);
     }
   }
 </style>
