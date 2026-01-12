@@ -6,10 +6,10 @@ import ImageItem01 from "./_images/projects_item-01.png";
 
 const items = [
   { title: "Soelu Studio", url: `${Urls.PROJECT_LIST}/soelu-studio/`, image: ImageItem01 },
-  { title: "Soelu LP", url: `${Urls.PROJECT_LIST}/soelu-landing-page/`, image: ImageItem01 },
-  { title: "hogehoge", url: `${Urls.PROJECT_LIST}/hogehoge/`, image: ImageItem01 },
-  { title: "hugahuga", url: `${Urls.PROJECT_LIST}/hugahuga/`, image: ImageItem01 },
-  { title: "mochimochi", url: `${Urls.PROJECT_LIST}/mochimochi/`, image: ImageItem01 },
+  { title: "Soelu LP", image: ImageItem01 },
+  { title: "hogehoge", image: ImageItem01 },
+  { title: "hugahuga", image: ImageItem01 },
+  { title: "mochimochi", image: ImageItem01 },
 ];
 ---
 
@@ -20,11 +20,13 @@ const items = [
       {
         items.map((item) => (
           <li class="list-item" style={`background-image:url(${item.image.src})`}>
-            <Link url={item.url}>
-              <div class="list-item-title">
-                <Text color="primary">{item.title}</Text>
-              </div>
-            </Link>
+            {item.url && (
+              <Link url={item.url}>
+                <div class="list-item-title">
+                  <Text color="primary">{item.title}</Text>
+                </div>
+              </Link>
+            )}
           </li>
         ))
       }
