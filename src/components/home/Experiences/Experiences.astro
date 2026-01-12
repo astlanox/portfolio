@@ -40,15 +40,14 @@ const experiences = [
                   <Text size="medium" weight="bold" color="primary">
                     {item.title}
                   </Text>
+
                   <Text size="small" height="thin">
                     {item.period}
                   </Text>
                 </dt>
 
                 <dd class="description-detail">
-                  <Text weight="medium" color="primary">
-                    {item.role}
-                  </Text>
+                  <Text color="primary">{item.role}</Text>
                   <Text>{item.description}</Text>
                 </dd>
               </dl>
@@ -100,7 +99,7 @@ const experiences = [
           position: absolute;
           top: 30px;
           left: 10px;
-          width: 1px;
+          width: 2px;
           height: calc(100% + 11px);
           content: "";
           background-color: t(ui, timeline);

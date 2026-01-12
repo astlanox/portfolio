@@ -54,19 +54,19 @@ import ImageHero from "./_images/hero_img.png";
   }
 
   .title {
-    background: t(text, hero);
+    background: t(text, gradient);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(primary, xlarge);
+    @include title(primary, xxlarge);
 
     &-strong {
-      @include title(primary, xxlarge, uppercase);
+      @include title(primary, xxxlarge, uppercase);
     }
   }
 
   .role {
-    @include title(role, medium, uppercase);
+    @include title(accent, medium, uppercase);
 
     &::before {
       content: "ROLE: ";

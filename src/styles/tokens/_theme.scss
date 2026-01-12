@@ -31,18 +31,19 @@ $semantic: (
   text: (
     primary: palette-get(white),
     secondary: palette-get(gray, 200),
-    hero: linear-gradient(
+    gradient: linear-gradient(
         to right,
         palette-get(blue, 100) 0%,
         palette-get(purple, 100) 100%
       ),
-    role: palette-get(aqua, 100),
+    accent: palette-get(aqua, 100),
   ),
   border: (
     primary: palette-get(gray, 300),
+    transparent: rgb(palette-get(white), 10%),
   ),
   ui: (
     node: palette-get(gray, 100),
-    timeline: palette-get(gray, 200),
+    timeline: palette-get(gray, 300),
   ),
 );

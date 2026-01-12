@@ -1,13 +1,13 @@
 ---
 import Cta from "@/components/common/Cta.astro";
-import Description from "@/components/projects/Description.astro";
-import Flow from "@/components/projects/Flow.astro";
-import Meta from "@/components/projects/Meta.astro";
-import Requirement from "@/components/projects/Requirement.astro";
-import Solution from "@/components/projects/Solution.astro";
-import Stack from "@/components/projects/Stack.astro";
-import Thumbnail from "@/components/projects/Thumbnail.astro";
-import Title from "@/components/projects/Title.astro";
+import Description from "@/components/projects/Description/Description.astro";
+import Flow from "@/components/projects/Flow/Flow.astro";
+import Meta from "@/components/projects/Meta/Meta.astro";
+import Requirement from "@/components/projects/Requirement/Requirement.astro";
+import Solution from "@/components/projects/Solution/Solution.astro";
+import Stacks from "@/components/projects/Stacks/Stacks.astro";
+import Thumbnail from "@/components/projects/Thumbnail/Thumbnail.astro";
+import Title from "@/components/projects/Title/Title.astro";
 import Layout from "@/layouts/layout.astro";
 import fetchApi from "@/libs/cms";
 import type { Project } from "@/types/project";
@@ -30,8 +30,8 @@ const project = Astro.props;
     </a>
   </nav> -->
 
-  <article class="article">
-    <div class="info">
+  <article>
+    <div class="inner">
       <div>
         <Title title={project.title} label={project.label} />
         <Thumbnail src={project.thumbnail?.url} width={project.thumbnail?.width} height={project.thumbnail?.height} />
@@ -39,7 +39,7 @@ const project = Astro.props;
 
       <Description text={project.description} />
       <Meta items={project.metas} />
-      <Stack items={project.categories} />
+      <Stacks items={project.categories} />
       <Flow items={project.flows} />
     </div>
 
@@ -60,23 +60,12 @@ const project = Astro.props;
     @include container;
   }
 
-  .article {
-    display: flex;
-    flex-direction: column;
-    gap: sp("xxxlarge");
+  .inner {
+    @include inner;
+    @include box(large);
 
     @include up(xlarge) {
-      gap: sp("5xl");
-    }
-  }
-
-  .info {
-    display: flex;
-    flex-direction: column;
-    gap: sp(xlarge);
-
-    @include up(xlarge) {
-      gap: sp("xxxlarge");
+      @include box(xxxlarge);
     }
   }
 

@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { Urls } from "@/constants/meta";
 import Link from "@/elements/Link.astro";
 import Text from "@/elements/Text.astro";
@@ -48,10 +47,10 @@ const items = [
   }
 
   .title {
-    @include title(primary, fs(xlarge), uppercase);
+    @include title(primary, xxlarge, uppercase);
 
     @include up(xlarge) {
-      @include title(primary, large, uppercase);
+      @include title(primary, xlarge, uppercase);
 
       position: absolute;
       top: 50%;

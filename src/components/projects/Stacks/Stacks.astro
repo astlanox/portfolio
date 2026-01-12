@@ -1,0 +1,45 @@
+---
+import type { Category } from "@/types/project";
+import Text from "@/elements/Text.astro";
+
+const { items } = Astro.props as { items: Category[] };
+---
+
+<div class="container">
+  <ul class="list">
+    {
+      items.map((item) => (
+        <li class="list-item">
+          <Text color="primary">{item.name}</Text>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: sp(small);
+    align-items: center;
+    justify-content: center;
+
+    @include up(xlarge) {
+      gap: sp(normal);
+    }
+
+    &-item {
+      padding: sp(xsmall) sp(normal);
+      border: 1px solid t(border, primary);
+      border-radius: rd(normal);
+    }
+  }
+</style>

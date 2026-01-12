@@ -107,12 +107,12 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
   }
 
   .inner {
-    padding-top: sp("xxxlarge");
-    padding-bottom: sp("xxxlarge");
+    padding-top: sp(xxxlarge);
+    padding-bottom: sp(xxxlarge);
   }
 
   .title {
-    @include title(primary, xlarge, uppercase);
+    @include title(primary, xxlarge, uppercase);
   }
 
   .list {
@@ -123,14 +123,14 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
 
     @include up(xlarge) {
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      margin-top: sp("xlarge");
+      margin-top: sp(xlarge);
     }
 
     &-item {
       @include box;
 
       justify-content: flex-end;
-      padding: sp("xxxlarge") sp(medium) sp(medium);
+      padding: sp(xxxlarge) sp(medium) sp(medium);
       background-color: t(canvas, transparent);
       border: 1px solid t(border, primary);
       border-radius: rd(normal);
