@@ -60,7 +60,7 @@ const stacks = [
     @include box(large);
 
     @include up(xlarge) {
-      @include box(xxxlarge);
+      @include box(xxlarge);
 
       flex-direction: row;
     }
@@ -70,6 +70,10 @@ const stacks = [
     @include title(primary, xxlarge, uppercase);
 
     text-align: center;
+
+    @include up(xlarge) {
+      @include title(primary, large, uppercase);
+    }
   }
 
   .list {

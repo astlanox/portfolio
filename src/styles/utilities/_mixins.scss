@@ -13,6 +13,11 @@
   padding-left: fn.sp(normal);
   margin-right: auto;
   margin-left: auto;
+
+  @include up(xlarge) {
+    padding-right: fn.sp(xlarge);
+    padding-left: fn.sp(xlarge);
+  }
 }
 
 @mixin container-inner {

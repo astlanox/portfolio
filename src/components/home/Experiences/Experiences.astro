@@ -37,7 +37,7 @@ const experiences = [
             <li class="list-item">
               <dl class="description">
                 <dt class="description-title">
-                  <Text size="medium" weight="bold" color="primary">
+                  <Text size="medium" weight="bold" color="primary" height="normal">
                     {item.title}
                   </Text>
 
@@ -63,7 +63,7 @@ const experiences = [
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
 
-  $description-title-width: 240px;
+  $description-title-width: 280px;
 
   .container {
     @include container;
@@ -74,7 +74,7 @@ const experiences = [
   }
 
   .title {
-    @include title(primary, xlarge, uppercase);
+    @include title(primary, xxlarge, uppercase);
 
     text-align: center;
   }
@@ -97,15 +97,16 @@ const experiences = [
       &:not(:last-child) {
         &::before {
           position: absolute;
-          top: 30px;
-          left: 10px;
+          top: 25px;
+          left: 9.5px;
           width: 2px;
           height: calc(100% + 11px);
           content: "";
           background-color: t(ui, timeline);
 
           @include up(xlarge) {
-            left: calc($description-title-width - 9px);
+            top: 29px;
+            left: calc($description-title-width - 9.5px);
             height: calc(100% + 27px);
           }
         }
@@ -121,12 +122,12 @@ const experiences = [
     }
 
     &-title {
-      @include ui-node(9px, 0);
+      @include ui-node(4px, 0);
 
       padding-left: sp(large);
 
       @include up(xlarge) {
-        @include ui-node(9px, calc(100% - 19px));
+        @include ui-node(8px, calc(100% - 19px));
 
         min-width: $description-title-width;
         padding-right: sp(large);

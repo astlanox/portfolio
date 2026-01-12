@@ -6,7 +6,7 @@ const currentYear = getCurrentYear();
 ---
 
 <footer class="footer">
-  <Text tag="small" size="xsmall" align="center">&copy; {currentYear} Astlanox.</Text>
+  <Text tag="small" size="xsmall">&copy; {currentYear} Astlanox.</Text>
 </footer>
 
 <style lang="scss">
@@ -14,7 +14,8 @@ const currentYear = getCurrentYear();
   @use "@/styles/utilities" as *;
 
   .footer {
-    padding-top: sp(large);
-    padding-bottom: sp(large);
+    padding-top: sp(medium);
+    padding-bottom: sp(medium);
+    text-align: center;
   }
 </style>
