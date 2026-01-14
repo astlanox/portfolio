@@ -37,7 +37,12 @@ import ImageHero from "./_images/hero_img.png";
   }
 
   .visual {
-    max-width: 670px;
+    max-width: 960px;
+
+    @include up(xlarge) {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
   }
 
   .description {
