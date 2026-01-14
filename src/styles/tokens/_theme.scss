@@ -41,7 +41,7 @@ $semantic: (
     black: palette-get(black),
   ),
   border: (
-    primary: palette-get(gray, 300),
+    primary: rgb(palette-get(gray, 100), 20%),
     transparent: rgb(palette-get(white), 10%),
   ),
   ui: (

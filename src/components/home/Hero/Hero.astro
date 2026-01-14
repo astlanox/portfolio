@@ -1,7 +1,6 @@
 ---
-import Image from "@/elements/Image.astro";
 import Text from "@/elements/Text.astro";
-import ImageHero from "./_images/hero_img.png";
+import Visual from "./_Visual/_Visual.astro";
 ---
 
 <section class="container">
@@ -18,17 +17,30 @@ import ImageHero from "./_images/hero_img.png";
       </Text>
     </div>
 
-    <div class="visual">
-      <div class="visual-img">
-        <Image src={ImageHero} alt="" />
-      </div>
-    </div>
+    <Visual />
   </div>
+
+  <canvas id="blob3d" class="blob3d" aria-hidden="true"></canvas>
 </section>
 
 <style lang="scss">
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
+
+  .blob3d {
+    position: fixed;
+    inset: 0;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 100%;
+    height: 75%;
+    transform: translate(-50%, -50%);
+
+    @include up(medium) {
+      height: 90%;
+    }
+  }
 
   .container {
     @include container;
@@ -72,15 +84,276 @@ import ImageHero from "./_images/hero_img.png";
       content: "ROLE: ";
     }
   }
-
-  .visual {
-    @include box;
-
-    align-items: center;
-    justify-content: center;
-
-    &-img {
-      max-width: 670px;
-    }
-  }
 </style>
+
+<script type="module">
+  import * as THREE from "https://unpkg.com/three@0.161.0/build/three.module.js";
+
+  // ===== Canvas =====
+  const canvas = document.getElementById("blob3d");
+  if (!canvas) throw new Error('Canvas element "#blob3d" not found');
+
+  // ===== Renderer =====
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true,
+    powerPreference: "high-performance",
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  // ===== Scene / Camera =====
+  const scene = new THREE.Scene();
+
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+  camera.position.set(0, 0, 6);
+
+  // ===== Lights (控えめ) =====
+  scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+
+  const dir = new THREE.DirectionalLight(0xffffff, 0.85);
+  dir.position.set(2, 2, 3);
+  scene.add(dir);
+
+  // ===== Geometry: polygon sphere + barycentric for "vertex cross (+)" marks =====
+  const radius = 2.05;
+
+  const detail = 20; // 3〜5推奨（低いほどポリゴン感強い）
+
+  // Overall animation speed. This scales BOTH the surface deformation (uTime) and the mesh rotation.
+  // Typical range: 0.05 (very slow) ~ 0.5 (normal). Keep this > 0.
+  const TIME_SCALE = 0.1;
+
+  // Optional: additional rotation multipliers (keep small for background use)
+  const ROT_Y = 0.1;
+
+  const ROT_X = 0.05;
+
+  // ===== Tunables (edit these to tweak the look quickly) =====
+  // Cross ("+") marks
+  const CROSS_OPACITY = 0.05; // 0.04 ~ 0.22 (lower = fainter)
+
+  const CROSS_SIZE = 0.12; // 0.06 ~ 0.18 (higher = bigger "+")
+
+  const CROSS_THICKNESS = 1; // 0.9  ~ 1.8  (higher = thicker)
+
+  const CROSS_BOOST = 1; // 1.0  ~ 2.0  (multiplies mark intensity)
+
+  // Sphere fill visibility
+  const FILL_OPACITY = 0.5; // overall fill presence (alpha cap is still 0.30)
+
+  const HALO_STRENGTH = 0.42; // 0.20 ~ 0.55 (edge glow/softness)
+
+  // Gradient boundary softness (higher = blurrier / wider transition)
+  // 0.0 keeps the current crisp-ish boundary. Typical: 0.0 ~ 1.0
+  const GRADIENT_SOFTNESS = 1;
+
+  const base = new THREE.IcosahedronGeometry(radius, detail);
+
+  const geo = base.toNonIndexed();
+
+  // barycentric attribute per triangle: (1,0,0)(0,1,0)(0,0,1)
+  const vCount = geo.attributes.position.count;
+
+  const bary = new Float32Array(vCount * 3);
+  for (let i = 0; i < vCount; i += 3) {
+    bary.set([1, 0, 0, 0, 1, 0, 0, 0, 1], i * 3);
+  }
+  geo.setAttribute("aBary", new THREE.BufferAttribute(bary, 3));
+
+  // ===== ShaderMaterial (single mesh, fill gradient + vertex-only polygon marks) =====
+  const mat = new THREE.ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    uniforms: {
+      uTime: { value: 0 },
+
+      // ★ Requested gradient: left -> right
+      uLeft: { value: new THREE.Color("#5379EC") },
+      uRight: { value: new THREE.Color("#D339DE") },
+
+      // "cross (+)" marks color (subtle)
+      uMark: { value: new THREE.Color("#cfd7ff") },
+
+      // Fill
+      uFillAlpha: { value: FILL_OPACITY },
+
+      // Cross ("+") marks
+      uMarkAlpha: { value: CROSS_OPACITY },
+      uNodeWidth: { value: CROSS_THICKNESS },
+      uNodeLen: { value: CROSS_SIZE },
+
+      uCrossBoost: { value: CROSS_BOOST },
+      uHaloStrength: { value: HALO_STRENGTH },
+
+      // Gradient boundary softness
+      uGradSoftness: { value: GRADIENT_SOFTNESS },
+
+      // deformation strength
+      uDisp: { value: 0.22 }, // 0.12〜0.32
+    },
+    vertexShader: `
+      uniform float uTime;
+      uniform float uDisp;
+
+      attribute vec3 aBary;
+
+      varying vec3 vBary;
+      varying vec3 vNormalW;
+      varying vec3 vPosW;
+
+      // lightweight pseudo noise
+      float n3(vec3 p){
+        return
+          0.55*sin(p.x*1.7 + uTime*1.25) +
+          0.35*sin(p.y*2.1 + uTime*1.65) +
+          0.25*sin(p.z*2.7 + uTime*1.05) +
+          0.15*sin((p.x+p.y+p.z)*3.1 + uTime*1.95);
+      }
+
+      void main(){
+        vBary = aBary;
+
+        vec3 n = normalize(normal);
+        float nval = n3(position * 0.9);
+
+        // deform along normal (breathing sphere)
+        vec3 pos = position + n * (nval * uDisp);
+
+        vec4 worldPos = modelMatrix * vec4(pos, 1.0);
+        vPosW = worldPos.xyz;
+        vNormalW = normalize(mat3(modelMatrix) * n);
+
+        gl_Position = projectionMatrix * viewMatrix * worldPos;
+      }
+    `,
+    fragmentShader: `
+      uniform vec3 uLeft;
+      uniform vec3 uRight;
+      uniform vec3 uMark;
+
+      uniform float uTime;
+      uniform float uFillAlpha;
+      uniform float uMarkAlpha;
+
+      uniform float uNodeWidth;
+      uniform float uNodeLen;
+
+      uniform float uCrossBoost;
+      uniform float uHaloStrength;
+
+      uniform float uGradSoftness;
+
+      varying vec3 vBary;
+      varying vec3 vNormalW;
+      varying vec3 vPosW;
+
+      float edgeLine(float b){
+        float w = fwidth(b) * uNodeWidth;
+        return 1.0 - smoothstep(0.0, w, b);
+      }
+
+      // vertex-only "plus" style marks
+      float vertexMark(vec3 bary){
+        float x = bary.x;
+        float y = bary.y;
+        float z = bary.z;
+
+        float nearA = smoothstep(1.0 - uNodeLen, 1.0, x);
+        float nearB = smoothstep(1.0 - uNodeLen, 1.0, y);
+        float nearC = smoothstep(1.0 - uNodeLen, 1.0, z);
+
+        float markA = nearA * max(edgeLine(y), edgeLine(z));
+        float markB = nearB * max(edgeLine(z), edgeLine(x));
+        float markC = nearC * max(edgeLine(x), edgeLine(y));
+
+        return max(markA, max(markB, markC));
+      }
+
+      void main(){
+        // left -> right gradient based on world X (tuned to radius)
+        // uGradSoftness widens the smoothstep interval -> softer boundary
+        float gs = max(0.0, uGradSoftness);
+        float noise = sin(vPosW.y * 12.0 + uTime * 0.6) * 0.04;
+        float g = smoothstep(-2.2 - gs, 2.2 + gs, vPosW.x + noise);
+        vec3 baseCol = mix(uLeft, uRight, g);
+
+        // subtle shading for 3D feel (doesn't affect requested opacity much)
+        vec3 N = normalize(vNormalW);
+        vec3 V = normalize(cameraPosition - vPosW);
+        float fres = pow(1.0 - max(0.0, dot(N, V)), 2.1);
+
+        // vertex-only marks (keep crisp)
+        float mark = vertexMark(vBary);
+
+        // --- silhouette softening (shader-only) ---
+        // rim: view-angle based feather
+        float rim = pow(1.0 - max(0.0, dot(N, V)), 1.7);
+        // radius-based feather (helps keep the edge soft regardless of lighting)
+        float r = length(vPosW) / 2.2;                 // ~1.0 near surface
+        float edge = smoothstep(0.78, 1.05, r);
+        float feather = max(rim, edge);
+
+        // Fill color + a soft halo near the edge (gives the blurred-contour look)
+        vec3 fill = baseCol * (0.78 + 0.22*fres);
+        vec3 halo = baseCol * (uHaloStrength * feather);
+        vec3 fillCol = fill + halo;
+
+        // Compose: fill + polygon cross marks (not affected by feather)
+        vec3 finalCol = fillCol + uMark * (mark * uCrossBoost);
+        finalCol *= (0.92 + 0.08 * (1.0 - fres));
+
+        // Alpha: soften only the silhouette (fill), keep marks visible
+        float alphaFill = uFillAlpha * (1.0 - 0.80 * feather);
+        float alpha = alphaFill + (uMarkAlpha * mark);
+
+        gl_FragColor = vec4(finalCol, clamp(alpha, 0.0, 0.30));
+      }
+    `,
+  });
+
+  // ===== Single mesh only =====
+  const blob = new THREE.Mesh(geo, mat);
+  scene.add(blob);
+
+  // ===== Resize =====
+  function resize() {
+    const w = canvas.clientWidth;
+
+    const h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(canvas);
+  resize();
+
+  // ===== Animation =====
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const clock = new THREE.Clock();
+
+  function tick() {
+    const t = clock.getElapsedTime();
+
+    const ts = t * TIME_SCALE;
+
+    // Scale BOTH deformation time and rotation time so TIME_SCALE actually slows everything.
+    mat.uniforms.uTime.value = ts;
+
+    // Background drift (also scaled)
+    blob.rotation.y = ts * ROT_Y;
+    blob.rotation.x = ts * ROT_X;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+  }
+
+  if (prefersReduced) {
+    mat.uniforms.uTime.value = 0;
+    renderer.render(scene, camera);
+  } else {
+    tick();
+  }
+</script>

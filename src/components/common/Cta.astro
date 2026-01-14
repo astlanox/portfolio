@@ -43,7 +43,7 @@ if (isSmall) classList.push("container-small");
   .content {
     position: relative;
     overflow: hidden;
-    border: 1px solid t(border, transparent);
+    border: 2px solid t(border, transparent);
     border-radius: rd(small);
     box-shadow: 0 6px 24px rgb(0 0 0 / 10%);
     isolation: isolate;
@@ -63,7 +63,8 @@ if (isSmall) classList.push("container-small");
     &::before {
       z-index: 0;
       background-color: t(canvas, transparent);
-      box-shadow: inset 0 0 5px -1px cl(white);
+
+      // box-shadow: inset 0 0 5px -1px cl(white);
     }
 
     &::after {

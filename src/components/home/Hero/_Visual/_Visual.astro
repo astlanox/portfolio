@@ -1,0 +1,92 @@
+---
+import Image from "@/elements/Image.astro";
+import ImageHero from "./_images/hero_img.png";
+---
+
+<div class="container">
+  <div class="visual">
+    <Image src={ImageHero} alt="" />
+  </div>
+
+  <dl class="description">
+    <dt class="description-title">Web developer</dt>
+
+    <dd>
+      <dl class="description-list">
+        <dt class="description-label">Signal strength</dt>
+        <dd class="description-detail">87<span class="description-detail-unit">%</span></dd>
+      </dl>
+
+      <dl class="description-list">
+        <dt class="description-label">Latency</dt>
+        <dd class="description-detail">12<span class="description-detail-unit">ms</span></dd>
+      </dl>
+    </dd>
+  </dl>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .visual {
+    max-width: 670px;
+  }
+
+  .description {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: sp(small) sp(normal);
+    text-align: left;
+    background-color: t(canvas, transparent);
+    border: 1px solid t(border, primary);
+    border-radius: rd(normal);
+    backdrop-filter: bl(light);
+
+    &-title {
+      @include title(primary, normal, capitalize);
+
+      padding: sp(normal) sp(small);
+      font-weight: fw(medium);
+    }
+
+    &-list {
+      display: flex;
+      gap: sp(small);
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: sp(normal) sp(small);
+      border-top: 1px solid t(border, primary);
+    }
+
+    &-label {
+      @include title(primary, small, capitalize);
+
+      font-weight: fw(normal);
+
+      &::after {
+        content: ":";
+      }
+    }
+
+    &-detail {
+      @include title(primary, small, uppercase);
+
+      font-weight: fw(normal);
+
+      &-unit {
+        @include title(primary, xsmall);
+
+        font-weight: fw(normal);
+      }
+    }
+  }
+</style>
