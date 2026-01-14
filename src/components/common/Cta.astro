@@ -1,5 +1,5 @@
 ---
-import IconSignal from "@/assets/icons/icon_signal.svg";
+import IconEmail from "@/assets/icons/icon_signal.svg";
 import { Urls } from "@/constants/meta";
 import Button from "@/elements/Button.astro";
 import Text from "@/elements/Text.astro";
@@ -14,11 +14,11 @@ if (isSmall) classList.push("container-small");
   <div class="content">
     <div class="content-inner">
       <div class="content-text">
-        <Text color="primary" size="small" nowrap>Let's talk now</Text>
+        <Text color="primary" size="small" nowrap>Signal standing by…</Text>
       </div>
 
-      <Button link={Urls.CONTACT} label={isSmall ? "" : "Open channel"}>
-        <IconSignal slot="icon" />
+      <Button link={Urls.CONTACT} label={isSmall ? "" : "Communicate"}>
+        <IconEmail slot="icon" />
       </Button>
     </div>
   </div>
@@ -42,8 +42,10 @@ if (isSmall) classList.push("container-small");
 
   .content {
     position: relative;
+    overflow: hidden;
+    border: 1px solid t(border, transparent);
     border-radius: rd(small);
-    box-shadow: 0 6px 24px rgb(0 0 0 / 20%);
+    box-shadow: 0 6px 24px rgb(0 0 0 / 10%);
     isolation: isolate;
 
     &:focus {
@@ -61,7 +63,7 @@ if (isSmall) classList.push("container-small");
     &::before {
       z-index: 0;
       background-color: t(canvas, transparent);
-      box-shadow: inset 0 0 8px -4px cl(white);
+      box-shadow: inset 0 0 5px -1px cl(white);
     }
 
     &::after {

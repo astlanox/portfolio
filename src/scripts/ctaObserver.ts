@@ -3,10 +3,9 @@ import { qs, qsa } from "@/utils/dom";
 
 const cta = qs(".js-cta");
 
-const targets = qsa(".js-ctaTarget");
-console.log(cta, targets);
+const triggers = qsa(".js-ctaTrigger");
 
-if (cta && targets.length > 0) {
+if (cta && triggers.length > 0) {
   const observer = new IntersectionObserver(
     (entries: IntersectionObserverEntry[]) => {
       const shouldHide = entries.some(
@@ -22,7 +21,7 @@ if (cta && targets.length > 0) {
     },
   );
 
-  targets.forEach((target) => {
-    observer.observe(target);
+  triggers.forEach((trigger) => {
+    observer.observe(trigger);
   });
 }
