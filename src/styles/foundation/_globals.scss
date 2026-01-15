@@ -67,3 +67,44 @@
     transform: translate3d(calc(var(--shift) * -1), 0, 0);
   }
 }
+
+.icon {
+  &-signal {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+
+    path {
+      &:nth-child(2) {
+        animation: sig-draw 2s linear infinite;
+        animation-delay: 0s;
+      }
+
+      &:nth-child(3) {
+        animation: sig-draw 2s linear infinite;
+        animation-delay: 0.2s;
+      }
+    }
+  }
+}
+
+@keyframes sig-draw {
+  0% {
+    opacity: 1;
+    stroke-dashoffset: 100;
+  }
+
+  35% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  65% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -100;
+  }
+}

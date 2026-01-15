@@ -43,6 +43,13 @@ $semantic: (
   border: (
     primary: rgb(palette-get(gray, 100), 20%),
     transparent: rgb(palette-get(white), 10%),
+    gradient: linear-gradient(
+        to right,
+        palette-get(blue, 200) 0%,
+        palette-get(purple, 200) 25%,
+        palette-get(blue, 200) 75%,
+        palette-get(purple, 200) 100%
+      ),
   ),
   ui: (
     node: palette-get(gray, 100),

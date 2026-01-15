@@ -36,7 +36,7 @@
   }
 }
 
-@mixin box($gap: medium) {
+@mixin box($gap: 0) {
   display: flex;
   flex-direction: column;
   gap: fn.sp($gap);

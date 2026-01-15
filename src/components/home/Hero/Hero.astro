@@ -22,7 +22,7 @@ import Visual from "./_Visual/_Visual.astro";
 
       <Link url="https://github.com/astlanox/portfolio" target="_blank">
         <div class="button">
-          <IconGithub width={32} height={32} />
+          <IconGithub width={40} height={40} />
           <Text color="primary" weight="bold">View on Github</Text>
         </div>
       </Link>
@@ -62,7 +62,7 @@ import Visual from "./_Visual/_Visual.astro";
   }
 
   .content {
-    @include box;
+    @include box(medium);
     @include container-inner;
 
     align-items: center;
@@ -74,14 +74,10 @@ import Visual from "./_Visual/_Visual.astro";
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(primary, xxlarge, bold);
+    @include title(primary, xlarge, bold);
 
     &-strong {
-      @include title(primary, xxxlarge, bold, uppercase);
-
-      @include up(xlarge) {
-        @include title(primary, xxxxlarge, bold, uppercase);
-      }
+      @include title(primary, xxxxlarge, bold, uppercase);
     }
   }
 
