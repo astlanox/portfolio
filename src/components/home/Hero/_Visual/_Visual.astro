@@ -27,25 +27,28 @@ const descriptions = [
     <Image src={ImageHero} alt="" />
   </div>
 
-  <div>
-    {
-      descriptions.map((item) => (
-        <dl class="description">
-          <dt class="description-title">{item.title}</dt>
-          <dd>
-            {item.details.map((detail) => (
-              <dl class="description-list">
-                <dt class="description-label">{detail.label}</dt>
-                <dd class="description-detail">
-                  {detail.detail}
-                  {detail.unit && <span class="description-detail-unit">{detail.unit}</span>}
-                </dd>
-              </dl>
-            ))}
-          </dd>
-        </dl>
-      ))
-    }
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {
+        descriptions.map((item) => (
+          <dl class="description swiper-slide">
+            <dt class="description-title">{item.title}</dt>
+            <dd>
+              {item.details.map((detail) => (
+                <dl class="description-list">
+                  <dt class="description-label">{detail.label}</dt>
+                  <dd class="description-detail">
+                    {detail.detail}
+                    {detail.unit && <span class="description-detail-unit">{detail.unit}</span>}
+                  </dd>
+                </dl>
+              ))}
+            </dd>
+          </dl>
+        ))
+      }
+    </div>
+    <div class="swiper-pagination"></div>
   </div>
 
   <div class="ui"></div>
@@ -64,23 +67,62 @@ const descriptions = [
   }
 
   .visual {
-    max-width: 760px;
+    max-width: 680px;
     mask-image: linear-gradient(to bottom, rgb(0 0 0 / 100%) 60%, rgb(0 0 0 / 0%) 100%);
 
     @include up(xlarge) {
       aspect-ratio: 1 / 1;
       overflow: hidden;
-      mask-image: linear-gradient(to bottom, rgb(0 0 0 / 100%) 90%, rgb(0 0 0 / 0%) 100%);
+      mask-image: linear-gradient(to bottom, rgb(0 0 0 / 100%) 90%, rgb(0 0 0 / 25%) 100%);
+    }
+  }
+
+  .swiper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    @include up(xlarge) {
+      position: unset;
+      overflow: unset;
+    }
+
+    &-wrapper {
+      margin-bottom: sp(normal);
+
+      @include up(xlarge) {
+        position: unset;
+        margin-bottom: 0;
+        transform: unset;
+      }
+    }
+
+    &-slide {
+      width: 100%;
+      min-width: 100%;
+
+      @include up(xlarge) {
+        width: unset !important;
+        min-width: unset;
+        height: auto;
+      }
+    }
+
+    &-pagination {
+      bottom: 0 !important;
+
+      /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+      :global(.swiper-pagination-bullet) {
+        background: t(ui, node) !important;
+      }
     }
   }
 
   .description {
+    @include card;
+
     padding: sp(small) sp(normal);
     text-align: left;
-    background-color: t(canvas, transparent);
-    border: 1px solid t(border, primary);
-    border-radius: rd(small);
-    backdrop-filter: bl(light);
 
     @include up(xlarge) {
       position: absolute;
@@ -145,13 +187,17 @@ const descriptions = [
   }
 
   .ui {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-right: sp(normal);
-    padding-left: sp(normal);
-    border-top: 1px solid t(border, primary);
+    display: none;
+
+    @include up(xlarge) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-right: sp(normal);
+      padding-left: sp(normal);
+      border-top: 1px solid t(border, primary);
+    }
 
     &::before,
     &::after {
@@ -170,3 +216,17 @@ const descriptions = [
     }
   }
 </style>
+
+<script>
+  import Swiper from "swiper";
+  import { Pagination } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/pagination";
+
+  new Swiper(".swiper", {
+    modules: [Pagination],
+    pagination: { el: ".swiper-pagination" },
+    spaceBetween: 16,
+    breakpoints: { 1024: { enabled: false } },
+  });
+</script>

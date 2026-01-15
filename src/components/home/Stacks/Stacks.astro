@@ -86,13 +86,13 @@ const stacks = [
     }
 
     &-item {
+      @include card(small);
+
       display: flex;
       gap: sp(small);
       align-items: center;
       justify-content: center;
       padding: sp(small) sp(normal) sp(small) sp(small);
-      border: 1px solid t(border, primary);
-      border-radius: rd(small);
     }
   }
 </style>

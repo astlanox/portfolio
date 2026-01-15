@@ -79,7 +79,6 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
           <li class="list-item">
             <dl class="description" tabindex="0" role="button">
               <dt class="description-title">
-                {item.title}
                 <Text size="medium" weight="bold" color="primary" height="thin">
                   {item.title}
                 </Text>
@@ -128,13 +127,10 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
 
     &-item {
       @include box;
+      @include card;
 
       justify-content: flex-end;
       padding: sp(xxxlarge) sp(medium) sp(medium);
-      background-color: t(canvas, transparent);
-      border: 1px solid t(border, primary);
-      border-radius: rd(normal);
-      backdrop-filter: bl(normal);
 
       @include up(xlarge) {
         &:nth-child(1) {

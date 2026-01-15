@@ -55,6 +55,13 @@
   }
 }
 
+@mixin card($radius: normal) {
+  background-color: fn.t(canvas, transparent);
+  border: 1px solid fn.t(border, primary);
+  border-radius: fn.rd($radius);
+  backdrop-filter: fn.bl(normal);
+}
+
 @mixin ui-node($top: 0, $left: 0) {
   position: relative;
 
