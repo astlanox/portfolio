@@ -78,22 +78,18 @@ import Visual from "./_Visual/_Visual.astro";
   .bg {
     position: fixed;
     inset: 0;
-    top: 50%;
+    top: 45%;
     left: 50%;
     z-index: -1;
-
-    /* Use stable viewport units to avoid mobile browser UI / nav show-hide causing layout jank */
     width: min(100vw, 1200px);
-    height: min(75svh, 720px);
-    max-height: 75svh;
-
-    /* allow wide shapes, but prevent extreme tall canvases */
-    aspect-ratio: 1 / 1;
+    min-width: 640px;
+    max-height: 90svh;
+    aspect-ratio: 1/1;
+    overflow: hidden;
     transform: translate(-50%, -50%);
 
     @include up(medium) {
-      height: min(90svh, 860px);
-      max-height: 90svh;
+      top: 50%;
     }
   }
 </style>
@@ -116,7 +112,7 @@ import Visual from "./_Visual/_Visual.astro";
       ambient: { color: 0xffffff, intensity: 0.25 },
       directional: { color: 0xffffff, intensity: 0.85, position: [2, 2, 3] },
     },
-    geometry: { radius: 2.05, detail: 20 },
+    geometry: { radius: 2.05, detail: 32 },
     motion: { timeScale: 0.2, rotY: 0.1, rotX: 0.05, reducedMotionMedia: "(prefers-reduced-motion: reduce)" },
     look: {
       gradient: {
@@ -130,7 +126,7 @@ import Visual from "./_Visual/_Visual.astro";
       },
       mark: { color: "#cfd7ff", opacity: 0.5, size: 0.12, thickness: 1, boost: 1 },
       fill: { opacity: 0.3, haloStrength: 0.42 },
-      deform: { disp: 0.22 },
+      deform: { disp: 0.22, bumpAmp: 0.18, bumpSpeed: 0.1, bumpRadiusMin: 0.18, bumpRadiusMax: 0.55, bumpCount: 3 },
       alphaClampMax: 0.3,
       grad: { radiusTuned: 2.2, noiseAmp: 0.04, noiseFreqY: 12.0, noiseSpeed: 0.6 },
       silhouette: {
@@ -144,6 +140,14 @@ import Visual from "./_Visual/_Visual.astro";
       shade: { fillMixA: 0.78, fillMixB: 0.22, postMulA: 0.92, postMulB: 0.08 },
     },
   };
+
+  const RUN_SEED = (() => {
+    const a = new Uint32Array(1);
+    globalThis.crypto?.getRandomValues?.(a);
+
+    const v = a[0] || Math.floor(Math.random() * 0xffffffff);
+    return (v >>> 0) / 0xffffffff;
+  })();
 
   const canvas = getCanvas(".js-bg");
 
@@ -169,8 +173,9 @@ import Visual from "./_Visual/_Visual.astro";
   const resizeStable = createStableResizer(canvas, renderer, camera, {
     throttleMs: CONFIG.renderer.sizeStability.throttleMs,
     minAspect: 1.0,
-    maxAspect: 2.2,
+    maxAspect: 2.6,
     minDeltaPx: 2,
+    fit: "height",
   });
 
   new ResizeObserver(resizeStable).observe(canvas);
@@ -246,6 +251,8 @@ import Visual from "./_Visual/_Visual.astro";
 
     const minDeltaPx = opts?.minDeltaPx ?? 2;
 
+    const fit = opts?.fit ?? "width";
+
     let raf = 0;
     let lastW = 0;
     let lastH = 0;
@@ -266,9 +273,16 @@ import Visual from "./_Visual/_Visual.astro";
 
       const aspect = clamp(rawAspect, minAspect, maxAspect);
 
-      const targetW = cw;
+      let targetW;
+      let targetH;
 
-      const targetH = Math.round(cw / aspect);
+      if (fit === "height") {
+        targetH = ch;
+        targetW = Math.round(ch * aspect);
+      } else {
+        targetW = cw;
+        targetH = Math.round(cw / aspect);
+      }
 
       if (!force && Math.abs(targetW - lastW) < minDeltaPx && Math.abs(targetH - lastH) < minDeltaPx) return;
 
@@ -309,7 +323,7 @@ import Visual from "./_Visual/_Visual.astro";
     return (timeSec) => {
       if (!g.animate) return;
 
-      const phase = timeSec * g.hueSpeed;
+      const phase = timeSec * g.hueSpeed + RUN_SEED;
 
       const s = phase * Math.PI * 2.0;
 
@@ -348,6 +362,7 @@ import Visual from "./_Visual/_Visual.astro";
       depthWrite: false,
       uniforms: {
         uTime: { value: 0 },
+        uSeed: { value: RUN_SEED },
         uLeft: { value: new THREE.Color(look.gradient.left) },
         uRight: { value: new THREE.Color(look.gradient.right) },
         uMark: { value: new THREE.Color(look.mark.color) },
@@ -359,6 +374,11 @@ import Visual from "./_Visual/_Visual.astro";
         uHaloStrength: { value: look.fill.haloStrength },
         uGradSoftness: { value: look.gradient.softness },
         uDisp: { value: look.deform.disp },
+        uBumpAmp: { value: look.deform.bumpAmp },
+        uBumpSpeed: { value: look.deform.bumpSpeed },
+        uBumpRadiusMin: { value: look.deform.bumpRadiusMin },
+        uBumpRadiusMax: { value: look.deform.bumpRadiusMax },
+        uBumpCount: { value: look.deform.bumpCount },
         uAlphaMax: { value: look.alphaClampMax },
         uRadiusTuned: { value: look.grad.radiusTuned },
         uNoiseAmp: { value: look.grad.noiseAmp },
@@ -376,7 +396,13 @@ import Visual from "./_Visual/_Visual.astro";
       },
       vertexShader: `
         uniform float uTime;
+        uniform float uSeed;
         uniform float uDisp;
+        uniform float uBumpAmp;
+        uniform float uBumpSpeed;
+        uniform float uBumpRadiusMin;
+        uniform float uBumpRadiusMax;
+        uniform float uBumpCount;
 
         attribute vec3 aBary;
 
@@ -385,19 +411,49 @@ import Visual from "./_Visual/_Visual.astro";
         varying vec3 vPosW;
 
         float n3(vec3 p){
+          float s = uSeed * 19.123;
           return
-            0.55*sin(p.x*1.7 + uTime*1.25) +
-            0.35*sin(p.y*2.1 + uTime*1.65) +
-            0.25*sin(p.z*2.7 + uTime*1.05) +
-            0.15*sin((p.x+p.y+p.z)*3.1 + uTime*1.95);
+            0.55*sin(p.x*1.7 + uTime*1.25 + s*1.1) +
+            0.35*sin(p.y*2.1 + uTime*1.65 + s*1.7) +
+            0.25*sin(p.z*2.7 + uTime*1.05 + s*2.3) +
+            0.15*sin((p.x+p.y+p.z)*3.1 + uTime*1.95 + s*3.1);
+        }
+
+        vec3 bumpCenter(float t, float seed){
+          float s = (t + seed + uSeed) * 6.2831853;
+          return normalize(vec3(
+            sin(s*0.73 + seed*4.1),
+            sin(s*0.51 + 1.7 + seed*2.7),
+            sin(s*0.62 + 3.1 + seed*3.3)
+          ));
+        }
+
+        float bumpField(vec3 dir, float t, float seed, float sign){
+          vec3 c = bumpCenter(t, seed);
+          float d = clamp(dot(dir, c), -1.0, 1.0);
+          float ang = acos(d);
+          float rT = 0.5 + 0.5*sin((t + seed)*1.7);
+          float radius = mix(uBumpRadiusMin, uBumpRadiusMax, rT);
+          float m = smoothstep(radius, 0.0, ang);
+          m = m*m;
+          return m * sign;
         }
 
         void main(){
           vBary = aBary;
 
           vec3 n = normalize(normal);
-          float nval = n3(position * 0.9);
-          vec3 pos = position + n * (nval * uDisp);
+          vec3 dir = normalize(position);
+
+          float base = n3(position * 0.9) * uDisp;
+
+          float t = uTime * uBumpSpeed;
+          float b = bumpField(dir, t, 0.11, -1.0);
+          if (uBumpCount > 1.5) b += bumpField(dir, t, 0.63, 1.0);
+          if (uBumpCount > 2.5) b += bumpField(dir, t, 1.07, -1.0);
+
+          float bump = b * uBumpAmp;
+          vec3 pos = position + n * (base + bump);
 
           vec4 worldPos = modelMatrix * vec4(pos, 1.0);
           vPosW = worldPos.xyz;
