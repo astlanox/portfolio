@@ -1,4 +1,6 @@
 ---
+import IconGithub from "@/assets/icons/icon_github.svg";
+import Link from "@/elements/Link.astro";
 import Text from "@/elements/Text.astro";
 import Visual from "./_Visual/_Visual.astro";
 ---
@@ -10,11 +12,20 @@ import Visual from "./_Visual/_Visual.astro";
         Hi, I am <br />
         <span class="title-strong">Astlanox</span>.
       </h1>
+
       <p class="role">Web developer</p>
+
       <Text>
         Frontend-focused web developer with a strong UI / UX background, bridging design and development to build
         modern, scalable websites, focused on clarity, usability, and long-term maintainability.
       </Text>
+
+      <Link url="https://github.com/astlanox/portfolio" target="_blank">
+        <div class="button">
+          <IconGithub width={32} height={32} />
+          <Text color="primary" weight="bold">View on Github</Text>
+        </div>
+      </Link>
     </div>
 
     <Visual />
@@ -53,6 +64,9 @@ import Visual from "./_Visual/_Visual.astro";
   .content {
     @include box;
     @include container-inner;
+
+    align-items: center;
+    justify-content: center;
   }
 
   .title {
@@ -64,6 +78,10 @@ import Visual from "./_Visual/_Visual.astro";
 
     &-strong {
       @include title(primary, xxxlarge, bold, uppercase);
+
+      @include up(xlarge) {
+        @include title(primary, xxxxlarge, bold, uppercase);
+      }
     }
   }
 
@@ -75,13 +93,23 @@ import Visual from "./_Visual/_Visual.astro";
     }
   }
 
+  .button {
+    @include card(small);
+    @include box(small);
+
+    flex-direction: row;
+    align-items: center;
+    padding: sp(small) sp(normal) sp(small) sp(small);
+    color: t(text, primary);
+  }
+
   .bg {
     position: fixed;
     inset: 0;
-    top: 45%;
+    top: 50%;
     left: 50%;
     z-index: -1;
-    width: min(100vw, 1200px);
+    width: 100vw;
     min-width: 640px;
     max-height: 90svh;
     aspect-ratio: 1/1;
@@ -89,7 +117,8 @@ import Visual from "./_Visual/_Visual.astro";
     transform: translate(-50%, -50%);
 
     @include up(medium) {
-      top: 50%;
+      max-height: 100svh;
+      aspect-ratio: 4/3;
     }
   }
 </style>
