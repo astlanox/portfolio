@@ -44,12 +44,12 @@ const { items } = Astro.props as { items: Requirement[] };
   }
 
   .title {
-    @include title(secondary, xxxlarge);
+    @include title(secondary, xxxlarge, bold);
 
     text-align: center;
 
     &-strong {
-      @include title(primary, xxxlarge, capitalize);
+      @include title(primary, xxxlarge, bold, capitalize);
     }
   }
 

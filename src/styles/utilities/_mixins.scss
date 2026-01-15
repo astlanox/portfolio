@@ -42,10 +42,10 @@
   gap: fn.sp($gap);
 }
 
-@mixin title($color, $font-size, $transform: null) {
+@mixin title($color, $font-size, $font-weight, $transform: null) {
   font-family: Orbitron, sans-serif;
   font-size: fn.fs($font-size);
-  font-weight: fn.fw(extrabold);
+  font-weight: fn.fw($font-weight);
   line-height: fn.lh(thin);
   color: fn.t(text, $color);
   letter-spacing: fn.ls(wide);

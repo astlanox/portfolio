@@ -60,12 +60,12 @@ const { items } = Astro.props as { items: Solution[] };
   }
 
   .title {
-    @include title(secondary, xxxlarge);
+    @include title(secondary, xxxlarge, bold);
 
     text-align: center;
 
     &-strong {
-      @include title(primary, xxxlarge, capitalize);
+      @include title(primary, xxxlarge, bold, capitalize);
     }
   }
 
@@ -108,18 +108,18 @@ const { items } = Astro.props as { items: Solution[] };
     &-title {
       order: 2;
 
-      @include title(secondary, xlarge);
+      @include title(secondary, xlarge, bold);
 
       /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :global(strong) {
-        @include title(primary, xlarge, capitalize);
+        @include title(primary, xlarge, bold, capitalize);
       }
     }
 
     &-label {
       order: 1;
 
-      @include title(primary, medium, capitalize);
+      @include title(primary, medium, bold, capitalize);
 
       background: t(text, gradient);
       background-clip: text;

@@ -49,10 +49,10 @@ const items = [
   }
 
   .title {
-    @include title(primary, xxlarge, uppercase);
+    @include title(primary, xxlarge, bold, uppercase);
 
     @include up(xlarge) {
-      @include title(primary, large, uppercase);
+      @include title(primary, large, bold, uppercase);
 
       position: absolute;
       top: 50%;

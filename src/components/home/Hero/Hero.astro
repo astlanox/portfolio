@@ -60,15 +60,15 @@ import Visual from "./_Visual/_Visual.astro";
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(primary, xxlarge);
+    @include title(primary, xxlarge, bold);
 
     &-strong {
-      @include title(primary, xxxlarge, uppercase);
+      @include title(primary, xxxlarge, bold, uppercase);
     }
   }
 
   .role {
-    @include title(accent, medium, uppercase);
+    @include title(accent, medium, medium, uppercase);
 
     &::before {
       content: "ROLE: ";
@@ -111,7 +111,19 @@ import Visual from "./_Visual/_Visual.astro";
     geometry: { radius: 2.05, detail: 20 },
     motion: { timeScale: 0.2, rotY: 0.1, rotX: 0.05, reducedMotionMedia: "(prefers-reduced-motion: reduce)" },
     look: {
-      gradient: { left: "#5379EC", right: "#D339DE", softness: 1 },
+      gradient: {
+        left: "#5379EC",
+        right: "#D339DE",
+        softness: 1,
+        // Animate gradient hues over time
+        animate: true,
+        // cycles per second (very slow = 0.01–0.03)
+        hueSpeed: 0.015,
+        // how far hues drift from the base (0–1, small is subtle)
+        hueRange: 0.08,
+        // optional phase offset for right side
+        huePhase: 0.22,
+      },
       mark: { color: "#cfd7ff", opacity: 0.5, size: 0.12, thickness: 1, boost: 1 },
       fill: { opacity: 0.3, haloStrength: 0.42 },
       deform: { disp: 0.22 },
@@ -142,6 +154,39 @@ import Visual from "./_Visual/_Visual.astro";
 
   const material = createBlobMaterial(CONFIG.look);
 
+  // Cache base hues so we can animate without drifting over time
+  const baseLeft = new THREE.Color(CONFIG.look.gradient.left);
+
+  const baseRight = new THREE.Color(CONFIG.look.gradient.right);
+
+  const baseLeftHSL = { h: 0, s: 0, l: 0 };
+
+  const baseRightHSL = { h: 0, s: 0, l: 0 };
+  baseLeft.getHSL(baseLeftHSL);
+  baseRight.getHSL(baseRightHSL);
+
+  function wrap01(v) {
+    return ((v % 1) + 1) % 1;
+  }
+
+  function updateGradientColors(mat, timeSec) {
+    const g = CONFIG.look.gradient;
+    if (!g.animate) return;
+
+    const phase = timeSec * g.hueSpeed;
+
+    const driftL = Math.sin(phase * Math.PI * 2.0) * g.hueRange;
+
+    const driftR = Math.sin((phase + g.huePhase) * Math.PI * 2.0) * g.hueRange;
+
+    const cL = new THREE.Color().setHSL(wrap01(baseLeftHSL.h + driftL), baseLeftHSL.s, baseLeftHSL.l);
+
+    const cR = new THREE.Color().setHSL(wrap01(baseRightHSL.h + driftR), baseRightHSL.s, baseRightHSL.l);
+
+    mat.uniforms.uLeft.value.copy(cL);
+    mat.uniforms.uRight.value.copy(cR);
+  }
+
   const mesh = new THREE.Mesh(geometry, material);
   material.depthWrite = false;
   scene.add(mesh);
@@ -156,6 +201,7 @@ import Visual from "./_Visual/_Visual.astro";
 
   if (prefersReduced) {
     material.uniforms.uTime.value = 0;
+    updateGradientColors(material, 0);
     renderer.render(scene, camera);
   } else {
     const tick = () => {
@@ -164,6 +210,7 @@ import Visual from "./_Visual/_Visual.astro";
       const ts = t * CONFIG.motion.timeScale;
 
       material.uniforms.uTime.value = ts;
+      updateGradientColors(material, t);
       mesh.rotation.y = ts * CONFIG.motion.rotY;
       mesh.rotation.x = ts * CONFIG.motion.rotX;
 

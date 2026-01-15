@@ -23,13 +23,13 @@ const { title, label } = Astro.props;
     order: 2;
 
     span {
-      @include title(primary, xxxxlarge, uppercase);
+      @include title(primary, xxxxlarge, bold, uppercase);
     }
   }
 
   .label {
     span {
-      @include title(primary, large, capitalize);
+      @include title(primary, large, bold, capitalize);
 
       background: t(text, gradient);
       background-clip: text;

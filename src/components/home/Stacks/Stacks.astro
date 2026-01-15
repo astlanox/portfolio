@@ -67,12 +67,12 @@ const stacks = [
   }
 
   .title {
-    @include title(primary, xxlarge, uppercase);
+    @include title(primary, xxlarge, bold, uppercase);
 
     text-align: center;
 
     @include up(xlarge) {
-      @include title(primary, large, uppercase);
+      @include title(primary, large, bold, uppercase);
     }
   }
 

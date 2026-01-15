@@ -149,7 +149,7 @@ const descriptions = [
     }
 
     &-title {
-      @include title(primary, normal, capitalize);
+      @include title(primary, normal, bold, capitalize);
 
       padding: sp(normal) sp(small);
     }
@@ -164,9 +164,7 @@ const descriptions = [
     }
 
     &-label {
-      @include title(primary, small, capitalize);
-
-      font-weight: fw(normal);
+      @include title(primary, small, normal, capitalize);
 
       &::after {
         content: ":";
@@ -174,14 +172,10 @@ const descriptions = [
     }
 
     &-detail {
-      @include title(primary, small, uppercase);
-
-      font-weight: fw(normal);
+      @include title(primary, small, normal, uppercase);
 
       &-unit {
-        @include title(primary, xsmall);
-
-        font-weight: fw(normal);
+        @include title(primary, xsmall, normal);
       }
     }
   }
@@ -201,10 +195,9 @@ const descriptions = [
 
     &::before,
     &::after {
-      @include title(secondary, xsmall);
+      @include title(secondary, xsmall, normal);
 
       padding-top: sp(small);
-      font-weight: fw(normal);
     }
 
     &::before {
