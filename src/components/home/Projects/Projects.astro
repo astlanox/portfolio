@@ -5,11 +5,11 @@ import Text from "@/elements/Text.astro";
 import ImageItem01 from "./_images/projects_item-01.png";
 
 const items = [
-  { title: "Soelu Studio", id: "soelu-studio", image: ImageItem01 },
-  { title: "Soelu LP", image: ImageItem01 },
-  { title: "hogehoge", image: ImageItem01 },
-  { title: "hugahuga", image: ImageItem01 },
-  { title: "mochimochi", image: ImageItem01 },
+  { title: "Soelu Studio", label: "Web development", id: "soelu-studio", image: ImageItem01 },
+  { title: "Soelu LP", label: "Web design", image: ImageItem01 },
+  { title: "CMS Development", label: "Web development", image: ImageItem01 },
+  { title: "hugahuga", label: "Web development", image: ImageItem01 },
+  { title: "Infuse", label: "Translation", image: ImageItem01 },
 ];
 ---
 
@@ -18,17 +18,27 @@ const items = [
     <h2 class="title">Projects</h2>
     <ul class="list">
       {
-        items.map((item) => (
-          <li class="list-item" style={`background-image:url(${item.image.src})`}>
-            {item.id && (
-              <Link url={`${Urls.PROJECT_LIST}/${item.id}`}>
-                <div class="list-item-title">
-                  <Text color="primary">{item.title}</Text>
-                </div>
-              </Link>
-            )}
-          </li>
-        ))
+        items.map((item) => {
+          const title = (
+            <div class="list-title">
+              <Text color="primary" weight="bold" height="thin" transform="uppercase">
+                {item.title}
+              </Text>
+
+              <Text size="xsmall" height="thin" transform="capitalize">
+                {item.label}
+              </Text>
+            </div>
+          );
+
+          const content = item.id ? <Link url={`${Urls.PROJECT_LIST}/${item.id}`}>{title}</Link> : title;
+
+          return (
+            <li class="list-item" style={`background-image:url(${item.image.src})`}>
+              {content}
+            </li>
+          );
+        })
       }
     </ul>
   </div>
@@ -119,14 +129,20 @@ const items = [
           grid-column-start: 5;
         }
       }
+    }
 
-      &-title {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-      }
+    &-title {
+      @include box(xsmall);
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      justify-content: flex-end;
+      width: 100%;
+      height: 100%;
+      padding: sp(normal);
+      content: "";
+      background: linear-gradient(#0000 70%, #000 100%);
     }
   }
 </style>

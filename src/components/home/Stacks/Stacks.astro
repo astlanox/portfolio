@@ -80,9 +80,11 @@ const stacks = [
     display: flex;
     flex-wrap: wrap;
     gap: sp(small);
+    justify-content: center;
 
     @include up(xlarge) {
       gap: sp(normal);
+      justify-content: flex-start;
     }
 
     &-item {
