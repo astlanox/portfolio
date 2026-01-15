@@ -81,12 +81,19 @@ import Visual from "./_Visual/_Visual.astro";
     top: 50%;
     left: 50%;
     z-index: -1;
-    width: 100%;
-    height: 75%;
+
+    /* Use stable viewport units to avoid mobile browser UI / nav show-hide causing layout jank */
+    width: min(100vw, 1200px);
+    height: min(75svh, 720px);
+    max-height: 75svh;
+
+    /* allow wide shapes, but prevent extreme tall canvases */
+    aspect-ratio: 1 / 1;
     transform: translate(-50%, -50%);
 
     @include up(medium) {
-      height: 90%;
+      height: min(90svh, 860px);
+      max-height: 90svh;
     }
   }
 </style>
@@ -102,6 +109,7 @@ import Visual from "./_Visual/_Visual.astro";
       pixelRatioCap: 2,
       clearColor: 0x000000,
       clearAlpha: 0,
+      sizeStability: { throttleMs: 120 },
     },
     camera: { fov: 45, near: 0.1, far: 100, position: [0, 0, 6] },
     lights: {
@@ -115,13 +123,9 @@ import Visual from "./_Visual/_Visual.astro";
         left: "#5379EC",
         right: "#D339DE",
         softness: 1,
-        // Animate gradient hues over time
         animate: true,
-        // cycles per second (very slow = 0.01–0.03)
         hueSpeed: 0.015,
-        // how far hues drift from the base (0–1, small is subtle)
         hueRange: 0.08,
-        // optional phase offset for right side
         huePhase: 0.22,
       },
       mark: { color: "#cfd7ff", opacity: 0.5, size: 0.12, thickness: 1, boost: 1 },
@@ -148,52 +152,32 @@ import Visual from "./_Visual/_Visual.astro";
   const scene = new THREE.Scene();
 
   const camera = createCamera(CONFIG.camera);
+
   addLights(scene, CONFIG.lights);
 
   const geometry = createBaryIcoSphere(CONFIG.geometry.radius, CONFIG.geometry.detail);
 
   const material = createBlobMaterial(CONFIG.look);
 
-  // Cache base hues so we can animate without drifting over time
-  const baseLeft = new THREE.Color(CONFIG.look.gradient.left);
-
-  const baseRight = new THREE.Color(CONFIG.look.gradient.right);
-
-  const baseLeftHSL = { h: 0, s: 0, l: 0 };
-
-  const baseRightHSL = { h: 0, s: 0, l: 0 };
-  baseLeft.getHSL(baseLeftHSL);
-  baseRight.getHSL(baseRightHSL);
-
-  function wrap01(v) {
-    return ((v % 1) + 1) % 1;
-  }
-
-  function updateGradientColors(mat, timeSec) {
-    const g = CONFIG.look.gradient;
-    if (!g.animate) return;
-
-    const phase = timeSec * g.hueSpeed;
-
-    const driftL = Math.sin(phase * Math.PI * 2.0) * g.hueRange;
-
-    const driftR = Math.sin((phase + g.huePhase) * Math.PI * 2.0) * g.hueRange;
-
-    const cL = new THREE.Color().setHSL(wrap01(baseLeftHSL.h + driftL), baseLeftHSL.s, baseLeftHSL.l);
-
-    const cR = new THREE.Color().setHSL(wrap01(baseRightHSL.h + driftR), baseRightHSL.s, baseRightHSL.l);
-
-    mat.uniforms.uLeft.value.copy(cL);
-    mat.uniforms.uRight.value.copy(cR);
-  }
-
   const mesh = new THREE.Mesh(geometry, material);
+
   material.depthWrite = false;
   scene.add(mesh);
 
-  const resize = createResizer(canvas, renderer, camera);
-  new ResizeObserver(resize).observe(canvas);
-  resize();
+  const animateGradient = createGradientAnimator(material, CONFIG.look.gradient);
+
+  const resizeStable = createStableResizer(canvas, renderer, camera, {
+    throttleMs: CONFIG.renderer.sizeStability.throttleMs,
+    minAspect: 1.0,
+    maxAspect: 2.2,
+    minDeltaPx: 2,
+  });
+
+  new ResizeObserver(resizeStable).observe(canvas);
+  window.addEventListener("orientationchange", resizeStable, { passive: true });
+  window.addEventListener("resize", resizeStable, { passive: true });
+
+  resizeStable(true);
 
   const prefersReduced = window.matchMedia(CONFIG.motion.reducedMotionMedia).matches;
 
@@ -201,7 +185,7 @@ import Visual from "./_Visual/_Visual.astro";
 
   if (prefersReduced) {
     material.uniforms.uTime.value = 0;
-    updateGradientColors(material, 0);
+    animateGradient(0);
     renderer.render(scene, camera);
   } else {
     const tick = () => {
@@ -210,7 +194,8 @@ import Visual from "./_Visual/_Visual.astro";
       const ts = t * CONFIG.motion.timeScale;
 
       material.uniforms.uTime.value = ts;
-      updateGradientColors(material, t);
+      animateGradient(t);
+
       mesh.rotation.y = ts * CONFIG.motion.rotY;
       mesh.rotation.x = ts * CONFIG.motion.rotX;
 
@@ -222,9 +207,7 @@ import Visual from "./_Visual/_Visual.astro";
 
   function getCanvas(selector) {
     const el = document.querySelector(selector);
-    if (!(el instanceof HTMLCanvasElement)) {
-      throw new Error(`Canvas element "${selector}" not found`);
-    }
+    if (!(el instanceof HTMLCanvasElement)) throw new Error(`Canvas element "${selector}" not found`);
     return el;
   }
 
@@ -254,14 +237,91 @@ import Visual from "./_Visual/_Visual.astro";
     sceneEl.add(d);
   }
 
-  function createResizer(canvasEl, rendererEl, cameraEl) {
-    return () => {
-      const w = canvasEl.clientWidth || 1;
+  function createStableResizer(canvasEl, rendererEl, cameraEl, opts) {
+    const throttleMs = opts?.throttleMs ?? 120;
 
-      const h = canvasEl.clientHeight || 1;
-      rendererEl.setSize(w, h, false);
-      cameraEl.aspect = w / h;
+    const minAspect = opts?.minAspect ?? 1.0;
+
+    const maxAspect = opts?.maxAspect ?? 2.2;
+
+    const minDeltaPx = opts?.minDeltaPx ?? 2;
+
+    let raf = 0;
+    let lastW = 0;
+    let lastH = 0;
+    let lastT = 0;
+
+    const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+
+    const apply = (force = false) => {
+      const now = performance.now();
+      if (!force && now - lastT < throttleMs) return;
+      lastT = now;
+
+      const cw = canvasEl.clientWidth || 1;
+
+      const ch = canvasEl.clientHeight || 1;
+
+      const rawAspect = cw / ch;
+
+      const aspect = clamp(rawAspect, minAspect, maxAspect);
+
+      const targetW = cw;
+
+      const targetH = Math.round(cw / aspect);
+
+      if (!force && Math.abs(targetW - lastW) < minDeltaPx && Math.abs(targetH - lastH) < minDeltaPx) return;
+
+      lastW = targetW;
+      lastH = targetH;
+
+      rendererEl.setSize(targetW, targetH, false);
+      cameraEl.aspect = targetW / targetH;
       cameraEl.updateProjectionMatrix();
+    };
+
+    return (force = false) => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => apply(force));
+    };
+  }
+
+  function createGradientAnimator(materialEl, gradientOpts) {
+    const g = gradientOpts;
+
+    const baseLeft = new THREE.Color(g.left);
+
+    const baseRight = new THREE.Color(g.right);
+
+    const hslL = { h: 0, s: 0, l: 0 };
+
+    const hslR = { h: 0, s: 0, l: 0 };
+
+    baseLeft.getHSL(hslL);
+    baseRight.getHSL(hslR);
+
+    const tmpL = new THREE.Color();
+
+    const tmpR = new THREE.Color();
+
+    const wrap01 = (v) => ((v % 1) + 1) % 1;
+
+    return (timeSec) => {
+      if (!g.animate) return;
+
+      const phase = timeSec * g.hueSpeed;
+
+      const s = phase * Math.PI * 2.0;
+
+      const driftL = Math.sin(s) * g.hueRange;
+
+      const driftR = Math.sin((phase + g.huePhase) * Math.PI * 2.0) * g.hueRange;
+
+      tmpL.setHSL(wrap01(hslL.h + driftL), hslL.s, hslL.l);
+      tmpR.setHSL(wrap01(hslR.h + driftR), hslR.s, hslR.l);
+
+      materialEl.uniforms.uLeft.value.copy(tmpL);
+      materialEl.uniforms.uRight.value.copy(tmpR);
     };
   }
 
@@ -273,9 +333,11 @@ import Visual from "./_Visual/_Visual.astro";
     const vCount = geo.attributes.position.count;
 
     const bary = new Float32Array(vCount * 3);
+
     for (let i = 0; i < vCount; i += 3) {
       bary.set([1, 0, 0, 0, 1, 0, 0, 0, 1], i * 3);
     }
+
     geo.setAttribute("aBary", new THREE.BufferAttribute(bary, 3));
     return geo;
   }
