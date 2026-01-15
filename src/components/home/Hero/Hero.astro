@@ -20,27 +20,12 @@ import Visual from "./_Visual/_Visual.astro";
     <Visual />
   </div>
 
-  <canvas id="blob3d" class="blob3d" aria-hidden="true"></canvas>
+  <canvas class="bg js-bg" aria-hidden="true"></canvas>
 </section>
 
 <style lang="scss">
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
-
-  .blob3d {
-    position: fixed;
-    inset: 0;
-    top: 50%;
-    left: 50%;
-    z-index: -1;
-    width: 100%;
-    height: 75%;
-    transform: translate(-50%, -50%);
-
-    @include up(medium) {
-      height: 90%;
-    }
-  }
 
   .container {
     @include container;
@@ -52,11 +37,16 @@ import Visual from "./_Visual/_Visual.astro";
   }
 
   .inner {
-    @include inner;
     @include box(xlarge);
+
+    padding-top: sp(xxxlarge);
+    padding-bottom: sp(xlarge);
 
     @include up(xlarge) {
       @include box(xxxlarge);
+
+      padding-top: sp(xxxxlarge);
+      padding-bottom: sp(xxxlarge);
     }
   }
 
@@ -82,6 +72,21 @@ import Visual from "./_Visual/_Visual.astro";
 
     &::before {
       content: "ROLE: ";
+    }
+  }
+
+  .bg {
+    position: fixed;
+    inset: 0;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 100%;
+    height: 75%;
+    transform: translate(-50%, -50%);
+
+    @include up(medium) {
+      height: 90%;
     }
   }
 </style>
@@ -124,7 +129,7 @@ import Visual from "./_Visual/_Visual.astro";
     },
   };
 
-  const canvas = getCanvas("#blob3d");
+  const canvas = getCanvas(".js-bg");
 
   const renderer = createRenderer(canvas, CONFIG.renderer);
 
