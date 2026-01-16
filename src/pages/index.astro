@@ -5,6 +5,11 @@ import Hero from "@/components/home/Hero/Hero.astro";
 import Projects from "@/components/home/Projects/Projects.astro";
 import Stacks from "@/components/home/Stacks/Stacks.astro";
 import FoundationLayout from "@/layouts/layout.astro";
+import fetchApi from "@/libs/cms";
+import type { Home } from "@/types/project";
+
+const home = await fetchApi<Home>({ endpoint: "home?pLevel", wrappedByKey: "data" });
+console.log(home.stacks);
 ---
 
 <FoundationLayout>
@@ -12,5 +17,5 @@ import FoundationLayout from "@/layouts/layout.astro";
   <Projects />
   <Expertise />
   <Experiences />
-  <Stacks />
+  <Stacks items={home.stacks} />
 </FoundationLayout>

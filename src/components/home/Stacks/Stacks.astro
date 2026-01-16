@@ -1,31 +1,9 @@
 ---
-import Icon from "@/assets/icons/icon_html.svg";
 import Image from "@/elements/Image.astro";
 import Text from "@/elements/Text.astro";
+import type { Stacks } from "@/types/project";
 
-const stacks = [
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-  { name: "Astro", image: Icon },
-  { name: "React", image: Icon },
-  { name: "Tailwind CSS", image: Icon },
-];
+const { items } = Astro.props as { items: Stacks[] };
 ---
 
 <section class="container">
@@ -34,10 +12,10 @@ const stacks = [
 
     <ul class="list">
       {
-        stacks.map((stack) => (
+        items.map((item) => (
           <li class="list-item">
-            <Image src={stack.image} alt={stack.name} />
-            <Text color="primary">{stack.name}</Text>
+            {item.icon && <Image src={item.icon?.url} alt={item.name} />}
+            <Text color="primary">{item.name}</Text>
           </li>
         ))
       }
@@ -72,7 +50,7 @@ const stacks = [
     text-align: center;
 
     @include up(xlarge) {
-      @include title(primary, large, bold, uppercase);
+      @include title(primary, xlarge, bold, uppercase);
     }
   }
 

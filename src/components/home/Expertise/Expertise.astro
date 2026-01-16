@@ -112,6 +112,12 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
 
   .title {
     @include title(primary, xxxlarge, bold, uppercase);
+
+    text-align: center;
+
+    @include up(xlarge) {
+      text-align: left;
+    }
   }
 
   .list {

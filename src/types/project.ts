@@ -84,6 +84,10 @@ export type Solution = {
   image?: StrapiImage;
 };
 
+export type Home = {
+  stacks: Stacks[];
+};
+
 export type Project = {
   id: number;
   createdAt: string;
