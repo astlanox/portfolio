@@ -1,0 +1,38 @@
+---
+const { code, message } = Astro.props;
+---
+
+<section class="container">
+  <div class="inner">
+    <h1 class="title">{code}</h1>
+    <p class="text">{message}</p>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+    @include box(normal);
+
+    align-items: center;
+  }
+
+  .title {
+    @include title(primary, xxxxxxlarge, bold, uppercase);
+
+    background: t(text, gradient);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text {
+    @include title(accent, xxlarge, bold, uppercase);
+  }
+</style>

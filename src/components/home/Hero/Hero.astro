@@ -66,11 +66,11 @@ import Visual from "./_Visual/_Visual.astro";
   }
 
   .title {
+    @include title(primary, xxlarge, bold);
+
     background: t(text, gradient);
     background-clip: text;
     -webkit-text-fill-color: transparent;
-
-    @include title(primary, xxlarge, bold);
 
     &-strong {
       @include title(primary, xxxxxlarge, bold, uppercase);
