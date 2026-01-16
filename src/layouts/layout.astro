@@ -1,8 +1,9 @@
 ---
-import Cta from "@/components/common/Cta.astro";
+import IconSignal from "@/assets/icons/icon_signal.svg";
 import Footer from "@/components/common/Footer.astro";
 import Header from "@/components/common/Header.astro";
-import { Titles } from "@/constants/meta";
+import { Titles, Urls } from "@/constants/meta";
+import Button from "@/elements/Button.astro";
 
 const { title } = Astro.props;
 import "@/styles/style.scss";
@@ -28,7 +29,7 @@ import "@/styles/style.scss";
       <slot />
 
       <nav class="nav js-cta">
-        <Cta />
+        <Button url={Urls.CONTACT} text="Communicate" label="Awaiting your signal…" icon={IconSignal} />
       </nav>
     </main>
 

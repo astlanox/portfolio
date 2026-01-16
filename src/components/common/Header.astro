@@ -1,20 +1,21 @@
 ---
-import LogoImage from "@/assets/images/common/logo.svg";
+import IconSignal from "@/assets/icons/icon_signal.svg";
+import ImageLogo from "@/assets/images/common/logo.svg";
 import { Titles, Urls } from "@/constants/meta";
+import Button from "@/elements/Button.astro";
 import Image from "@/elements/Image.astro";
-import Cta from "./Cta.astro";
 ---
 
 <header class="container js-ctaTrigger">
   <nav class="nav">
     <div class="logo">
       <a href={Urls.BASE}>
-        <Image src={LogoImage} alt={Titles.SITE} />
+        <Image src={ImageLogo} alt={Titles.SITE} />
       </a>
     </div>
   </nav>
 
-  <Cta isSmall />
+  <Button url={Urls.CONTACT} icon={IconSignal} isSmall />
 </header>
 
 <style lang="scss">

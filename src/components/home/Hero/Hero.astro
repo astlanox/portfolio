@@ -1,6 +1,7 @@
 ---
 import IconGithub from "@/assets/icons/icon_github.svg";
-import Link from "@/elements/Link.astro";
+import { Urls } from "@/constants/meta";
+import Button from "@/elements/Button.astro";
 import Text from "@/elements/Text.astro";
 import Visual from "./_Visual/_Visual.astro";
 ---
@@ -20,13 +21,7 @@ import Visual from "./_Visual/_Visual.astro";
         modern, scalable websites, focused on clarity, usability, and long-term maintainability.
       </Text>
 
-      <Link url="https://github.com/astlanox/portfolio" target="_blank">
-        <div class="button">
-          <IconGithub width={40} height={40} />
-
-          <Text color="primary" weight="bold">View on Github</Text>
-        </div>
-      </Link>
+      <Button url={Urls.GITHUB_PORTFOLIO} text="View on Github" icon={IconGithub} isExternal />
     </div>
 
     <Visual />

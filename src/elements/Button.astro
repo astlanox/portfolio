@@ -1,33 +1,41 @@
 ---
-import IconEmail from "@/assets/icons/icon_signal.svg";
-import { Urls } from "@/constants/meta";
+import IconExternal from "@/assets/icons/icon_external.svg";
 import Text from "@/elements/Text.astro";
 
-const { isSmall = false } = Astro.props;
+const { url, text, label, icon: Icon, isExternal, isSmall = false } = Astro.props;
 
 const classList = ["container"];
+
 if (isSmall) classList.push("container-small");
 ---
 
 <div class={classList.join(" ")}>
   {
-    !isSmall && (
+    label && !isSmall && (
       <div class="content-text">
         <Text color="primary" size="small" nowrap>
-          Awaiting your signal…
+          {label}
         </Text>
       </div>
     )
   }
   <div class="button">
-    <a href={Urls.CONTACT} class="link">
-      <IconEmail width={isSmall ? 34 : 40} height={isSmall ? 32 : 40} />
+    <a href={url} class="link" target={isExternal ? "_blank" : "_self"}>
+      <Icon width={isSmall ? 34 : 40} height={isSmall ? 32 : 40} />
 
       {
-        !isSmall && (
+        text && !isSmall && (
           <Text color="primary" weight="bold">
-            Communicate
+            {text}
           </Text>
+        )
+      }
+
+      {
+        isExternal && (
+          <div class="icon icon-external">
+            <IconExternal width={18} height={18} />
+          </div>
         )
       }
     </a>
@@ -62,6 +70,12 @@ if (isSmall) classList.push("container-small");
     align-items: center;
     padding: sp(small) sp(normal) sp(small) sp(small);
     color: t(text, primary);
+  }
+
+  .icon {
+    &-external {
+      opacity: 0.5;
+    }
   }
 
   .container-small {
