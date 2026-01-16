@@ -15,7 +15,7 @@ const { items } = Astro.props as { items: Requirement[] };
       {
         items.map((item) => (
           <li class="list-item">
-            <Text>{item.body}</Text>
+            <Text size="medium">{item.body}</Text>
           </li>
         ))
       }
@@ -44,12 +44,12 @@ const { items } = Astro.props as { items: Requirement[] };
   }
 
   .title {
-    @include title(secondary, xxxlarge, bold);
+    @include title(secondary, xxxxlarge, bold);
 
     text-align: center;
 
     &-strong {
-      @include title(primary, xxxlarge, bold, capitalize);
+      @include title(primary, xxxxlarge, bold, capitalize);
     }
   }
 
@@ -66,13 +66,17 @@ const { items } = Astro.props as { items: Requirement[] };
 
       &::before {
         position: absolute;
-        top: 15px;
+        top: 14px;
         left: 0;
         width: 11px;
         height: 11px;
         content: "";
         background-color: t(border, primary);
         border-radius: rd(circle);
+
+        @include up(xlarge) {
+          top: 18px;
+        }
       }
     }
   }

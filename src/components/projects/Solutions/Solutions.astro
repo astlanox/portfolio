@@ -1,6 +1,7 @@
 ---
 import Picture from "@/elements/Picture.astro";
 import Text from "@/elements/Text.astro";
+import ImageDefault from "./_image/solutions_img-default.png";
 import type { Solution } from "@/types/project";
 import { parseRichText } from "@/utils/parseRichText";
 
@@ -30,7 +31,7 @@ const { items } = Astro.props as { items: Solution[] };
 
           <div class="item-visual">
             <div class="image">
-              <Picture src={item.image.url} />
+              <Picture src={item.image?.url ?? ImageDefault} width="600" />
             </div>
           </div>
         </section>
@@ -60,12 +61,12 @@ const { items } = Astro.props as { items: Solution[] };
   }
 
   .title {
-    @include title(secondary, xxxlarge, bold);
+    @include title(secondary, xxxxlarge, bold);
 
     text-align: center;
 
     &-strong {
-      @include title(primary, xxxlarge, bold, capitalize);
+      @include title(primary, xxxxlarge, bold, capitalize);
     }
   }
 
@@ -78,6 +79,7 @@ const { items } = Astro.props as { items: Solution[] };
 
     @include up(xlarge) {
       flex-direction: row;
+      gap: sp(xxlarge);
 
       &:nth-child(even) {
         flex-direction: row-reverse;
@@ -90,7 +92,7 @@ const { items } = Astro.props as { items: Solution[] };
       gap: sp(normal);
 
       @include up(xlarge) {
-        width: 50%;
+        width: 45%;
       }
     }
 
@@ -101,18 +103,18 @@ const { items } = Astro.props as { items: Solution[] };
       justify-content: center;
 
       @include up(xlarge) {
-        width: 50%;
+        width: 55%;
       }
     }
 
     &-title {
       order: 2;
 
-      @include title(secondary, xlarge, bold);
+      @include title(secondary, xxlarge, bold);
 
       /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :global(strong) {
-        @include title(primary, xlarge, bold, capitalize);
+        @include title(primary, xxlarge, bold, capitalize);
       }
     }
 

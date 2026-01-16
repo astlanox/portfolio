@@ -26,23 +26,6 @@ export type StrapiImage = {
   updatedAt: string;
 };
 
-export type Project = {
-  id: number;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  title: string;
-  description: string;
-  slug: string;
-  label: string;
-  thumbnail: Thumbnail | null;
-  categories: Category[];
-  metas: Meta[];
-  flows: Flow[];
-  requirements: Requirement[];
-  solutions: Solution[];
-};
-
 export type Thumbnail = StrapiImage;
 
 export type ImageFormat = {
@@ -61,6 +44,16 @@ export type Category = {
   id: number;
   name: string;
   slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};
+
+export type Stacks = {
+  id: number;
+  name: string;
+  slug: string;
+  icon: StrapiImage;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -88,5 +81,23 @@ export type Solution = {
   title: StrapiRichText;
   label: string;
   body: string;
-  image: StrapiImage;
+  image?: StrapiImage;
+};
+
+export type Project = {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  title: string;
+  description: string;
+  slug: string;
+  label: string;
+  thumbnail: Thumbnail | null;
+  categories: Category[];
+  stacks: Stacks[];
+  metas: Meta[];
+  flows: Flow[];
+  requirements: Requirement[];
+  solutions: Solution[];
 };

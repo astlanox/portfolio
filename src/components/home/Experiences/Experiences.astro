@@ -4,24 +4,24 @@ import Text from "@/elements/Text.astro";
 const experiences = [
   {
     title: "Self-Employed",
-    period: "April 2018 - Present",
-    role: "Web Developer & UI / UX Designer",
+    period: "April 2020 - Present",
+    role: "Full-stack Web Developer",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "Worked as a frontend-focused developer, independently delivering web projects from planning and design through implementation and release. I built flexible, content-driven websites and designed reusable UI structures with long-term maintainability in mind. I also streamlined release workflows and continuously refined performance and accessibility to create reliable, user-centered experiences.",
   },
   {
-    title: "LY Corporation Inc",
-    period: "April 2020 - April 2025",
-    role: "Front-end Engineer",
+    title: "LY Corporation",
+    period: "April 2020 - March 2025",
+    role: "Frontend Engineer",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "Worked as a frontend developer on large-scale, high-traffic web platforms, contributing to core user-facing features within complex systems. I collaborated closely with cross-functional teams to shape component architecture and improve overall usability. My work emphasized sustainable design, performance optimization, and smooth operational workflows that support long-term growth.",
   },
   {
-    title: "Kiramex Inc",
-    period: "April 2020 - April 2025",
+    title: "TechAcademy",
+    period: "June 2016 - December 2021",
     role: "Mentor",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      "Worked as a contract mentor, closely supporting learners through one-on-one sessions and ongoing communication in website design and content-driven site development. I provided practical guidance on design decisions and implementation challenges while adapting to each learner’s pace and goals. Through continuous feedback and encouragement, I helped learners build confidence and apply their skills to real-world scenarios.",
   },
 ];
 ---
@@ -41,13 +41,13 @@ const experiences = [
                     {item.title}
                   </Text>
 
-                  <Text size="small" height="thin">
-                    {item.period}
-                  </Text>
+                  <Text size="small">{item.period}</Text>
                 </dt>
 
                 <dd class="description-detail">
-                  <Text color="primary">{item.role}</Text>
+                  <Text color="primary" weight="bold">
+                    {item.role}
+                  </Text>
                   <Text>{item.description}</Text>
                 </dd>
               </dl>
@@ -74,9 +74,11 @@ const experiences = [
   }
 
   .title {
-    @include title(primary, xxlarge, bold, uppercase);
+    @include title(primary, xxxlarge, bold, uppercase);
 
-    text-align: center;
+    @include up(xlarge) {
+      text-align: center;
+    }
   }
 
   .list {
@@ -105,7 +107,6 @@ const experiences = [
           background-color: t(ui, timeline);
 
           @include up(xlarge) {
-            top: 29px;
             left: calc($description-title-width - 9.5px);
             height: calc(100% + 27px);
           }
@@ -127,7 +128,7 @@ const experiences = [
       padding-left: sp(large);
 
       @include up(xlarge) {
-        @include ui-node(8px, calc(100% - 19px));
+        @include ui-node(4px, calc(100% - 19px));
 
         min-width: $description-title-width;
         padding-right: sp(large);
@@ -142,7 +143,7 @@ const experiences = [
 
       @include up(xlarge) {
         padding-left: sp(normal);
-        margin-top: sp(xsmall);
+        margin-top: 0;
       }
     }
   }

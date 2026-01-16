@@ -2,12 +2,13 @@ $font-size: (
   xsmall: 1.1rem,
   small: 1.4rem,
   normal: 1.6rem,
-  medium: clamp(1.8rem, 1.629rem + 0.857vw, 2.4rem),
-  large: clamp(2.2rem, 1.657rem + 1.714vw, 3.2rem),
-  xlarge: clamp(2.4rem, 1.455rem + 2.33vw, 4rem),
-  xxlarge: clamp(2.8rem, 2.229rem + 2.857vw, 4.8rem),
-  xxxlarge: clamp(3.2rem, 2.286rem + 4.571vw, 6.4rem),
-  xxxxlarge: clamp(3.6rem, 1.669rem + 7.924vw, 8.8rem),
+  medium: 2rem,
+  large: clamp(2rem, 1.629rem + 0.857vw, 2.4rem),
+  xlarge: clamp(2.2rem, 1.657rem + 1.714vw, 3.2rem),
+  xxlarge: clamp(2.4rem, 1.455rem + 2.33vw, 4rem),
+  xxxlarge: clamp(2.8rem, 2.229rem + 2.857vw, 4.8rem),
+  xxxxlarge: clamp(3.2rem, 2.286rem + 4.571vw, 6.4rem),
+  xxxxxlarge: clamp(3.6rem, 1.669rem + 7.924vw, 8.8rem),
 );
 $font-weight: (
   normal: 300,
@@ -16,7 +17,7 @@ $font-weight: (
   extrabold: 800,
 );
 $line-height: (
-  thin: 1.1,
+  thin: 1.2,
   normal: 1.5,
   wide: 2,
 );

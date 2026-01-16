@@ -16,6 +16,7 @@ const items = [
 <section class="container">
   <div class="inner">
     <h2 class="title">Projects</h2>
+
     <ul class="list">
       {
         items.map((item) => {
@@ -59,10 +60,10 @@ const items = [
   }
 
   .title {
-    @include title(primary, xxlarge, bold, uppercase);
+    @include title(primary, xxxlarge, bold, uppercase);
 
     @include up(xlarge) {
-      @include title(primary, large, bold, uppercase);
+      @include title(primary, xlarge, bold, uppercase);
 
       position: absolute;
       top: 50%;

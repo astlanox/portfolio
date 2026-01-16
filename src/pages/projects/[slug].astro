@@ -2,8 +2,8 @@
 import Description from "@/components/projects/Description/Description.astro";
 import Flow from "@/components/projects/Flow/Flow.astro";
 import Meta from "@/components/projects/Meta/Meta.astro";
-import Requirement from "@/components/projects/Requirement/Requirement.astro";
-import Solution from "@/components/projects/Solution/Solution.astro";
+import Requirements from "@/components/projects/Requirements/Requirements.astro";
+import Solutions from "@/components/projects/Solutions/Solutions.astro";
 import Stacks from "@/components/projects/Stacks/Stacks.astro";
 import Thumbnail from "@/components/projects/Thumbnail/Thumbnail.astro";
 import Title from "@/components/projects/Title/Title.astro";
@@ -38,12 +38,12 @@ const project = Astro.props;
 
       <Description text={project.description} />
       <Meta items={project.metas} />
-      <Stacks items={project.categories} />
+      <Stacks items={project.stacks} />
       <Flow items={project.flows} />
     </div>
 
-    <Requirement items={project.requirements} />
-    <Solution items={project.solutions} />
+    <Requirements items={project.requirements} />
+    <Solutions items={project.solutions} />
   </article>
 </Layout>
 
