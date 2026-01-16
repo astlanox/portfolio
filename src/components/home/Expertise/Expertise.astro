@@ -163,22 +163,22 @@ const marqueeWords = Array.from(new Set(stacks.map((item) => item.name)));
   }
 </style>
 
-<script type="module">
+<script>
   import { initBgMarquee } from "@/scripts/bgMarquee";
 
   const section = document.querySelector(".js-bgMarquee");
   if (section) {
     const wordsAttr = section.getAttribute("data-marquee-words");
     if (wordsAttr) {
-      initBgMarquee(wordsAttr);
+      initBgMarquee(wordsAttr.split(","));
     }
   }
 </script>
 
-<script type="module">
-  import { revealUpByClass } from "@/anims/revealUpByClass";
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
 
-  const dispose = revealUpByClass(".js-featureRevealRoot", ".js-featureRevealUp", { start: "top 85%", scrub: true });
+  const dispose = revealUp(".js-featureRevealRoot", ".js-featureRevealUp", { start: "top 85%", scrub: true });
 
   document.addEventListener("astro:before-swap", dispose, { once: true });
 </script>
