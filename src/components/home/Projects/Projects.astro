@@ -18,11 +18,11 @@ const items = [
 ];
 ---
 
-<section class="container">
+<section class="container js-animateRevealRoot">
   <div class="inner">
-    <h2 class="title">Projects</h2>
+    <h2 class="title js-animateRevealRoot js-animateRevealUp">Projects</h2>
 
-    <ul class="list">
+    <ul class="list js-animateRevealRoot">
       {
         items.map((item) => {
           const title = (
@@ -41,7 +41,7 @@ const items = [
 
           return (
             <li
-              class={item.id ? "list-item" : "list-item list-item-locked"}
+              class={`list-item js-animateRevealUp ${item.id ? "" : "list-item-locked"}`}
               style={`background-image:url(${item.image?.src ?? "none"});--icon-lock:url(${IconLock.src});`}
             >
               {content}
@@ -208,3 +208,10 @@ const items = [
     }
   }
 </style>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
+</script>

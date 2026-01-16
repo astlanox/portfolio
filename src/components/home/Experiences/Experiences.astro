@@ -28,13 +28,13 @@ const experiences = [
 
 <section class="container">
   <div class="inner">
-    <h2 class="title">Experiences</h2>
+    <h2 class="title js-animateRevealRoot js-animateRevealUp">Experiences</h2>
 
-    <ul class="list">
+    <ul class="list js-animateRevealRoot">
       {
         experiences.map((item) => {
           return (
-            <li class="list-item">
+            <li class="list-item js-animateRevealUp">
               <dl class="description">
                 <dt class="description-title">
                   <Text size="medium" weight="bold" color="primary" height="normal">
@@ -146,3 +146,10 @@ const experiences = [
     }
   }
 </style>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
+</script>

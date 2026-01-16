@@ -41,14 +41,14 @@ const { stacks } = Astro.props as Home;
 const marqueeWords = Array.from(new Set(stacks.map((item) => item.name)));
 ---
 
-<section class="container js-bgMarquee js-featureRevealRoot" data-marquee-words={marqueeWords}>
+<section class="container js-bgMarquee" data-marquee-words={marqueeWords}>
   <div class="inner">
-    <h2 class="title js-featureRevealUp">Expertise</h2>
+    <h2 class="title js-animateRevealRoot js-animateRevealUp">Expertise</h2>
 
-    <ul class="list js-featureRevealUp">
+    <ul class="list js-animateRevealRoot">
       {
         contents.map((item) => (
-          <li class="list-item">
+          <li class="list-item js-animateRevealUp">
             <dl class="description" tabindex="0" role="button">
               <dt class="description-title">
                 <Text size="medium" weight="bold" color="primary" height="thin">
@@ -178,7 +178,6 @@ const marqueeWords = Array.from(new Set(stacks.map((item) => item.name)));
 <script>
   import { revealUp } from "@/scripts/scrollAnimations";
 
-  const dispose = revealUp(".js-featureRevealRoot", ".js-featureRevealUp", { start: "top 85%", scrub: true });
-
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 70%" });
   document.addEventListener("astro:before-swap", dispose, { once: true });
 </script>

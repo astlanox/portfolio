@@ -8,12 +8,12 @@ const { items } = Astro.props as { items: Stacks[] };
 
 <section class="container">
   <div class="inner">
-    <h2 class="title">Stacks</h2>
+    <h2 class="title js-animateRevealRoot js-animateRevealUp">Stacks</h2>
 
-    <ul class="list">
+    <ul class="list js-animateRevealRoot">
       {
         items.map((item) => (
-          <li class="list-item">
+          <li class="list-item js-animateRevealUp">
             {item.icon && <Image src={item.icon?.url} alt={item.name} />}
             <Text color="primary">{item.name}</Text>
           </li>
@@ -76,3 +76,10 @@ const { items } = Astro.props as { items: Stacks[] };
     }
   }
 </style>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
+</script>

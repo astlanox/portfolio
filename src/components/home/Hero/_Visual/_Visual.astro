@@ -27,11 +27,11 @@ const descriptions = [
     <Picture src={ImageHero} alt="" width="680" />
   </div>
 
-  <div class="swiper">
+  <div class="swiper js-animateRevealRoot">
     <div class="swiper-wrapper">
       {
         descriptions.map((item) => (
-          <dl class="description swiper-slide">
+          <dl class="description swiper-slide js-animateRevealUp">
             <dt class="description-title">{item.title}</dt>
             <dd>
               {item.details.map((detail) => (
@@ -222,4 +222,11 @@ const descriptions = [
     spaceBetween: 16,
     breakpoints: { 1024: { enabled: false } },
   });
+</script>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
 </script>
