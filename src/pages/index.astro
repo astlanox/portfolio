@@ -14,7 +14,7 @@ const home = await fetchApi<Home>({ endpoint: "home?pLevel", wrappedByKey: "data
 <FoundationLayout>
   <Hero />
   <Projects />
-  <Expertise />
+  <Expertise stacks={home.stacks} />
   <Experiences />
   <Stacks items={home.stacks} />
 </FoundationLayout>

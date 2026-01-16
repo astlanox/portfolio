@@ -1,6 +1,6 @@
 ---
-import IconHtml from "@/assets/icons/icon_html.svg";
 import Text from "@/elements/Text.astro";
+import type { Home } from "@/types/project";
 
 const contents = [
   {
@@ -8,30 +8,12 @@ const contents = [
     summary: "Building reliable, maintainable websites that work smoothly across devices, browsers, and environments.",
     detail:
       "I develop websites with long-term maintenance and scalability in mind. Beyond simply making pages work, I consider structure, consistency, and future updates. My work emphasizes stability, cross-browser compatibility, and clean implementation so projects remain easy to manage as content and requirements evolve.",
-    categories: [
-      { name: "HTML", logo: IconHtml },
-      { name: "CSS", logo: IconHtml },
-      { name: "JavaScript", logo: IconHtml },
-      { name: "EJS", logo: IconHtml },
-      { name: "Pug", logo: IconHtml },
-      { name: "Sass", logo: IconHtml },
-      { name: "Post CSS", logo: IconHtml },
-      { name: "Tailscale CSS", logo: IconHtml },
-      { name: "GSAP", logo: IconHtml },
-      { name: "Node.js", logo: IconHtml },
-      { name: "Gulp", logo: IconHtml },
-      { name: "Git", logo: IconHtml },
-    ],
   },
   {
     title: "UI / UX Design",
     summary: "Designing clear, intuitive user experiences focused on accessibility, and business goals.",
     detail:
       "I design user interfaces and experiences that prioritize clarity, ease of use, and logical information flow. My approach balances visual consistency with practical usability, ensuring users can understand and complete tasks without friction. I focus on real-world use cases such as navigation, comparison, and decision-making rather than purely decorative design.",
-    categories: [
-      { name: "HTML", logo: IconHtml },
-      { name: "CSS", logo: IconHtml },
-    ],
   },
   {
     title: "Frontend Engineering",
@@ -39,41 +21,31 @@ const contents = [
       "Implementing interactive, responsive interfaces that translate design intent into precise, reliable functionality.",
     detail:
       "I specialize in turning design into accurate, interactive frontend behavior. This includes handling dynamic UI states, user interactions, and edge cases without breaking the visual design. I focus on predictable behavior and readable structure, making complex interfaces easier to understand, extend, and debug over time.",
-    categories: [
-      { name: "HTML", logo: IconHtml },
-      { name: "CSS", logo: IconHtml },
-    ],
   },
   {
     title: "CMS Integration",
     summary: "Integrating CMS to enable flexible updates.",
     detail:
       "I integrate both traditional CMS and headless CMS solutions into websites and web applications. This includes connecting content APIs to modern frontends, structuring content for reuse, and ensuring editors can manage updates without affecting presentation. By supporting headless CMS architectures, I enable flexible, scalable content delivery across different platforms and layouts.",
-    categories: [
-      { name: "HTML", logo: IconHtml },
-      { name: "CSS", logo: IconHtml },
-    ],
   },
   {
     title: "Performance & Optimization",
     summary: "Optimizing website performance to deliver fast loading times and smooth user experiences.",
     detail:
       "I focus on improving performance at both structural and user-perceived levels. This includes reducing unnecessary complexity, improving load speed, and ensuring smooth interactions. Performance is treated as part of the user experience, helping sites feel responsive, professional, and trustworthy in real-world conditions.",
-    categories: [
-      { name: "HTML", logo: IconHtml },
-      { name: "CSS", logo: IconHtml },
-    ],
   },
 ];
 
-const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categories?.map((c) => c.name) ?? [])));
+const { stacks } = Astro.props as Home;
+
+const marqueeWords = Array.from(new Set(stacks.map((item) => item.name)));
 ---
 
-<section class="container js-bgMarquee" data-marquee-words={JSON.stringify(marqueeWords)}>
+<section class="container js-bgMarquee js-featureRevealRoot" data-marquee-words={marqueeWords}>
   <div class="inner">
-    <h2 class="title">Expertise</h2>
+    <h2 class="title js-featureRevealUp">Expertise</h2>
 
-    <ul class="list">
+    <ul class="list js-featureRevealUp">
       {
         contents.map((item) => (
           <li class="list-item">
@@ -191,15 +163,22 @@ const marqueeWords = Array.from(new Set(contents.flatMap((item) => item.categori
   }
 </style>
 
-<script>
+<script type="module">
   import { initBgMarquee } from "@/scripts/bgMarquee";
 
   const section = document.querySelector(".js-bgMarquee");
   if (section) {
     const wordsAttr = section.getAttribute("data-marquee-words");
     if (wordsAttr) {
-      const words = JSON.parse(wordsAttr);
-      initBgMarquee(words);
+      initBgMarquee(wordsAttr);
     }
   }
+</script>
+
+<script type="module">
+  import { revealUpByClass } from "@/anims/revealUpByClass";
+
+  const dispose = revealUpByClass(".js-featureRevealRoot", ".js-featureRevealUp", { start: "top 85%", scrub: true });
+
+  document.addEventListener("astro:before-swap", dispose, { once: true });
 </script>
