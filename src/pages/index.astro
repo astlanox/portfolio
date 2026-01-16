@@ -9,7 +9,6 @@ import fetchApi from "@/libs/cms";
 import type { Home } from "@/types/project";
 
 const home = await fetchApi<Home>({ endpoint: "home?pLevel", wrappedByKey: "data" });
-console.log(home.stacks);
 ---
 
 <FoundationLayout>
