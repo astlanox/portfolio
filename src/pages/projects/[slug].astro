@@ -1,0 +1,59 @@
+---
+import Description from "@/components/projects/Description/Description.astro";
+import Flow from "@/components/projects/Flow/Flow.astro";
+import Meta from "@/components/projects/Meta/Meta.astro";
+import Requirements from "@/components/projects/Requirements/Requirements.astro";
+import Solutions from "@/components/projects/Solutions/Solutions.astro";
+import Stacks from "@/components/projects/Stacks/Stacks.astro";
+import Thumbnail from "@/components/projects/Thumbnail/Thumbnail.astro";
+import Title from "@/components/projects/Title/Title.astro";
+import Layout from "@/layouts/layout.astro";
+import fetchApi from "@/libs/cms";
+import type { Project } from "@/types/project";
+
+export async function getStaticPaths() {
+  const projects = await fetchApi<Project[]>({ endpoint: "projects?pLevel", wrappedByKey: "data" });
+
+  return projects.map((item) => ({ params: { slug: item.slug }, props: item }));
+}
+type Props = Project;
+
+const project = Astro.props;
+---
+
+<Layout>
+  <article>
+    <div class="inner">
+      <div>
+        <Title title={project.title} label={project.label} />
+        <Thumbnail src={project.thumbnail?.url} width={project.thumbnail?.width} height={project.thumbnail?.height} />
+      </div>
+
+      <Description text={project.description} />
+      <Meta items={project.metas} />
+      <Stacks items={project.stacks} />
+      <Flow items={project.flows} />
+    </div>
+
+    <Requirements items={project.requirements} />
+    <Solutions items={project.solutions} />
+  </article>
+</Layout>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .nav {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+    @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxxlarge);
+    }
+  }
+</style>

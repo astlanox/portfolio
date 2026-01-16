@@ -1,0 +1,155 @@
+---
+import Text from "@/elements/Text.astro";
+
+const experiences = [
+  {
+    title: "Self-Employed",
+    period: "April 2020 - Present",
+    role: "Full-stack Web Developer",
+    description:
+      "Worked as a frontend-focused developer, independently delivering web projects from planning and design through implementation and release. I built flexible, content-driven websites and designed reusable UI structures with long-term maintainability in mind. I also streamlined release workflows and continuously refined performance and accessibility to create reliable, user-centered experiences.",
+  },
+  {
+    title: "LY Corporation",
+    period: "April 2020 - March 2025",
+    role: "Frontend Engineer",
+    description:
+      "Worked as a frontend developer on large-scale, high-traffic web platforms, contributing to core user-facing features within complex systems. I collaborated closely with cross-functional teams to shape component architecture and improve overall usability. My work emphasized sustainable design, performance optimization, and smooth operational workflows that support long-term growth.",
+  },
+  {
+    title: "TechAcademy",
+    period: "June 2016 - December 2021",
+    role: "Mentor",
+    description:
+      "Worked as a contract mentor, closely supporting learners through one-on-one sessions and ongoing communication in website design and content-driven site development. I provided practical guidance on design decisions and implementation challenges while adapting to each learner’s pace and goals. Through continuous feedback and encouragement, I helped learners build confidence and apply their skills to real-world scenarios.",
+  },
+];
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title js-animateRevealRoot js-animateRevealUp">Experiences</h2>
+
+    <ul class="list js-animateRevealRoot">
+      {
+        experiences.map((item) => {
+          return (
+            <li class="list-item js-animateRevealUp">
+              <dl class="description">
+                <dt class="description-title">
+                  <Text size="medium" weight="bold" color="primary" height="normal">
+                    {item.title}
+                  </Text>
+
+                  <Text size="small">{item.period}</Text>
+                </dt>
+
+                <dd class="description-detail">
+                  <Text color="primary" weight="bold">
+                    {item.role}
+                  </Text>
+                  <Text>{item.description}</Text>
+                </dd>
+              </dl>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  $description-title-width: 280px;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+  }
+
+  .title {
+    @include title(primary, xxxlarge, bold, uppercase);
+
+    text-align: center;
+  }
+
+  .list {
+    margin-top: sp(large);
+
+    @include container-inner;
+    @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxlarge);
+
+      margin-top: sp("xlarge");
+    }
+
+    &-item {
+      position: relative;
+
+      &:not(:last-child) {
+        &::before {
+          position: absolute;
+          top: 25px;
+          left: 9.5px;
+          width: 2px;
+          height: calc(100% + 11px);
+          content: "";
+          background-color: t(ui, timeline);
+
+          @include up(xlarge) {
+            left: calc($description-title-width - 9.5px);
+            height: calc(100% + 27px);
+          }
+        }
+      }
+    }
+  }
+
+  .description {
+    @include up(xlarge) {
+      display: flex;
+      align-items: flex-start;
+      justify-self: center;
+    }
+
+    &-title {
+      @include ui-node(4px, 0);
+
+      padding-left: sp(large);
+
+      @include up(xlarge) {
+        @include ui-node(4px, calc(100% - 19px));
+
+        min-width: $description-title-width;
+        padding-right: sp(large);
+        padding-left: 0;
+        text-align: right;
+      }
+    }
+
+    &-detail {
+      padding-left: sp(large);
+      margin-top: sp(normal);
+
+      @include up(xlarge) {
+        padding-left: sp(normal);
+        margin-top: 0;
+      }
+    }
+  }
+</style>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
+</script>

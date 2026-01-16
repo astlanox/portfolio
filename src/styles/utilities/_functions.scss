@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "../tokens/color" as c;
+@use "../tokens/scale" as s;
+@use "../tokens/theme" as th;
+@use "../tokens/typography" as ty;
+@use "../tokens/layout" as l;
+
+@function map-deep-get($map, $keys...) {
+  $cur: $map;
+
+  @each $k in $keys {
+    $cur: map.get($cur, $k);
+  }
+
+  @return $cur;
+}
+
+@function ct($key) {
+  @return map.get(l.$container, $key);
+}
+
+@function bp($key) {
+  @return map.get(l.$breakpoints, $key);
+}
+
+@function sp($key) {
+  @return map.get(s.$space, $key);
+}
+
+@function rd($key) {
+  @return map.get(s.$radius, $key);
+}
+
+@function ly($key) {
+  @return map.get(s.$layer, $key);
+}
+
+@function bl($key) {
+  @return blur(map.get(s.$blur, $key));
+}
+
+@function cl($keys...) {
+  @return map-deep-get(c.$palette, $keys...);
+}
+
+@function t($keys...) {
+  @return map-deep-get(th.$semantic, $keys...);
+}
+
+@function fs($key) {
+  @return map.get(ty.$font-size, $key);
+}
+
+@function fw($key) {
+  @return map.get(ty.$font-weight, $key);
+}
+
+@function lh($key) {
+  @return map.get(ty.$line-height, $key);
+}
+
+@function ls($key) {
+  @return map.get(ty.$letter-spacing, $key);
+}

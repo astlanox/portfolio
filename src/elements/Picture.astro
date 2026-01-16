@@ -1,0 +1,15 @@
+---
+import { Picture as PictureBase } from "astro:assets";
+
+const { src, alt = "", width, height } = Astro.props;
+---
+
+<PictureBase
+  src={src}
+  widths={[width, width * 2, width * 3]}
+  height={height}
+  formats={["webp"]}
+  inferSize={true}
+  alt={alt}
+  class="picture"
+/>

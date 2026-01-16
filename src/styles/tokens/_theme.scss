@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "sass:meta";
+@use "./color" as c;
+
+@function palette-get($keys...) {
+  $cur: c.$palette;
+  $path: "palette";
+
+  @each $k in $keys {
+    $path: $path + "." + $k;
+
+    @if meta.type-of($cur) != "map" {
+      @error "palette-get: #{$path} is not a map (got #{meta.type-of($cur)}).";
+    }
+
+    @if not map.has-key($cur, $k) {
+      @error "palette-get: key '#{$k}' not found at #{$path}.";
+    }
+
+    $cur: map.get($cur, $k);
+  }
+
+  @return $cur;
+}
+
+$semantic: (
+  canvas: (
+    primary: palette-get(black),
+    transparent: rgb(palette-get(black), 10%),
+    white: rgb(palette-get(white), 10%),
+  ),
+  text: (
+    primary: palette-get(white),
+    secondary: palette-get(gray, 200),
+    gradient: linear-gradient(
+        to right,
+        palette-get(blue, 100) 0%,
+        palette-get(purple, 100) 100%
+      ),
+    accent: palette-get(aqua, 100),
+    black: palette-get(black),
+  ),
+  border: (
+    primary: rgb(palette-get(gray, 100), 20%),
+    transparent: rgb(palette-get(white), 10%),
+    gradient: linear-gradient(
+        to right,
+        palette-get(blue, 200) 0%,
+        palette-get(purple, 200) 25%,
+        palette-get(blue, 200) 75%,
+        palette-get(purple, 200) 100%
+      ),
+  ),
+  ui: (
+    node: palette-get(gray, 100),
+    timeline: palette-get(gray, 300),
+  ),
+);

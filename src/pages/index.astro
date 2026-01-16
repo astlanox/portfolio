@@ -1,0 +1,20 @@
+---
+import Experiences from "@/components/home/Experiences/Experiences.astro";
+import Expertise from "@/components/home/Expertise/Expertise.astro";
+import Hero from "@/components/home/Hero/Hero.astro";
+import Projects from "@/components/home/Projects/Projects.astro";
+import Stacks from "@/components/home/Stacks/Stacks.astro";
+import FoundationLayout from "@/layouts/layout.astro";
+import fetchApi from "@/libs/cms";
+import type { Home } from "@/types/project";
+
+const home = await fetchApi<Home>({ endpoint: "home?pLevel", wrappedByKey: "data" });
+---
+
+<FoundationLayout>
+  <Hero />
+  <Projects />
+  <Expertise stacks={home.stacks} />
+  <Experiences />
+  <Stacks items={home.stacks} />
+</FoundationLayout>

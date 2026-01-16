@@ -1,0 +1,88 @@
+---
+import Text from "@/elements/Text.astro";
+import type { Meta } from "@/types/project";
+
+const { items } = Astro.props as { items: Meta[] };
+---
+
+<div class="container">
+  <div class="inner">
+    {
+      items.map((item) => (
+        <dl class="list">
+          <Text tag="dt" size="small" height="thin">
+            {item.title}
+          </Text>
+
+          <Text tag="dd" color="primary" size="medium" height="thin">
+            {item.body}
+          </Text>
+        </dl>
+      ))
+    }
+  </div>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include up(xlarge) {
+      display: flex;
+      gap: sp(xxxxlarge);
+      justify-content: center;
+    }
+  }
+
+  .list {
+    position: relative;
+
+    @include box(small);
+
+    align-items: center;
+
+    @include up(xlarge) {
+      align-items: flex-start;
+    }
+
+    &:not(:first-child) {
+      padding-top: sp(normal);
+
+      @include up(xlarge) {
+        padding-top: 0;
+      }
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 32px;
+        height: 1px;
+        content: "";
+        background-color: t(border, primary);
+        transform: translateX(-50%);
+
+        @include up(medium) {
+          top: 50%;
+          left: -64px;
+          width: 1px;
+          height: 32px;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    &:not(:last-child) {
+      padding-bottom: sp(normal);
+
+      @include up(xlarge) {
+        padding-bottom: 0;
+      }
+    }
+  }
+</style>

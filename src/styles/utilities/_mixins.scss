@@ -1,0 +1,101 @@
+@use "./functions" as fn;
+
+@mixin up($bp) {
+  @media (min-width: fn.bp($bp)) {
+    @content;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  max-width: fn.ct(large);
+  padding-right: fn.sp(normal);
+  padding-left: fn.sp(normal);
+  margin-right: auto;
+  margin-left: auto;
+
+  @include up(xlarge) {
+    padding-right: fn.sp(xlarge);
+    padding-left: fn.sp(xlarge);
+  }
+}
+
+@mixin container-inner {
+  max-width: fn.ct(small);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@mixin inner {
+  padding-top: fn.sp(xlarge);
+  padding-bottom: fn.sp(xlarge);
+
+  @include up(xlarge) {
+    padding-top: fn.sp(xxxlarge);
+    padding-bottom: fn.sp(xxxlarge);
+  }
+}
+
+@mixin box($gap: 0) {
+  display: flex;
+  flex-direction: column;
+  gap: fn.sp($gap);
+}
+
+@mixin title($color, $font-size, $font-weight, $transform: null) {
+  font-family: Orbitron, sans-serif;
+  font-size: fn.fs($font-size);
+  font-weight: fn.fw($font-weight);
+  line-height: fn.lh(thin);
+  color: fn.t(text, $color);
+  letter-spacing: fn.ls(wide);
+
+  @if $transform {
+    text-transform: $transform;
+  }
+}
+
+@mixin card($radius: normal) {
+  background-color: fn.t(canvas, transparent);
+  border: 1px solid fn.t(border, primary);
+  border-radius: fn.rd($radius);
+  backdrop-filter: fn.bl(normal);
+}
+
+@mixin ui-node($top: 0, $left: 0) {
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+    border-radius: fn.rd(circle);
+  }
+
+  &::before {
+    top: $top;
+    left: $left;
+    width: 19px;
+    height: 19px;
+    background-color: fn.t(canvas, primary);
+    border: 1px solid fn.t(ui, node);
+  }
+
+  &::after {
+    @if $top == 0 {
+      top: 4px;
+    } @else {
+      top: calc(#{$top} + 4px);
+    }
+
+    @if $left == 0 {
+      left: 4px;
+    } @else {
+      left: calc(#{$left} + 4px);
+    }
+
+    width: 13px;
+    height: 13px;
+    background-color: fn.t(ui, node);
+  }
+}

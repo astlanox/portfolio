@@ -1,0 +1,39 @@
+---
+const { title, label } = Astro.props;
+---
+
+<hgroup class="container">
+  <h1 class="title"><span>{title}</span></h1>
+  <p class="label"><span>{label}</span></p>
+</hgroup>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+    @include box(xsmall);
+
+    align-items: center;
+    text-align: center;
+  }
+
+  .title {
+    order: 2;
+
+    span {
+      @include title(primary, xxxxxlarge, extrabold, uppercase);
+    }
+  }
+
+  .label {
+    span {
+      @include title(primary, large, extrabold, capitalize);
+
+      background: t(text, gradient);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+</style>

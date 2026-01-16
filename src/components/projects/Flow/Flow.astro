@@ -1,0 +1,100 @@
+---
+import Text from "@/elements/Text.astro";
+import type { Flow } from "@/types/project";
+
+const { items } = Astro.props as { items: Flow[] };
+---
+
+<div class="container">
+  <ol class="list">
+    {
+      items.map((item) => (
+        <li class="list-item">
+          <dl class="description">
+            <dt class="description-title">
+              <Text tag="span" size="normal" color="primary">
+                {item.title}
+              </Text>
+            </dt>
+
+            <dd class="description-detail">
+              <Text tag="span">{item.body}</Text>
+            </dd>
+          </dl>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .list {
+    @include box(medium);
+
+    @include up("xlarge") {
+      flex-direction: row;
+    }
+
+    &-item {
+      position: relative;
+
+      @include up("xlarge") {
+        padding-left: 0;
+      }
+
+      &:not(:last-child) {
+        &::before {
+          position: absolute;
+          top: 30px;
+          left: 10px;
+          display: block;
+          width: 2px;
+          height: calc(100% + 11px);
+          content: "";
+          background-color: t(ui, timeline);
+
+          @include up(xlarge) {
+            top: 10px;
+            left: calc(50% + 10px);
+            width: calc(100% + 4px);
+            height: 2px;
+          }
+        }
+      }
+    }
+  }
+
+  .description {
+    @include box(small);
+
+    @include up("xlarge") {
+      text-align: center;
+    }
+
+    &-title,
+    &-detail {
+      padding-left: sp(large);
+
+      @include up(xlarge) {
+        padding-left: 0;
+      }
+    }
+
+    &-title {
+      @include ui-node(9px, 0);
+
+      @include up(xlarge) {
+        padding-top: sp(large);
+
+        @include ui-node(0, calc(50% - 10px));
+      }
+    }
+  }
+</style>

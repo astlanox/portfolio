@@ -1,0 +1,85 @@
+---
+import Image from "@/elements/Image.astro";
+import Text from "@/elements/Text.astro";
+import type { Stacks } from "@/types/project";
+
+const { items } = Astro.props as { items: Stacks[] };
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title js-animateRevealRoot js-animateRevealUp">Stacks</h2>
+
+    <ul class="list js-animateRevealRoot">
+      {
+        items.map((item) => (
+          <li class="list-item js-animateRevealUp">
+            {item.icon && <Image src={item.icon?.url} alt={item.name} />}
+            <Text color="primary">{item.name}</Text>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  $description-title-width: 240px;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+    @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxlarge);
+
+      flex-direction: row;
+    }
+  }
+
+  .title {
+    @include title(primary, xxxlarge, bold, uppercase);
+
+    text-align: center;
+
+    @include up(xlarge) {
+      @include title(primary, xlarge, bold, uppercase);
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: sp(small);
+    justify-content: center;
+
+    @include up(xlarge) {
+      gap: sp(normal);
+      justify-content: flex-start;
+    }
+
+    &-item {
+      @include card(small);
+
+      display: flex;
+      gap: sp(small);
+      align-items: center;
+      justify-content: center;
+      padding: sp(small) sp(normal) sp(small) sp(small);
+    }
+  }
+</style>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
+</script>

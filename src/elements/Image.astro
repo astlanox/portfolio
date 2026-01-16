@@ -1,0 +1,7 @@
+---
+import { Image as ImageBase } from "astro:assets";
+
+const { src, alt = "", width, height } = Astro.props;
+---
+
+<ImageBase src={src} width={width} height={height} inferSize={true} alt={alt} class="image" />

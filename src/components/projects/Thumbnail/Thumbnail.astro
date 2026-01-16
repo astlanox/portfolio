@@ -1,0 +1,49 @@
+---
+import Picture from "@/elements/Picture.astro";
+
+const { src } = Astro.props;
+---
+
+<div class="container">
+  <div class="inner">
+    <div class="image">
+      <Picture src={src} width={1200} />
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+
+    position: relative;
+    box-shadow: 0 0 24px 16px cl(black);
+
+    @include up(medium) {
+      box-shadow: 0 0 40px 24px cl(black);
+    }
+  }
+
+  .inner {
+    padding: sp(small);
+    background-color: t(border, transparent);
+    border-radius: rd(normal);
+
+    @include up(medium) {
+      padding: sp(normal);
+      border-radius: rd(medium);
+    }
+  }
+
+  .image {
+    overflow: hidden;
+    border-radius: calc(rd(normal) - 1%);
+
+    @include up(medium) {
+      border-radius: calc(rd(medium) - 1%);
+    }
+  }
+</style>

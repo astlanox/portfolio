@@ -1,0 +1,83 @@
+---
+import Text from "@/elements/Text.astro";
+import type { Requirement } from "@/types/project";
+
+const { items } = Astro.props as { items: Requirement[] };
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title">
+      What they <span class="title-strong">needed?</span>
+    </h2>
+
+    <ul class="list">
+      {
+        items.map((item) => (
+          <li class="list-item">
+            <Text size="medium">{item.body}</Text>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+
+    display: flex;
+    flex-direction: column;
+    gap: sp(xlarge);
+
+    @include up(xlarge) {
+      gap: sp(xxlarge);
+    }
+  }
+
+  .title {
+    @include title(secondary, xxxxlarge, bold);
+
+    text-align: center;
+
+    &-strong {
+      @include title(primary, xxxxlarge, bold, capitalize);
+    }
+  }
+
+  .list {
+    @include container-inner;
+
+    display: flex;
+    flex-direction: column;
+    gap: sp(normal);
+
+    &-item {
+      position: relative;
+      padding-left: sp(medium);
+
+      &::before {
+        position: absolute;
+        top: 14px;
+        left: 0;
+        width: 11px;
+        height: 11px;
+        content: "";
+        background-color: t(border, primary);
+        border-radius: rd(circle);
+
+        @include up(xlarge) {
+          top: 18px;
+        }
+      }
+    }
+  }
+</style>

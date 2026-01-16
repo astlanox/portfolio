@@ -1,0 +1,48 @@
+---
+import IconSignal from "@/assets/icons/icon_signal.svg";
+import ImageLogo from "@/assets/images/common/logo.svg";
+import { Titles, Urls } from "@/constants/meta";
+import Button from "@/elements/Button.astro";
+import Image from "@/elements/Image.astro";
+---
+
+<header class="container js-ctaTrigger">
+  <nav class="nav">
+    <div class="logo">
+      <a href={Urls.BASE}>
+        <Image src={ImageLogo} alt={Titles.SITE} />
+      </a>
+    </div>
+  </nav>
+
+  <Button url={Urls.CONTACT} icon={IconSignal} isSmall />
+</header>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 80px;
+    padding-right: sp(normal);
+    padding-left: sp(normal);
+
+    @include up(xlarge) {
+      height: 160px;
+      padding-right: sp(xlarge);
+      padding-left: sp(xlarge);
+    }
+  }
+
+  .logo {
+    width: 160px;
+
+    @include up(xlarge) {
+      width: 180px;
+    }
+  }
+</style>

@@ -1,0 +1,139 @@
+---
+import Picture from "@/elements/Picture.astro";
+import Text from "@/elements/Text.astro";
+import ImageDefault from "./_image/solutions_img-default.png";
+import type { Solution } from "@/types/project";
+import { parseRichText } from "@/utils/parseRichText";
+
+const { items } = Astro.props as { items: Solution[] };
+---
+
+<section class="container">
+  <div class="inner">
+    <h2 class="title">
+      How I <span class="title-strong">approached?</span>
+    </h2>
+
+    {
+      items.map((item) => (
+        <section class="item">
+          <div class="item-content">
+            <h3 class="item-title" set:html={parseRichText(item.title)} />
+
+            <div>
+              <span class="item-label">{item.label}</span>
+            </div>
+
+            <div class="item-description">
+              <Text>{item.body}</Text>
+            </div>
+          </div>
+
+          <div class="item-visual">
+            <div class="image">
+              <Picture src={item.image?.url ?? ImageDefault} width="600" />
+            </div>
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+
+    display: flex;
+    flex-direction: column;
+    gap: sp(xlarge);
+
+    @include up(xlarge) {
+      gap: sp(xxxlarge);
+    }
+  }
+
+  .title {
+    @include title(secondary, xxxxlarge, bold);
+
+    text-align: center;
+
+    &-strong {
+      @include title(primary, xxxxlarge, bold, capitalize);
+    }
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: sp(medium);
+    padding-top: sp(normal);
+    padding-bottom: sp(normal);
+
+    @include up(xlarge) {
+      flex-direction: row;
+      gap: sp(xxlarge);
+
+      &:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: sp(normal);
+
+      @include up(xlarge) {
+        width: 45%;
+      }
+    }
+
+    &-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      @include up(xlarge) {
+        width: 55%;
+      }
+    }
+
+    &-title {
+      order: 2;
+
+      @include title(secondary, xxlarge, bold);
+
+      /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+      :global(strong) {
+        @include title(primary, xxlarge, bold, capitalize);
+      }
+    }
+
+    &-label {
+      order: 1;
+
+      @include title(primary, medium, bold, capitalize);
+
+      background: t(text, gradient);
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    &-description {
+      order: 3;
+    }
+
+    .image {
+      width: 100%;
+    }
+  }
+</style>

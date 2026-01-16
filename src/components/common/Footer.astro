@@ -1,0 +1,21 @@
+---
+import Text from "@/elements/Text.astro";
+import { getCurrentYear } from "@/utils/getDate";
+
+const currentYear = getCurrentYear();
+---
+
+<footer class="footer js-ctaTrigger">
+  <Text tag="small" size="xsmall">&copy; {currentYear} Astlanox.</Text>
+</footer>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .footer {
+    padding-top: sp(medium);
+    padding-bottom: sp(medium);
+    text-align: center;
+  }
+</style>

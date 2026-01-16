@@ -1,0 +1,32 @@
+$space-base: 8px;
+$space: (
+  xsmall: $space-base * 0.5,
+  small: $space-base * 1,
+  normal: $space-base * 2,
+  medium: $space-base * 3,
+  large: $space-base * 4,
+  xlarge: $space-base * 5,
+  xxlarge: $space-base * 6,
+  xxxlarge: $space-base * 10,
+  xxxxlarge: $space-base * 16,
+  xxxxxlarge: $space-base * 25,
+);
+$radius: (
+  small: 1.2rem,
+  normal: 2.4rem,
+  medium: 6.4rem,
+  pill: 50rem,
+  circle: 99rem,
+);
+$layer: (
+  background: -1,
+  base: 0,
+  overlay: 1,
+  popup: 2,
+  fixed: 3,
+);
+$blur: (
+  light: 8px,
+  normal: 12px,
+  strong: 24px,
+);

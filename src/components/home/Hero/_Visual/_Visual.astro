@@ -1,0 +1,232 @@
+---
+import Picture from "@/elements/Picture.astro";
+import ImageHero from "./_images/hero_img.png";
+
+const descriptions = [
+  {
+    title: "Web developer",
+    details: [
+      { label: "Signal strength", detail: "87", unit: "%" },
+      { label: "Latency", detail: "12", unit: "ms" },
+    ],
+  },
+  {
+    title: "UI / UX designer",
+    details: [
+      { label: "Signal strength", detail: "87", unit: "%" },
+      { label: "Latency", detail: "12", unit: "ms" },
+    ],
+  },
+  { title: "Gamer", details: [{ label: "Signal strength", detail: "87", unit: "%" }] },
+  { title: "Photographer", details: [{ label: "Signal strength", detail: "87", unit: "%" }] },
+];
+---
+
+<div class="container">
+  <div class="visual">
+    <Picture src={ImageHero} alt="" width="680" />
+  </div>
+
+  <div class="swiper js-animateRevealRoot">
+    <div class="swiper-wrapper">
+      {
+        descriptions.map((item) => (
+          <dl class="description swiper-slide js-animateRevealUp">
+            <dt class="description-title">{item.title}</dt>
+            <dd>
+              {item.details.map((detail) => (
+                <dl class="description-list">
+                  <dt class="description-label">{detail.label}</dt>
+                  <dd class="description-detail">
+                    {detail.detail}
+                    {detail.unit && <span class="description-detail-unit">{detail.unit}</span>}
+                  </dd>
+                </dl>
+              ))}
+            </dd>
+          </dl>
+        ))
+      }
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <div class="ui"></div>
+</div>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include box(0);
+
+    position: relative;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .visual {
+    max-width: 680px;
+    mask-image: linear-gradient(to bottom, rgb(0 0 0 / 100%) 60%, rgb(0 0 0 / 0%) 100%);
+
+    @include up(xlarge) {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      mask-image: linear-gradient(to bottom, rgb(0 0 0 / 100%) 90%, rgb(0 0 0 / 25%) 100%);
+    }
+  }
+
+  .swiper {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    @include up(xlarge) {
+      position: unset;
+      overflow: unset;
+    }
+
+    &-wrapper {
+      margin-bottom: sp(normal);
+
+      @include up(xlarge) {
+        position: unset;
+        margin-bottom: 0;
+        transform: unset;
+      }
+    }
+
+    &-slide {
+      width: 100%;
+      min-width: 100%;
+
+      @include up(xlarge) {
+        width: unset !important;
+        min-width: unset;
+        height: auto;
+      }
+    }
+
+    &-pagination {
+      bottom: 0 !important;
+
+      /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+      :global(.swiper-pagination-bullet) {
+        background: t(ui, node) !important;
+      }
+    }
+  }
+
+  .description {
+    @include card(small);
+
+    padding: sp(small) sp(normal);
+    text-align: left;
+
+    @include up(xlarge) {
+      position: absolute;
+
+      &:nth-child(1) {
+        top: 20%;
+        left: 5%;
+      }
+
+      &:nth-child(2) {
+        top: 11%;
+        right: 0;
+      }
+
+      &:nth-child(3) {
+        bottom: 10%;
+        left: 0;
+      }
+
+      &:nth-child(4) {
+        right: 5%;
+        bottom: 15%;
+      }
+    }
+
+    &-title {
+      @include title(primary, normal, bold, capitalize);
+
+      padding: sp(normal) sp(small);
+    }
+
+    &-list {
+      display: flex;
+      gap: sp(small);
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: sp(normal) sp(small);
+      border-top: 1px solid t(border, primary);
+    }
+
+    &-label {
+      @include title(primary, small, normal, capitalize);
+
+      &::after {
+        content: ":";
+      }
+    }
+
+    &-detail {
+      @include title(primary, small, normal, uppercase);
+
+      &-unit {
+        @include title(primary, xsmall, normal);
+      }
+    }
+  }
+
+  .ui {
+    display: none;
+
+    @include up(xlarge) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding-right: sp(normal);
+      padding-left: sp(normal);
+      border-top: 1px solid t(border, primary);
+    }
+
+    &::before,
+    &::after {
+      @include title(secondary, xsmall, normal);
+
+      padding-top: sp(small);
+    }
+
+    &::before {
+      content: "X:  172. 6362  /  Y:  -43. 5321  ( Detected  Location:  New  Zealand )";
+    }
+
+    &::after {
+      content: "Version:  1. 8. 7  /  Build:  24122025123243";
+    }
+  }
+</style>
+
+<script>
+  import Swiper from "swiper";
+  import { Pagination } from "swiper/modules";
+  import "swiper/css";
+  import "swiper/css/pagination";
+
+  new Swiper(".swiper", {
+    modules: [Pagination],
+    pagination: { el: ".swiper-pagination" },
+    spaceBetween: 16,
+    breakpoints: { 1024: { enabled: false } },
+  });
+</script>
+
+<script>
+  import { revealUp } from "@/scripts/scrollAnimations";
+
+  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
+  document.addEventListener("astro:before-swap", dispose, { once: true });
+</script>
