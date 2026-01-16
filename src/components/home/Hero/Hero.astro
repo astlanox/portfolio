@@ -23,6 +23,7 @@ import Visual from "./_Visual/_Visual.astro";
       <Link url="https://github.com/astlanox/portfolio" target="_blank">
         <div class="button">
           <IconGithub width={40} height={40} />
+
           <Text color="primary" weight="bold">View on Github</Text>
         </div>
       </Link>
@@ -97,6 +98,12 @@ import Visual from "./_Visual/_Visual.astro";
     align-items: center;
     padding: sp(small) sp(normal) sp(small) sp(small);
     color: t(text, primary);
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: 0.2s ease-in-out;
+    }
   }
 
   .bg {

@@ -21,9 +21,7 @@ if (isSmall) classList.push("container-small");
   }
   <div class="button">
     <a href={Urls.CONTACT} class="link">
-      <div class="icon">
-        <IconEmail width={isSmall ? 32 : 34} height={isSmall ? 32 : 34} />
-      </div>
+      <IconEmail width={isSmall ? 34 : 40} height={isSmall ? 32 : 40} />
 
       {
         !isSmall && (
@@ -44,11 +42,6 @@ if (isSmall) classList.push("container-small");
     @include box;
 
     align-items: center;
-
-    // @include box(normal);
-
-    // flex-direction: row;
-    // align-items: center;
   }
 
   .button {

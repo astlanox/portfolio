@@ -1,15 +1,20 @@
 ---
+import IconLock from "@/assets/icons/icon_lock.svg";
 import { Urls } from "@/constants/meta";
 import Link from "@/elements/Link.astro";
 import Text from "@/elements/Text.astro";
 import ImageItem01 from "./_images/projects_item-01.png";
+import ImageItem02 from "./_images/projects_item-02.png";
+import ImageItem03 from "./_images/projects_item-03.png";
+import ImageItem04 from "./_images/projects_item-04.png";
+import ImageItem05 from "./_images/projects_item-05.png";
 
 const items = [
   { title: "Soelu Studio", label: "Web development", id: "soelu-studio", image: ImageItem01 },
-  { title: "Soelu LP", label: "Web design", image: ImageItem01 },
-  { title: "CMS Development", label: "Web development", image: ImageItem01 },
-  { title: "hugahuga", label: "Web development", image: ImageItem01 },
-  { title: "Infuse", label: "Translation", image: ImageItem01 },
+  { title: "Promotional Landing Page", label: "Web design", image: ImageItem02 },
+  { title: "Corporate Website", label: "Web design", image: ImageItem03 },
+  { title: "CMS Development", label: "Web development", image: ImageItem04 },
+  { title: "Design-to-Code Web App", label: "UI / UX design", image: ImageItem05 },
 ];
 ---
 
@@ -35,7 +40,10 @@ const items = [
           const content = item.id ? <Link url={`${Urls.PROJECT_LIST}/${item.id}`}>{title}</Link> : title;
 
           return (
-            <li class="list-item" style={`background-image:url(${item.image.src})`}>
+            <li
+              class={item.id ? "list-item" : "list-item list-item-locked"}
+              style={`background-image:url(${item.image?.src ?? "none"});--icon-lock:url(${IconLock.src});`}
+            >
               {content}
             </li>
           );
@@ -93,41 +101,92 @@ const items = [
       justify-content: center;
       aspect-ratio: 16 / 9;
       overflow: hidden;
+      background-color: t(canvas, white);
+      background-image: none;
       background-position: center;
       background-size: cover;
       border-radius: rd(normal);
+      backdrop-filter: bl(normal);
+
+      &::before {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        content: "";
+        background-image: inherit;
+        background-position: center;
+        background-size: cover;
+        transform: scale(1);
+        transition: transform 0.4s ease;
+      }
+
+      &:hover::before {
+        transform: scale(1.05);
+      }
 
       @include up(xlarge) {
         aspect-ratio: unset;
 
         &:nth-child(1) {
           grid-row: span 2 / span 2;
-          grid-column: span 4 / span 4;
+          grid-row-start: 4;
+          grid-column: span 8 / span 8;
+          grid-column-start: 5;
+          order: 5;
         }
 
         &:nth-child(2) {
           grid-row: span 2 / span 2;
           grid-column: span 4 / span 4;
-          grid-column-start: 5;
+          order: 1;
         }
 
         &:nth-child(3) {
-          grid-row: span 3 / span 3;
+          grid-row: span 2 / span 2;
           grid-column: span 4 / span 4;
-          grid-column-start: 9;
+          grid-column-start: 5;
+          order: 2;
         }
 
         &:nth-child(4) {
           grid-row: span 3 / span 3;
-          grid-row-start: 3;
           grid-column: span 4 / span 4;
+          grid-column-start: 9;
+          order: 3;
         }
 
         &:nth-child(5) {
-          grid-row: span 2 / span 2;
-          grid-row-start: 4;
-          grid-column: span 8 / span 8;
-          grid-column-start: 5;
+          grid-row: span 3 / span 3;
+          grid-row-start: 3;
+          grid-column: span 4 / span 4;
+          order: 4;
+        }
+      }
+
+      &-locked {
+        &::before {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          content: "";
+          background: t(canvas, transparent);
+          backdrop-filter: bl(strong);
+        }
+
+        &::after {
+          @include title(primary, normal, bold, uppercase);
+
+          z-index: ly(overlay);
+          width: 48px;
+          height: 48px;
+          margin-bottom: sp(normal);
+          color: t(text, primary);
+          content: "";
+          background-color: t(text, primary);
+          mask-image: var(--icon-lock);
+          mask-repeat: no-repeat;
+          mask-position: top center;
+          mask-size: 48px;
         }
       }
     }
