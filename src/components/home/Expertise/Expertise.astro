@@ -174,10 +174,3 @@ const marqueeWords = Array.from(new Set(stacks.map((item) => item.name)));
     }
   }
 </script>
-
-<script>
-  import { revealUp } from "@/scripts/scrollAnimations";
-
-  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 70%" });
-  document.addEventListener("astro:before-swap", dispose, { once: true });
-</script>

@@ -146,10 +146,3 @@ const experiences = [
     }
   }
 </style>
-
-<script>
-  import { revealUp } from "@/scripts/scrollAnimations";
-
-  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
-  document.addEventListener("astro:before-swap", dispose, { once: true });
-</script>

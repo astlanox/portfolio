@@ -18,9 +18,9 @@ const items = [
 ];
 ---
 
-<section class="container js-animateRevealRoot">
+<section class="container">
   <div class="inner">
-    <h2 class="title js-animateRevealRoot js-animateRevealUp">Projects</h2>
+    <h2 class="title js-animate-root js-animate-fade-up">Projects</h2>
 
     <ul class="list js-animateRevealRoot">
       {
@@ -210,8 +210,7 @@ const items = [
 </style>
 
 <script>
-  import { revealUp } from "@/scripts/scrollAnimations";
+  import { scrollFadeUp } from "@/scripts/scrollAnimations";
 
-  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
-  document.addEventListener("astro:before-swap", dispose, { once: true });
+  scrollFadeUp({ start: "bottom 90%" });
 </script>
