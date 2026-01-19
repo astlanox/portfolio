@@ -145,21 +145,6 @@ const marqueeWords = Array.from(new Set(stacks.map((item) => item.name)));
 
     position: relative;
     justify-content: flex-end;
-
-    &::before,
-    &::after {
-      position: absolute;
-      top: 32px;
-      left: 24px;
-      width: 16px;
-      height: 1px;
-      content: "";
-      background-color: t(text, white);
-    }
-
-    &::after {
-      transform: rotate(90deg);
-    }
   }
 </style>
 
