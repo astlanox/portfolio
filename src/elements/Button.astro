@@ -2,11 +2,12 @@
 import IconExternal from "@/assets/icons/icon_external.svg";
 import Text from "@/elements/Text.astro";
 
-const { url, text, label, icon: Icon, isExternal, isSmall = false } = Astro.props;
+const { url, text, label, icon: Icon, isExternal, isSmall = false, class: className = "" } = Astro.props;
 
 const classList = ["container"];
 
 if (isSmall) classList.push("container-small");
+if (className) classList.push(className);
 ---
 
 <div class={classList.join(" ")}>

@@ -18,11 +18,11 @@ const items = [
 ];
 ---
 
-<section class="container js-animateRevealRoot">
+<section class="container">
   <div class="inner">
-    <h2 class="title js-animateRevealRoot js-animateRevealUp">Projects</h2>
+    <h2 class="title js-animateTypeRoot-projects js-animateType">Projects</h2>
 
-    <ul class="list js-animateRevealRoot">
+    <ul class="list">
       {
         items.map((item) => {
           const title = (
@@ -41,7 +41,7 @@ const items = [
 
           return (
             <li
-              class={`list-item js-animateRevealUp ${item.id ? "" : "list-item-locked"}`}
+              class={`list-item ${item.id ? "" : "list-item-locked"} js-animateFadeUpRoot-projects js-animateFadeUp`}
               style={`background-image:url(${item.image?.src ?? "none"});--icon-lock:url(${IconLock.src});`}
             >
               {content}
@@ -210,8 +210,26 @@ const items = [
 </style>
 
 <script>
-  import { revealUp } from "@/scripts/scrollAnimations";
+  import { initAnimation } from "@/scripts/initAnimation";
+  import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
 
-  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
-  document.addEventListener("astro:before-swap", dispose, { once: true });
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateTypeRoot-projects",
+    start: "top 80%",
+    buildTimeline: ({ master }) => {
+      const tlType = scrollType(".js-animateTypeRoot-projects", { cps: 20 });
+      if (tlType) master.add(tlType, 0);
+    },
+  });
+
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateFadeUpRoot-projects",
+    start: "top 70%",
+    buildTimeline: ({ rootEl, master }) => {
+      const tlFadeUp = scrollFadeUp(rootEl);
+      if (tlFadeUp) master.add(tlFadeUp, 0);
+    },
+  });
 </script>

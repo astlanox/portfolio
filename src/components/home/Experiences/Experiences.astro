@@ -28,13 +28,13 @@ const experiences = [
 
 <section class="container">
   <div class="inner">
-    <h2 class="title js-animateRevealRoot js-animateRevealUp">Experiences</h2>
+    <h2 class="title js-animateTypeRoot-experiences js-animateType">Experiences</h2>
 
-    <ul class="list js-animateRevealRoot">
+    <ul class="list">
       {
         experiences.map((item) => {
           return (
-            <li class="list-item js-animateRevealUp">
+            <li class="list-item js-animateFadeUpRoot-experiences js-animateFadeUp">
               <dl class="description">
                 <dt class="description-title">
                   <Text size="medium" weight="bold" color="primary" height="normal">
@@ -148,8 +148,26 @@ const experiences = [
 </style>
 
 <script>
-  import { revealUp } from "@/scripts/scrollAnimations";
+  import { initAnimation } from "@/scripts/initAnimation";
+  import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
 
-  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
-  document.addEventListener("astro:before-swap", dispose, { once: true });
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateTypeRoot-experiences",
+    start: "top 80%",
+    buildTimeline: ({ master }) => {
+      const tlType = scrollType(".js-animateTypeRoot-experiences", { cps: 20 });
+      if (tlType) master.add(tlType, 0);
+    },
+  });
+
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateFadeUpRoot-experiences",
+    start: "top 70%",
+    buildTimeline: ({ rootEl, master }) => {
+      const tlFadeUp = scrollFadeUp(rootEl);
+      if (tlFadeUp) master.add(tlFadeUp, 0);
+    },
+  });
 </script>
