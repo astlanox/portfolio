@@ -8,26 +8,32 @@ import Visual from "./_Visual/_Visual.astro";
 
 <section class="container">
   <div class="inner">
-    <div class="content">
-      <hgroup class="title">
-        Hi, I am <br />
-        <h1 class="title-strong">Astlanox</h1>
+    <div>
+      <hgroup class="title js-animateTypeRoot-hero">
+        <div class="js-fv-type-line1">Hi, I am</div>
+        <h1 class="title-strong js-fv-type-line2">Astlanox</h1>
       </hgroup>
 
-      <p class="role">Web developer</p>
-
-      <Text>
-        Frontend-focused web developer with a strong UI / UX background, bridging design and development to build
-        modern, scalable websites, focused on clarity, usability, and long-term maintainability.
-      </Text>
-
-      <Button url={Urls.GITHUB_PORTFOLIO} text="View on Github" icon={IconGithub} isExternal />
+      <div class="content js-animateFadeUpRoot-hero">
+        <p class="role js-animateFadeUp">Web developer</p>
+        <Text class="js-animateFadeUp">
+          Frontend-focused web developer with a strong UI / UX background, bridging design and development to build
+          modern, scalable websites, focused on clarity, usability, and long-term maintainability.
+        </Text>
+        <Button
+          url={Urls.GITHUB_PORTFOLIO}
+          text="View on Github"
+          icon={IconGithub}
+          isExternal
+          class="js-animateFadeUp"
+        />
+      </div>
     </div>
 
     <Visual />
   </div>
 
-  <canvas class="bg js-bg" aria-hidden="true"></canvas>
+  <canvas class="bg js-bg js-animateFadeInRoot-hero js-animateFadeIn" aria-hidden="true"></canvas>
 </section>
 
 <style lang="scss">
@@ -63,6 +69,7 @@ import Visual from "./_Visual/_Visual.astro";
 
     align-items: center;
     justify-content: center;
+    margin-top: sp(medium);
   }
 
   .title {
@@ -70,10 +77,10 @@ import Visual from "./_Visual/_Visual.astro";
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(primary, xxlarge, bold);
+    @include title(primary, xxlarge, bold, normal, nowrap);
 
     &-strong {
-      @include title(primary, xxxxxlarge, bold, uppercase);
+      @include title(primary, xxxxxlarge, bold, uppercase, nowrap);
     }
   }
 
@@ -582,4 +589,39 @@ import Visual from "./_Visual/_Visual.astro";
       `,
     });
   }
+</script>
+
+<script>
+  import { initAnimation } from "@/scripts/initAnimation";
+  import { initialFadeUp, initialType, initialFadeIn } from "@/scripts/initialAnimations";
+
+  initAnimation({
+    mode: "intro",
+    root: ".js-animateTypeRoot-hero",
+    lockScroll: true,
+    buildTimeline: ({ master }) => {
+      const tlType = initialType(".js-animateTypeRoot-hero", {
+        cps: 15,
+        dps: 10,
+        delayBetween: 0.18,
+        holdAfterLine2From: 1,
+      });
+
+      if (tlType) {
+        master.add(tlType, 0);
+      }
+
+      const tlFadeUp = initialFadeUp(".js-animateFadeUpRoot-hero", { delay: 4 });
+
+      if (tlFadeUp) {
+        master.add(tlFadeUp, 0);
+      }
+
+      const tlFadeIn = initialFadeIn(".js-animateFadeInRoot-hero", { delay: 4 });
+
+      if (tlFadeIn) {
+        master.add(tlFadeIn, 0);
+      }
+    },
+  });
 </script>

@@ -8,12 +8,12 @@ const { items } = Astro.props as { items: Stacks[] };
 
 <section class="container">
   <div class="inner">
-    <h2 class="title js-animateRevealRoot js-animateRevealUp">Stacks</h2>
+    <h2 class="title js-animateTypeRoot-stacks js-animateType">Stacks</h2>
 
-    <ul class="list js-animateRevealRoot">
+    <ul class="list js-animateFadeUpRoot-stacks">
       {
         items.map((item) => (
-          <li class="list-item js-animateRevealUp">
+          <li class="list-item js-animateFadeUp">
             {item.icon && <Image src={item.icon?.url} alt={item.name} />}
             <Text color="primary">{item.name}</Text>
           </li>
@@ -51,6 +51,8 @@ const { items } = Astro.props as { items: Stacks[] };
 
     @include up(xlarge) {
       @include title(primary, xlarge, bold, uppercase);
+
+      min-width: 201px;
     }
   }
 
@@ -78,8 +80,26 @@ const { items } = Astro.props as { items: Stacks[] };
 </style>
 
 <script>
-  import { revealUp } from "@/scripts/scrollAnimations";
+  import { initAnimation } from "@/scripts/initAnimation";
+  import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
 
-  const dispose = revealUp(".js-animateRevealRoot", ".js-animateRevealUp", { start: "top 100%" });
-  document.addEventListener("astro:before-swap", dispose, { once: true });
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateTypeRoot-stacks",
+    start: "top 80%",
+    buildTimeline: ({ master }) => {
+      const tlType = scrollType(".js-animateTypeRoot-stacks", { cps: 20 });
+      if (tlType) master.add(tlType, 0);
+    },
+  });
+
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateFadeUpRoot-stacks",
+    start: "top 70%",
+    buildTimeline: ({ rootEl, master }) => {
+      const tlFadeUp = scrollFadeUp(rootEl);
+      if (tlFadeUp) master.add(tlFadeUp, 0);
+    },
+  });
 </script>

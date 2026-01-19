@@ -4,9 +4,11 @@ import ImageLogo from "@/assets/images/common/logo.svg";
 import { Titles, Urls } from "@/constants/meta";
 import Button from "@/elements/Button.astro";
 import Image from "@/elements/Image.astro";
+
+const { enableAnimation = false } = Astro.props;
 ---
 
-<header class="container js-ctaTrigger">
+<header class="container js-ctaTrigger js-animateFadeDownRoot-hero js-animateFadeDown">
   <nav class="nav">
     <div class="logo">
       <a href={Urls.BASE}>
@@ -46,3 +48,24 @@ import Image from "@/elements/Image.astro";
     }
   }
 </style>
+
+{enableAnimation && (
+  <script>
+    import { initAnimation } from "@/scripts/initAnimation";
+    import { initialFadeDown } from "@/scripts/initialAnimations";
+
+    initAnimation({
+      mode: "intro",
+      root: ".js-animateFadeDownRoot-hero",
+      buildTimeline: ({ master }) => {
+        const tlFadeDown = initialFadeDown(".js-animateFadeDownRoot-hero", {
+          delay: 4.5,
+        });
+
+        if (tlFadeDown) {
+          master.add(tlFadeDown, 0);
+        }
+      },
+    });
+  </script>
+)}
