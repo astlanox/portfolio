@@ -1,13 +1,8 @@
 import gsap from "gsap";
 
-/* -------------------- Type (scroll-triggered) -------------------- */
-
 type TypeOptions = {
-  /** Characters per second */
   cps?: number;
-  /** Cursor character (blinks) */
   cursor?: string;
-  /** Target selector inside root (js-only) */
   targetSelector?: string;
 };
 
@@ -21,7 +16,6 @@ const ensureCursorStyle = () => {
   if (_cursorStyleInjected) return;
   _cursorStyleInjected = true;
 
-  // avoid duplicates (HMR etc.)
   if (document.getElementById("js-animate-type-cursor-style")) return;
 
   const style = document.createElement("style");
@@ -51,7 +45,6 @@ const setLineWithCursor = (
   text: string,
   cursorEl: HTMLSpanElement,
 ) => {
-  // Ensure the cursor exists only once in the DOM (per target)
   cursorEl.remove();
 
   el.textContent = text;
@@ -93,7 +86,6 @@ export const scrollType = (
       return null;
     }
 
-    // cursor only at start
     setLineWithCursor(el as HTMLElement, "", cursorEl);
 
     const state = { i: 0 };

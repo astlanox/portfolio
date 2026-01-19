@@ -4,11 +4,10 @@ export type InitialTypeOptions = {
   line1?: string;
   line2From?: string;
   line2To?: string;
-  cps?: number; // typing speed
-  dps?: number; // deleting speed
-  cursor?: string; // cursor char
+  cps?: number;
+  dps?: number;
+  cursor?: string;
   delayBetween?: number;
-  /** Pause (seconds) after line2From is fully typed, before deleting starts */
   holdAfterLine2From?: number;
 };
 
@@ -41,7 +40,6 @@ const setLineWithCursor = (
   text: string,
   cursorEl: HTMLSpanElement,
 ) => {
-  // Ensure the cursor exists only once in the DOM
   cursorEl.remove();
 
   el.textContent = text;
@@ -68,7 +66,6 @@ const typeTo = (
 
   const dur = Math.max(0.1, fullText.length / Math.max(1, cps));
 
-  // Cursor is shown only on the active line
   setLineWithCursor(el, "", cursorEl);
 
   return gsap.to(state, {
@@ -99,7 +96,6 @@ const deleteToEmpty = (
 
   const dur = Math.max(0.1, currentText.length / Math.max(1, dps));
 
-  // Cursor stays on the active line while deleting
   setLineWithCursor(el, currentText, cursorEl);
 
   return gsap.to(state, {
