@@ -51,7 +51,7 @@ const ensureCursorStyle = () => {
 }
 .js-animate-cursor {
   display: inline-block;
-  animation: jsAnimateCursorBlink 0.9s steps(1, end) infinite;
+  animation: jsAnimateCursorBlink 1.3s steps(1, end) infinite;
 }
 `;
   document.head.appendChild(style);
