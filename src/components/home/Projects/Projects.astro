@@ -2,6 +2,7 @@
 import IconLock from "@/assets/icons/icon_lock.svg";
 import { Urls } from "@/constants/meta";
 import Link from "@/elements/Link.astro";
+import Picture from "@/elements/Picture.astro";
 import Text from "@/elements/Text.astro";
 import ImageItem01 from "./_images/projects_item-01.jpg";
 import ImageItem02 from "./_images/projects_item-02.png";
@@ -42,8 +43,11 @@ const items = [
           return (
             <li
               class={`list-item ${item.id ? "" : "list-item-locked"} js-animateFadeUpRoot-projects js-animateFadeUp`}
-              style={`background-image:url(${item.image?.src ?? "none"});--icon-lock:url(${IconLock.src});`}
+              style={`--icon-lock:url(${IconLock.src});`}
             >
+              <div class="list-thumbnail">
+                <Picture src={item.image} width="740" />
+              </div>
               {content}
             </li>
           );
@@ -113,7 +117,7 @@ const items = [
       &::before {
         position: absolute;
         inset: 0;
-        z-index: 0;
+        z-index: ly(overlay);
         content: "";
         background-image: inherit;
         background-position: center;
@@ -178,10 +182,12 @@ const items = [
         &::after {
           @include title(primary, normal, bold, uppercase);
 
+          position: absolute;
+          top: 45%;
+          left: 50%;
           z-index: ly(overlay);
           width: 48px;
           height: 48px;
-          margin-bottom: sp(normal);
           color: t(text, primary);
           content: "";
           background-color: t(text, primary);
@@ -189,6 +195,7 @@ const items = [
           mask-repeat: no-repeat;
           mask-position: top center;
           mask-size: 48px;
+          transform: translateX(-50%) translateY(-50%);
         }
       }
     }
@@ -199,12 +206,28 @@ const items = [
       position: absolute;
       bottom: 0;
       left: 0;
+      z-index: ly(overlay);
       justify-content: flex-end;
       width: 100%;
       height: 100%;
       padding: sp(normal);
       content: "";
       background: linear-gradient(#0000 70%, #000 100%);
+    }
+
+    &-thumbnail {
+      position: absolute;
+      inset: 0;
+      z-index: ly(base);
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+
+      :global(img) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 </style>
