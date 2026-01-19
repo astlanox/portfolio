@@ -33,7 +33,7 @@ import Visual from "./_Visual/_Visual.astro";
     <Visual />
   </div>
 
-  <canvas class="bg js-bg" aria-hidden="true"></canvas>
+  <canvas class="bg js-bg js-animateFadeInRoot-hero js-animateFadeIn" aria-hidden="true"></canvas>
 </section>
 
 <style lang="scss">
@@ -592,8 +592,9 @@ import Visual from "./_Visual/_Visual.astro";
 </script>
 
 <script>
-  import { initialFadeUp, initialType } from "@/scripts/initialAnimations";
+  import { initialFadeUp, initialType, initialFadeIn } from "@/scripts/initialAnimations";
 
   initialType(".js-animate-root-fv", { cps: 15, dps: 10, delayBetween: 0.18, holdAfterLine2From: 1 });
   initialFadeUp(".js-animateFadeUpRoot-hero", { delay: 4 });
+  initialFadeIn(".js-animateFadeInRoot-hero", { delay: 4 });
 </script>
