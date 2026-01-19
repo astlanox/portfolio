@@ -6,7 +6,7 @@ import Button from "@/elements/Button.astro";
 import Image from "@/elements/Image.astro";
 ---
 
-<header class="container js-ctaTrigger">
+<header class="container js-ctaTrigger js-animateFadeDownRoot-hero js-animateFadeDown">
   <nav class="nav">
     <div class="logo">
       <a href={Urls.BASE}>
@@ -46,3 +46,9 @@ import Image from "@/elements/Image.astro";
     }
   }
 </style>
+
+<script>
+  import { initialFadeDown } from "@/scripts/initialAnimations";
+
+  initialFadeDown(".js-animateFadeDownRoot-hero", { delay: 5 });
+</script>

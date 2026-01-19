@@ -49,6 +49,7 @@
   line-height: fn.lh(thin);
   color: fn.t(text, $color);
   letter-spacing: fn.ls(wide);
+  white-space: nowrap;
 
   @if $transform {
     text-transform: $transform;

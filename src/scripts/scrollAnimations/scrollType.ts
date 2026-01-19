@@ -25,25 +25,19 @@ const _typed = new WeakSet<Element>();
 
 const _typeOriginal = new WeakMap<Element, string>();
 
-let _cursorStyleInjected = false;
+const _cursorEl = new WeakMap<Element, HTMLSpanElement>();
 
-const escapeHtml = (s: string) =>
-  s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+let _cursorStyleInjected = false;
 
 const ensureCursorStyle = () => {
   if (_cursorStyleInjected) return;
   _cursorStyleInjected = true;
 
   // avoid duplicates (HMR etc.)
-  if (document.getElementById("js-animateType-cursor-style")) return;
+  if (document.getElementById("js-animate-type-cursor-style")) return;
 
   const style = document.createElement("style");
-  style.id = "js-animateType-cursor-style";
+  style.id = "js-animate-type-cursor-style";
   style.textContent = `
 @keyframes jsAnimateCursorBlink {
   0%, 49% { opacity: 1; }
@@ -57,10 +51,23 @@ const ensureCursorStyle = () => {
   document.head.appendChild(style);
 };
 
-const renderWithCursorEnd = (typed: string, cursorChar: string) => {
-  const c = escapeHtml(cursorChar);
-  if (!typed) return `<span class="js-animate-cursor">${c}</span>`;
-  return `${escapeHtml(typed)} <span class="js-animate-cursor">${c}</span>`;
+const createCursorEl = (cursorChar: string) => {
+  const span = document.createElement("span");
+  span.className = "js-animate-cursor";
+  span.textContent = cursorChar;
+  return span;
+};
+
+const setLineWithCursor = (
+  el: HTMLElement,
+  text: string,
+  cursorEl: HTMLSpanElement,
+) => {
+  // Ensure the cursor exists only once in the DOM (per target)
+  cursorEl.remove();
+
+  el.textContent = text;
+  el.append(cursorEl);
 };
 
 export const scrollType = (
@@ -89,7 +96,6 @@ export const scrollType = (
       : rootOrOpts instanceof Element
         ? [rootOrOpts]
         : gsap.utils.toArray<Element>(rootSelector);
-  console.log(roots);
 
   const triggers: ScrollTrigger[] = [];
 
@@ -101,13 +107,16 @@ export const scrollType = (
 
     const original = originalRaw.trim();
 
+    const cursorEl = _cursorEl.get(el) ?? createCursorEl(cursor);
+    if (!_cursorEl.has(el)) _cursorEl.set(el, cursorEl);
+
     if (!original) {
-      el.innerHTML = renderWithCursorEnd("", cursor);
+      setLineWithCursor(el as HTMLElement, "", cursorEl);
       return;
     }
 
     // cursor only at start
-    el.innerHTML = renderWithCursorEnd("", cursor);
+    setLineWithCursor(el as HTMLElement, "", cursorEl);
 
     const state = { i: 0 };
 
@@ -121,10 +130,10 @@ export const scrollType = (
         const n = Math.max(0, Math.min(original.length, Math.floor(state.i)));
 
         const typed = original.slice(0, n);
-        el.innerHTML = renderWithCursorEnd(typed, cursor);
+        setLineWithCursor(el as HTMLElement, typed, cursorEl);
       },
       onComplete: () => {
-        el.innerHTML = renderWithCursorEnd(original, cursor);
+        setLineWithCursor(el as HTMLElement, original, cursorEl);
       },
     });
   };
@@ -143,8 +152,11 @@ export const scrollType = (
     targets.forEach((t) => {
       if (!_typeOriginal.has(t)) _typeOriginal.set(t, t.textContent ?? "");
 
+      const cursorEl = _cursorEl.get(t) ?? createCursorEl(cursor);
+      if (!_cursorEl.has(t)) _cursorEl.set(t, cursorEl);
+
       const original = (_typeOriginal.get(t) ?? "").trim();
-      if (original) t.innerHTML = renderWithCursorEnd("", cursor);
+      if (original) setLineWithCursor(t as HTMLElement, "", cursorEl);
     });
 
     const st = ScrollTrigger.create({

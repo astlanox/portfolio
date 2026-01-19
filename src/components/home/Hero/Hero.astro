@@ -8,20 +8,26 @@ import Visual from "./_Visual/_Visual.astro";
 
 <section class="container">
   <div class="inner">
-    <div class="content">
-      <hgroup class="title">
-        Hi, I am <br />
-        <h1 class="title-strong">Astlanox</h1>
+    <div>
+      <hgroup class="title js-animate-root-fv">
+        <div class="js-fv-type-line1">Hi, I am</div>
+        <h1 class="title-strong js-fv-type-line2">Astlanox</h1>
       </hgroup>
 
-      <p class="role">Web developer</p>
-
-      <Text>
-        Frontend-focused web developer with a strong UI / UX background, bridging design and development to build
-        modern, scalable websites, focused on clarity, usability, and long-term maintainability.
-      </Text>
-
-      <Button url={Urls.GITHUB_PORTFOLIO} text="View on Github" icon={IconGithub} isExternal />
+      <div class="content js-animateFadeUpRoot-hero">
+        <p class="role js-animateFadeUp">Web developer</p>
+        <Text class="js-animateFadeUp">
+          Frontend-focused web developer with a strong UI / UX background, bridging design and development to build
+          modern, scalable websites, focused on clarity, usability, and long-term maintainability.
+        </Text>
+        <Button
+          url={Urls.GITHUB_PORTFOLIO}
+          text="View on Github"
+          icon={IconGithub}
+          isExternal
+          class="js-animateFadeUp"
+        />
+      </div>
     </div>
 
     <Visual />
@@ -63,6 +69,7 @@ import Visual from "./_Visual/_Visual.astro";
 
     align-items: center;
     justify-content: center;
+    margin-top: sp(medium);
   }
 
   .title {
@@ -582,4 +589,11 @@ import Visual from "./_Visual/_Visual.astro";
       `,
     });
   }
+</script>
+
+<script>
+  import { initialFadeUp, initialType } from "@/scripts/initialAnimations";
+
+  initialType(".js-animate-root-fv", { cps: 15, dps: 10, delayBetween: 0.18, holdAfterLine2From: 1 });
+  initialFadeUp(".js-animateFadeUpRoot-hero", { delay: 4 });
 </script>

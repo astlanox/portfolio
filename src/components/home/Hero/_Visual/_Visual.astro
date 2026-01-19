@@ -22,12 +22,12 @@ const descriptions = [
 ];
 ---
 
-<div class="container js-animate-root js-animateFadeUpRoot-visual">
-  <div class="visual">
+<div class="container">
+  <div class="visual js-animateInitialFadeUpRoot-visual js-animateFadeUp">
     <Picture src={ImageHero} alt="" width="680" />
   </div>
 
-  <div class="swiper">
+  <div class="swiper js-animateFadeUpRoot-visual">
     <div class="swiper-wrapper">
       {
         descriptions.map((item) => (
@@ -225,7 +225,9 @@ const descriptions = [
 </script>
 
 <script>
-  import { scrollFadeUp } from "@/scripts/scrollAnimations/scrollFadeUp";
+  import { initialFadeUp } from "@/scripts/initialAnimations";
+  import { scrollFadeUp } from "@/scripts/scrollAnimations";
 
+  initialFadeUp(".js-animateInitialFadeUpRoot-visual", { delay: 5 });
   scrollFadeUp(".js-animateFadeUpRoot-visual", { start: "bottom 90%" });
 </script>
