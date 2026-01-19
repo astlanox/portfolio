@@ -20,12 +20,7 @@ export const initialFadeDown = (
 
   if (!roots.length) return null;
 
-  const {
-    y = 24, // 下方向にずらす距離
-    duration = 0.7,
-    stagger = 0.1,
-    delay = 0,
-  } = opts;
+  const { y = 24, duration = 0.7, stagger = 0.06, delay = 0 } = opts;
 
   const master = gsap.timeline();
 

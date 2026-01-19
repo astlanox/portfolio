@@ -12,6 +12,12 @@ module.exports = {
         except: ["first-nested", "after-single-line-comment"],
       },
     ],
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        ignorePseudoClasses: ["global", "local"],
+      },
+    ],
     "no-descending-specificity": true,
     "no-duplicate-selectors": true,
     "block-no-empty": true,

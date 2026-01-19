@@ -88,6 +88,7 @@ const descriptions = [
     }
 
     &-wrapper {
+      align-items: flex-end;
       margin-bottom: sp(normal);
 
       @include up(xlarge) {
@@ -111,7 +112,6 @@ const descriptions = [
     &-pagination {
       bottom: 0 !important;
 
-      /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :global(.swiper-pagination-bullet) {
         background: t(ui, node) !important;
       }

@@ -19,7 +19,7 @@ export const initialFadeIn = (
 
   if (!roots.length) return null;
 
-  const { duration = 0.6, delay = 0, stagger = 0.1 } = opts;
+  const { duration = 0.6, delay = 0, stagger = 0.06 } = opts;
 
   const master = gsap.timeline();
 
@@ -36,10 +36,8 @@ export const initialFadeIn = (
 
     const tl = gsap.timeline();
 
-    // 初期状態
     tl.set(targets, { opacity: 0 });
 
-    // 即時再生
     tl.to(targets, {
       opacity: 1,
       duration,

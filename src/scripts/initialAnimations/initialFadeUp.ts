@@ -20,7 +20,7 @@ export const initialFadeUp = (
 
   if (!roots.length) return null;
 
-  const { y = 24, duration = 0.7, stagger = 0.1, delay = 0 } = opts;
+  const { y = 24, duration = 0.7, stagger = 0.06, delay = 0 } = opts;
 
   const master = gsap.timeline();
 
@@ -37,10 +37,8 @@ export const initialFadeUp = (
 
     const tl = gsap.timeline();
 
-    // 初期状態
     tl.set(targets, { y, opacity: 0 });
 
-    // 即時再生
     tl.to(targets, {
       y: 0,
       opacity: 1,

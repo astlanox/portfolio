@@ -1,11 +1,11 @@
 import gsap from "gsap";
 
 export type FadeUpOptions = {
-  start?: string; // ScrollTrigger start e.g. "top 85%"
-  y?: number; // 移動距離
-  duration?: number; // アニメーション時間
-  stagger?: number; // stagger
-  once?: boolean; // 1回だけか
+  start?: string;
+  y?: number;
+  duration?: number;
+  stagger?: number;
+  once?: boolean;
 };
 
 export const scrollFadeUp = (
@@ -20,12 +20,11 @@ export const scrollFadeUp = (
         : [];
   if (!roots.length) return null;
 
-  const { y = 24, duration = 0.7, stagger = 0.1 } = opts;
+  const { y = 24, duration = 0.7, stagger = 0.06 } = opts;
 
   const master = gsap.timeline();
 
   roots.forEach((r) => {
-    // --- targets ---
     const children = Array.from(
       r.querySelectorAll<HTMLElement>(".js-animateFadeUp"),
     );
@@ -36,7 +35,6 @@ export const scrollFadeUp = (
 
     if (!targets.length) return;
 
-    // 初期状態は即時に適用（scroll 到達前に見えないようにする）
     gsap.set(targets, { y, opacity: 0 });
 
     const tl = gsap.timeline();
