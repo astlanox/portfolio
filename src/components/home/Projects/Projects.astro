@@ -20,9 +20,9 @@ const items = [
 
 <section class="container">
   <div class="inner">
-    <h2 class="title js-animate-root js-animate-fade-up">Projects</h2>
+    <h2 class="title js-animateTypeRoot-projects js-animateType">Projects</h2>
 
-    <ul class="list js-animateRevealRoot">
+    <ul class="list">
       {
         items.map((item) => {
           const title = (
@@ -41,7 +41,7 @@ const items = [
 
           return (
             <li
-              class={`list-item js-animateRevealUp ${item.id ? "" : "list-item-locked"}`}
+              class={`list-item ${item.id ? "" : "list-item-locked"} js-animateFadeUpRoot-projects js-animateFadeUp`}
               style={`background-image:url(${item.image?.src ?? "none"});--icon-lock:url(${IconLock.src});`}
             >
               {content}
@@ -210,7 +210,8 @@ const items = [
 </style>
 
 <script>
-  import { scrollFadeUp } from "@/scripts/scrollAnimations";
+  import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
 
-  scrollFadeUp({ start: "bottom 90%" });
+  scrollType(".js-animateTypeRoot-projects", { start: "top 80%", cps: 20 });
+  scrollFadeUp(".js-animateFadeUpRoot-projects", { start: "top 80%" });
 </script>

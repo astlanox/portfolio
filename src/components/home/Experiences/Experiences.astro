@@ -28,13 +28,13 @@ const experiences = [
 
 <section class="container">
   <div class="inner">
-    <h2 class="title js-animateRevealRoot js-animateRevealUp">Experiences</h2>
+    <h2 class="title js-animateTypeRoot-experience js-animateType">Experiences</h2>
 
-    <ul class="list js-animateRevealRoot">
+    <ul class="list">
       {
         experiences.map((item) => {
           return (
-            <li class="list-item js-animateRevealUp">
+            <li class="list-item js-animateFadeUpRoot-experience js-animateFadeUp">
               <dl class="description">
                 <dt class="description-title">
                   <Text size="medium" weight="bold" color="primary" height="normal">
@@ -146,3 +146,10 @@ const experiences = [
     }
   }
 </style>
+
+<script>
+  import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
+
+  scrollType(".js-animateTypeRoot-experience", { start: "top 80%", cps: 20 });
+  scrollFadeUp(".js-animateFadeUpRoot-experience", { start: "top 80%" });
+</script>

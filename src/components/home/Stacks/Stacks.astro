@@ -8,12 +8,12 @@ const { items } = Astro.props as { items: Stacks[] };
 
 <section class="container">
   <div class="inner">
-    <h2 class="title js-animateRevealRoot js-animateRevealUp">Stacks</h2>
+    <h2 class="title js-animateTypeRoot-stacks js-animateType">Stacks</h2>
 
-    <ul class="list js-animateRevealRoot">
+    <ul class="list js-animateFadeUpRoot-stacks">
       {
         items.map((item) => (
-          <li class="list-item js-animateRevealUp">
+          <li class="list-item js-animateFadeUp">
             {item.icon && <Image src={item.icon?.url} alt={item.name} />}
             <Text color="primary">{item.name}</Text>
           </li>
@@ -76,3 +76,10 @@ const { items } = Astro.props as { items: Stacks[] };
     }
   }
 </style>
+
+<script>
+  import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
+
+  scrollType(".js-animateTypeRoot-stacks", { start: "top 80%", cps: 20 });
+  scrollFadeUp(".js-animateFadeUpRoot-stacks", { start: "top 80%" });
+</script>
