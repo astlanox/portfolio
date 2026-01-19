@@ -225,9 +225,34 @@ const descriptions = [
 </script>
 
 <script>
+  import { initAnimation } from "@/scripts/initAnimation";
   import { initialFadeUp } from "@/scripts/initialAnimations";
   import { scrollFadeUp } from "@/scripts/scrollAnimations";
 
-  initialFadeUp(".js-animateInitialFadeUpRoot-visual", { delay: 4.5 });
-  scrollFadeUp(".js-animateFadeUpRoot-visual", { start: "bottom 90%" });
+  // intro: initial visual fade up
+  initAnimation({
+    mode: "intro",
+    root: ".js-animateInitialFadeUpRoot-visual",
+    buildTimeline: ({ master }) => {
+      const tl = initialFadeUp(".js-animateInitialFadeUpRoot-visual", { delay: 4.5 });
+
+      if (tl) {
+        master.add(tl, 0);
+      }
+    },
+  });
+
+  // scroll: description fade up
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateFadeUpRoot-visual",
+    start: "bottom 90%",
+    buildTimeline: ({ master }) => {
+      const tl = scrollFadeUp(".js-animateFadeUpRoot-visual");
+
+      if (tl) {
+        master.add(tl, 0);
+      }
+    },
+  });
 </script>

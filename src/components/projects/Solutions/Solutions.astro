@@ -110,11 +110,11 @@ const { items } = Astro.props as { items: Solution[] };
     &-title {
       order: 2;
 
-      @include title(secondary, xxlarge, bold, normal, wrap);
+      @include title(secondary, xxlarge, bold, normal);
 
       /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
       :global(strong) {
-        @include title(primary, xxlarge, bold, capitalize, wrap);
+        @include title(primary, xxlarge, bold, capitalize);
       }
     }
 

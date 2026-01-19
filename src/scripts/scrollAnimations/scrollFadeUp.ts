@@ -1,8 +1,4 @@
-import { isDev } from "@/utils/getEnv";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export type FadeUpOptions = {
   start?: string; // ScrollTrigger start e.g. "top 85%"
@@ -12,32 +8,23 @@ export type FadeUpOptions = {
   once?: boolean; // 1回だけか
 };
 
-const boundRoots = new WeakSet<Element>();
-
 export const scrollFadeUp = (
   root: Element | string,
   opts: FadeUpOptions = {},
-) => {
+): gsap.core.Timeline | null => {
   const roots =
     typeof root === "string"
       ? Array.from(document.querySelectorAll<HTMLElement>(root))
       : root instanceof HTMLElement
         ? [root]
         : [];
-  if (!roots.length) return;
+  if (!roots.length) return null;
 
-  const {
-    start = "top 85%",
-    y = 24,
-    duration = 0.7,
-    stagger = 0.1,
-    once = true,
-  } = opts;
+  const { y = 24, duration = 0.7, stagger = 0.1 } = opts;
+
+  const master = gsap.timeline();
 
   roots.forEach((r) => {
-    if (boundRoots.has(r)) return;
-    boundRoots.add(r);
-
     // --- targets ---
     const children = Array.from(
       r.querySelectorAll<HTMLElement>(".js-animateFadeUp"),
@@ -49,32 +36,23 @@ export const scrollFadeUp = (
 
     if (!targets.length) return;
 
-    // 初期状態（必須）
+    // 初期状態は即時に適用（scroll 到達前に見えないようにする）
     gsap.set(targets, { y, opacity: 0 });
 
-    const play = () => {
-      gsap.fromTo(
-        targets,
-        { y, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration,
-          ease: "power2.out",
-          stagger,
-          overwrite: "auto",
-          clearProps: "transform,opacity",
-        },
-      );
-    };
+    const tl = gsap.timeline();
 
-    ScrollTrigger.create({
-      trigger: r,
-      start,
-      once,
-      onEnter: play,
-      onEnterBack: once ? undefined : play,
-      markers: isDev,
+    tl.to(targets, {
+      y: 0,
+      opacity: 1,
+      duration,
+      ease: "power2.out",
+      stagger,
+      overwrite: "auto",
+      clearProps: "transform,opacity",
     });
+
+    master.add(tl, 0);
   });
+
+  return master.totalDuration() > 0 ? master : null;
 };

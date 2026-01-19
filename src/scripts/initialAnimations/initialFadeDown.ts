@@ -10,7 +10,7 @@ export type InitialFadeDownOptions = {
 export const initialFadeDown = (
   root: Element | string,
   opts: InitialFadeDownOptions = {},
-) => {
+): gsap.core.Timeline | null => {
   const roots =
     typeof root === "string"
       ? Array.from(document.querySelectorAll<HTMLElement>(root))
@@ -18,7 +18,7 @@ export const initialFadeDown = (
         ? [root]
         : [];
 
-  if (!roots.length) return;
+  if (!roots.length) return null;
 
   const {
     y = 24, // 下方向にずらす距離
@@ -26,6 +26,8 @@ export const initialFadeDown = (
     stagger = 0.1,
     delay = 0,
   } = opts;
+
+  const master = gsap.timeline();
 
   roots.forEach((r) => {
     const children = Array.from(
@@ -38,11 +40,13 @@ export const initialFadeDown = (
 
     if (!targets.length) return;
 
+    const tl = gsap.timeline();
+
     // 初期状態（下にずらして非表示）
-    gsap.set(targets, { y: -y, opacity: 0 });
+    tl.set(targets, { y: -y, opacity: 0 });
 
     // 即時再生
-    gsap.to(targets, {
+    tl.to(targets, {
       y: 0,
       opacity: 1,
       duration,
@@ -51,5 +55,9 @@ export const initialFadeDown = (
       ease: "power2.out",
       clearProps: "transform,opacity",
     });
+
+    master.add(tl, 0);
   });
+
+  return master.totalDuration() > 0 ? master : null;
 };

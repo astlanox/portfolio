@@ -116,17 +116,10 @@ const deleteToEmpty = (
   });
 };
 
-/**
- * FV用:
- * 1) line1 type
- * 2) line2From type
- * 3) line2From delete
- * 4) line2To type
- */
 export const initialType = (
   root: Element | string,
   opts: InitialTypeOptions = {},
-) => {
+): gsap.core.Timeline | null => {
   ensureCursorStyle();
 
   const roots =
@@ -136,7 +129,7 @@ export const initialType = (
         ? [root]
         : [];
 
-  if (!roots.length) return;
+  if (!roots.length) return null;
 
   const {
     line1 = "Hi, I am",
@@ -149,40 +142,39 @@ export const initialType = (
     holdAfterLine2From = 0.45,
   } = opts;
 
+  const master = gsap.timeline();
+
   roots.forEach((r) => {
     const el1 = r.querySelector<HTMLElement>(".js-fv-type-line1");
 
     const el2 = r.querySelector<HTMLElement>(".js-fv-type-line2");
     if (!el1 || !el2) return;
 
-    // One shared cursor element per root
     const cursorEl = createCursorEl(cursor);
 
-    // Initial: cursor only on line1; line2 is empty (no cursor)
     setLineWithCursor(el1, "", cursorEl);
     clearLine(el2);
 
     const tl = gsap.timeline();
 
-    // 1行目：タイプ → 完了後カーソル消す（line1はプレーンテキスト固定）
     tl.add(typeTo(el1, line1, cps, cursorEl, false));
     tl.to({}, { duration: delayBetween });
 
-    // カーソルを2行目に移す（ここで初めてline2にカーソルが出る）
     tl.call(() => {
       clearLine(el2);
       setLineWithCursor(el2, "", cursorEl);
     });
 
-    // 2行目：Astlanox タイプ（カーソルあり）
     tl.add(typeTo(el2, line2From, cps, cursorEl, true));
     tl.to({}, { duration: holdAfterLine2From });
 
-    // 2行目：削除（カーソルあり：最終的にカーソルだけ残る）
     tl.add(deleteToEmpty(el2, line2From, dps, cursorEl));
     tl.to({}, { duration: delayBetween * 0.7 });
 
-    // 2行目：Taka H タイプ（カーソルあり）
     tl.add(typeTo(el2, line2To, cps, cursorEl, true));
+
+    master.add(tl, 0);
   });
+
+  return master.totalDuration() > 0 ? master : null;
 };

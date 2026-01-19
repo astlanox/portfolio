@@ -1,27 +1,15 @@
-import { isDev } from "@/utils/getEnv";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* -------------------- Type (scroll-triggered) -------------------- */
 
 type TypeOptions = {
-  /** ScrollTrigger start (viewport-based), evaluated against each root */
-  start?: string;
   /** Characters per second */
   cps?: number;
-  /** Whether to run only once per element */
-  once?: boolean;
   /** Cursor character (blinks) */
   cursor?: string;
-  /** @deprecated Prefer passing the root (Element or selector) as the first argument to scrollType(). */
-  rootSelector?: string;
   /** Target selector inside root (js-only) */
   targetSelector?: string;
 };
-
-const _typed = new WeakSet<Element>();
 
 const _typeOriginal = new WeakMap<Element, string>();
 
@@ -73,20 +61,13 @@ const setLineWithCursor = (
 export const scrollType = (
   rootOrOpts: Element | string | TypeOptions = {},
   maybeOpts: TypeOptions = {},
-) => {
+): gsap.core.Timeline | null => {
   const opts: TypeOptions =
     typeof rootOrOpts === "string" || rootOrOpts instanceof Element
       ? maybeOpts
       : rootOrOpts;
 
-  const {
-    start = "top 85%",
-    cps = 20,
-    once = true,
-    cursor = "<",
-    rootSelector = ".js-animate-root",
-    targetSelector = ".js-animateType",
-  } = opts;
+  const { cps = 20, cursor = "<", targetSelector = ".js-animateType" } = opts;
 
   ensureCursorStyle();
 
@@ -95,14 +76,11 @@ export const scrollType = (
       ? Array.from(document.querySelectorAll(rootOrOpts))
       : rootOrOpts instanceof Element
         ? [rootOrOpts]
-        : gsap.utils.toArray<Element>(rootSelector);
+        : gsap.utils.toArray<Element>(".js-animate-root");
 
-  const triggers: ScrollTrigger[] = [];
+  const master = gsap.timeline();
 
-  const typeInto = (el: Element) => {
-    if (once && _typed.has(el)) return;
-    _typed.add(el);
-
+  const typeInto = (el: Element): gsap.core.Tween | null => {
     const originalRaw = _typeOriginal.get(el) ?? el.textContent ?? "";
 
     const original = originalRaw.trim();
@@ -112,7 +90,7 @@ export const scrollType = (
 
     if (!original) {
       setLineWithCursor(el as HTMLElement, "", cursorEl);
-      return;
+      return null;
     }
 
     // cursor only at start
@@ -122,7 +100,7 @@ export const scrollType = (
 
     const dur = Math.max(0.1, original.length / Math.max(1, cps));
 
-    gsap.to(state, {
+    return gsap.to(state, {
       i: original.length,
       duration: dur,
       ease: "none",
@@ -138,7 +116,6 @@ export const scrollType = (
     });
   };
 
-  // Root-based triggers
   roots.forEach((root) => {
     const children = Array.from(root.querySelectorAll<Element>(targetSelector));
 
@@ -159,21 +136,15 @@ export const scrollType = (
       if (original) setLineWithCursor(t as HTMLElement, "", cursorEl);
     });
 
-    const st = ScrollTrigger.create({
-      trigger: root,
-      start,
-      once,
-      onEnter: () => targets.forEach((el) => typeInto(el)),
-      onEnterBack: once
-        ? undefined
-        : () => targets.forEach((el) => typeInto(el)),
-      markers: isDev,
+    const tl = gsap.timeline();
+
+    targets.forEach((t) => {
+      const tween = typeInto(t);
+      if (tween) tl.add(tween);
     });
 
-    triggers.push(st);
+    master.add(tl, 0);
   });
 
-  return () => {
-    triggers.forEach((st) => st.kill());
-  };
+  return master.totalDuration() > 0 ? master : null;
 };

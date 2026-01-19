@@ -47,7 +47,7 @@
   $font-size,
   $font-weight,
   $transform: null,
-  $white-space: nowrap
+  $white-space: wrap
 ) {
   font-family: Orbitron, sans-serif;
   font-size: fn.fs($font-size);

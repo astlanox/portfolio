@@ -9,7 +9,7 @@ export type InitialFadeInOptions = {
 export const initialFadeIn = (
   root: Element | string,
   opts: InitialFadeInOptions = {},
-) => {
+): gsap.core.Timeline | null => {
   const roots =
     typeof root === "string"
       ? Array.from(document.querySelectorAll<HTMLElement>(root))
@@ -17,9 +17,11 @@ export const initialFadeIn = (
         ? [root]
         : [];
 
-  if (!roots.length) return;
+  if (!roots.length) return null;
 
   const { duration = 0.6, delay = 0, stagger = 0.1 } = opts;
+
+  const master = gsap.timeline();
 
   roots.forEach((r) => {
     const children = Array.from(
@@ -32,11 +34,13 @@ export const initialFadeIn = (
 
     if (!targets.length) return;
 
+    const tl = gsap.timeline();
+
     // 初期状態
-    gsap.set(targets, { opacity: 0 });
+    tl.set(targets, { opacity: 0 });
 
     // 即時再生
-    gsap.to(targets, {
+    tl.to(targets, {
       opacity: 1,
       duration,
       delay,
@@ -44,5 +48,9 @@ export const initialFadeIn = (
       ease: "power1.out",
       clearProps: "opacity",
     });
+
+    master.add(tl, 0);
   });
+
+  return master.totalDuration() > 0 ? master : null;
 };

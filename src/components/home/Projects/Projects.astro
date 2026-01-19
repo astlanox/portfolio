@@ -210,8 +210,26 @@ const items = [
 </style>
 
 <script>
+  import { initAnimation } from "@/scripts/initAnimation";
   import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
 
-  scrollType(".js-animateTypeRoot-projects", { start: "top 80%", cps: 20 });
-  scrollFadeUp(".js-animateFadeUpRoot-projects", { start: "top 70%" });
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateTypeRoot-projects",
+    start: "top 80%",
+    buildTimeline: ({ master }) => {
+      const tlType = scrollType(".js-animateTypeRoot-projects", { cps: 20 });
+      if (tlType) master.add(tlType, 0);
+    },
+  });
+
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateFadeUpRoot-projects",
+    start: "top 70%",
+    buildTimeline: ({ rootEl, master }) => {
+      const tlFadeUp = scrollFadeUp(rootEl);
+      if (tlFadeUp) master.add(tlFadeUp, 0);
+    },
+  });
 </script>

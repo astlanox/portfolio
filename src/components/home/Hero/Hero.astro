@@ -9,7 +9,7 @@ import Visual from "./_Visual/_Visual.astro";
 <section class="container">
   <div class="inner">
     <div>
-      <hgroup class="title js-animate-root-fv">
+      <hgroup class="title js-animateTypeRoot-hero">
         <div class="js-fv-type-line1">Hi, I am</div>
         <h1 class="title-strong js-fv-type-line2">Astlanox</h1>
       </hgroup>
@@ -77,10 +77,10 @@ import Visual from "./_Visual/_Visual.astro";
     background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @include title(primary, xxlarge, bold);
+    @include title(primary, xxlarge, bold, normal, nowrap);
 
     &-strong {
-      @include title(primary, xxxxxlarge, bold, uppercase);
+      @include title(primary, xxxxxlarge, bold, uppercase, nowrap);
     }
   }
 
@@ -592,9 +592,36 @@ import Visual from "./_Visual/_Visual.astro";
 </script>
 
 <script>
+  import { initAnimation } from "@/scripts/initAnimation";
   import { initialFadeUp, initialType, initialFadeIn } from "@/scripts/initialAnimations";
 
-  initialType(".js-animate-root-fv", { cps: 15, dps: 10, delayBetween: 0.18, holdAfterLine2From: 1 });
-  initialFadeUp(".js-animateFadeUpRoot-hero", { delay: 4 });
-  initialFadeIn(".js-animateFadeInRoot-hero", { delay: 4 });
+  initAnimation({
+    mode: "intro",
+    root: ".js-animateTypeRoot-hero",
+    lockScroll: true,
+    buildTimeline: ({ master }) => {
+      const tlType = initialType(".js-animateTypeRoot-hero", {
+        cps: 15,
+        dps: 10,
+        delayBetween: 0.18,
+        holdAfterLine2From: 1,
+      });
+
+      if (tlType) {
+        master.add(tlType, 0);
+      }
+
+      const tlFadeUp = initialFadeUp(".js-animateFadeUpRoot-hero", { delay: 4 });
+
+      if (tlFadeUp) {
+        master.add(tlFadeUp, 0);
+      }
+
+      const tlFadeIn = initialFadeIn(".js-animateFadeInRoot-hero", { delay: 4 });
+
+      if (tlFadeIn) {
+        master.add(tlFadeIn, 0);
+      }
+    },
+  });
 </script>

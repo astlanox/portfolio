@@ -80,8 +80,26 @@ const { items } = Astro.props as { items: Stacks[] };
 </style>
 
 <script>
+  import { initAnimation } from "@/scripts/initAnimation";
   import { scrollFadeUp, scrollType } from "@/scripts/scrollAnimations";
 
-  scrollType(".js-animateTypeRoot-stacks", { start: "top 80%" });
-  scrollFadeUp(".js-animateFadeUpRoot-stacks", { start: "top 70%" });
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateTypeRoot-stacks",
+    start: "top 80%",
+    buildTimeline: ({ master }) => {
+      const tlType = scrollType(".js-animateTypeRoot-stacks", { cps: 20 });
+      if (tlType) master.add(tlType, 0);
+    },
+  });
+
+  initAnimation({
+    mode: "scroll",
+    root: ".js-animateFadeUpRoot-stacks",
+    start: "top 70%",
+    buildTimeline: ({ rootEl, master }) => {
+      const tlFadeUp = scrollFadeUp(rootEl);
+      if (tlFadeUp) master.add(tlFadeUp, 0);
+    },
+  });
 </script>
