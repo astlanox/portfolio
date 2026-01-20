@@ -5,7 +5,7 @@ import Header from "@/components/common/Header.astro";
 import { Descriptions, Titles, Urls } from "@/constants/meta";
 import Button from "@/elements/Button.astro";
 
-const { title, enableAnimation = false } = Astro.props;
+const { title, isDisplayCta = true, enableAnimation = false } = Astro.props;
 import "@/styles/style.scss";
 ---
 
@@ -73,9 +73,13 @@ import "@/styles/style.scss";
     <main>
       <slot />
 
-      <nav class="nav js-cta">
-        <Button url={Urls.CONTACT} text="Communicate" label="Awaiting your signal…" icon={IconSignal} />
-      </nav>
+      {
+        isDisplayCta && (
+          <nav class="nav js-cta">
+            <Button url={Urls.CONTACT} text="Communicate" label="Awaiting your signal…" icon={IconSignal} />
+          </nav>
+        )
+      }
     </main>
 
     <Footer />

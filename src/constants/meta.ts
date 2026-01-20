@@ -5,7 +5,7 @@ const githubUrl = "https://github.com/astlanox";
 export const Urls = {
   BASE: baseUrl,
   PROJECT_LIST: baseUrl + "/projects",
-  CONTACT: "mailto:hi@astlanox.com",
+  CONTACT: baseUrl + "/contact",
   GITHUB: githubUrl,
   GITHUB_PORTFOLIO: githubUrl + "/portfolio",
 };

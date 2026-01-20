@@ -1,0 +1,126 @@
+---
+export const prerender = false;
+import { Urls } from "@/constants/meta";
+import Link from "@/elements/Link.astro";
+import Picture from "@/elements/Picture.astro";
+import fetchApi from "@/libs/cms";
+import type { Project } from "@/types/project";
+import Text from "@/elements/Text.astro";
+
+const projects = await fetchApi<Project[]>({ endpoint: "projects?pLevel", wrappedByKey: "data" });
+
+type Props = Project;
+---
+
+<section class="container">
+  <div class="inner">
+    <h1 class="title">Projects</h1>
+
+    <ul class="list">
+      {
+        projects.map((item) => (
+          <li class="list-item">
+            <Link url={`${Urls.PROJECT_LIST}/${item.slug}`}>
+              <div class="list-title">
+                <Text size="medium" color="primary" weight="bold" height="thin" transform="uppercase">
+                  {item.title}
+                </Text>
+
+                {item.label && (
+                  <Text height="thin" transform="capitalize">
+                    {item.label}
+                  </Text>
+                )}
+              </div>
+
+              <div class="list-thumbnail">
+                <Picture src={item.thumbnail?.url} width="740" />
+              </div>
+            </Link>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+    @include container-inner;
+    @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxxlarge);
+    }
+  }
+
+  .title {
+    @include title(primary, xxxlarge, bold, uppercase);
+
+    text-align: center;
+  }
+
+  .list {
+    &-item {
+      @include box;
+
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background-color: t(canvas, white);
+      background-image: none;
+      background-position: center;
+      background-size: cover;
+      border-radius: rd(normal);
+      backdrop-filter: bl(normal);
+    }
+
+    &-title {
+      @include box(xsmall);
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: ly(overlay);
+      justify-content: flex-end;
+      width: 100%;
+      height: 100%;
+      padding: sp(normal);
+      content: "";
+      background: linear-gradient(#0000 50%, #000 100%);
+    }
+
+    &-thumbnail {
+      position: absolute;
+      inset: 0;
+      z-index: ly(base);
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      transform: scale(1);
+      transition: transform 0.4s ease;
+
+      :global(img) {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .list-item:hover {
+    .list-thumbnail {
+      transform: scale(1.05);
+    }
+  }
+</style>
