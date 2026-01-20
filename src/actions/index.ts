@@ -13,6 +13,19 @@ export const server = {
       company: z.string().optional(),
     }),
     handler: async (input) => {
+      console.log("[contact] handler start");
+      console.log("[contact] env", {
+        hasKey: Boolean(import.meta.env.RESEND_API_KEY),
+        hasTo: Boolean(import.meta.env.CONTACT_TO),
+        hasFrom: Boolean(import.meta.env.CONTACT_FROM),
+      });
+      console.log("[contact] input", {
+        nameLen: input.name?.length,
+        emailLen: input.email?.length,
+        topic: input.topic,
+        messageLen: input.message?.length,
+        hasCompany: Boolean(input.company && input.company.trim().length > 0),
+      });
       // honeypot
       if (input.company && input.company.trim().length > 0) {
         return { ok: true } as const;
