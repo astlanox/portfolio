@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     port: 4000,
   },
-  output: "static",
+  output: "server",
   adapter: vercel(),
   redirects: {
     "/ja": "/",
