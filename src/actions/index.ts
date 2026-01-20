@@ -1,4 +1,4 @@
-import { defineAction, ActionError } from "astro:actions";
+import { defineAction } from "astro:actions";
 import { z } from "astro/zod";
 import { Resend } from "resend";
 
@@ -20,10 +20,10 @@ export const server = {
 
       const apiKey = import.meta.env.RESEND_API_KEY;
       if (!apiKey) {
-        throw new ActionError({
-          code: "INTERNAL_SERVER_ERROR",
+        return {
+          ok: false,
           message: "Server is not configured for email sending.",
-        });
+        } as const;
       }
 
       const resend = new Resend(apiKey);
@@ -33,10 +33,10 @@ export const server = {
       const from = import.meta.env.CONTACT_FROM;
 
       if (!to || !from) {
-        throw new ActionError({
-          code: "INTERNAL_SERVER_ERROR",
+        return {
+          ok: false,
           message: "Server is not configured for email sending.",
-        });
+        } as const;
       }
 
       const { name, email, message } = input;
@@ -61,19 +61,19 @@ export const server = {
 
         if (error) {
           console.error("[contact][resend]", error);
-          throw new ActionError({
-            code: "INTERNAL_SERVER_ERROR",
+          return {
+            ok: false,
             message: "Failed to send message. Please try again later.",
-          });
+          } as const;
         }
 
         return { ok: true } as const;
       } catch (err) {
         console.error("[contact]", err);
-        throw new ActionError({
-          code: "INTERNAL_SERVER_ERROR",
+        return {
+          ok: false,
           message: "Failed to send message. Please try again later.",
-        });
+        } as const;
       }
     },
   }),
