@@ -2,8 +2,6 @@ import { defineAction, ActionError } from "astro:actions";
 import { z } from "astro/zod";
 import { Resend } from "resend";
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
-
 export const server = {
   contact: defineAction({
     accept: "form",
@@ -19,6 +17,16 @@ export const server = {
       if (input.company && input.company.trim().length > 0) {
         return { ok: true } as const;
       }
+
+      const apiKey = import.meta.env.RESEND_API_KEY;
+      if (!apiKey) {
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Server is not configured for email sending.",
+        });
+      }
+
+      const resend = new Resend(apiKey);
 
       const to = import.meta.env.CONTACT_TO;
 
