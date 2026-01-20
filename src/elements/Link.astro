@@ -1,14 +1,19 @@
 ---
-const { url = "", target = "_self" } = Astro.props;
+const { url = "", target = "_self", class: className = "" } = Astro.props;
+
+const classList = ["container"];
+if (className) classList.push(className);
+
+const href = url === "/" || url === "" ? "/" : url.replace(/(^\/\/)|(^\/)/, "/");
 ---
 
-<a href={url} target={target} class="link"><slot /></a>
+<a href={href} target={target} class={classList.join(" ")}><slot /></a>
 
 <style lang="scss">
   @use "@/styles/tokens" as *;
   @use "@/styles/utilities" as *;
 
-  .link {
+  .container {
     color: t(text, primary);
   }
 </style>

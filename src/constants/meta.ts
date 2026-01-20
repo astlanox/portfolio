@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.PUBLIC_SITE_URL;
+const baseUrl = import.meta.env.PUBLIC_SITE_URL ?? "/";
 
 const githubUrl = "https://github.com/astlanox";
 
