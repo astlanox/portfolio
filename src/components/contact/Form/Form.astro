@@ -10,41 +10,48 @@ const result = Astro.getActionResult(actions.contact);
 <section class="container">
   <div class="inner">
     <h1 class="title">Contact</h1>
-    <form method="POST" action={actions.contact} class="form">
-      <div class="form-item">
-        <label class="form-label">Topic</label>
-        <select name="topic" required>
-          <option value="" disabled selected>Select a topic</option>
-          <option value="general">General inquiry</option>
-          <option value="project">Request for CV</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
 
-      <div class="form-item">
-        <label class="form-label">Name</label>
-        <input name="name" autocomplete="name" placeholder="Your Name" required />
-      </div>
+    {
+      !result && (
+        <form method="POST" action={actions.contact} class="form">
+          <div class="form-item">
+            <label class="form-label">Topic</label>
+            <select name="topic" required>
+              <option value="" disabled selected>
+                Select a topic
+              </option>
+              <option value="general">General inquiry</option>
+              <option value="project">Request for CV</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
 
-      <div class="form-item">
-        <label class="form-label">Email</label>
-        <input name="email" type="email" autocomplete="email" placeholder="email@example.com" required />
-      </div>
+          <div class="form-item">
+            <label class="form-label">Name</label>
+            <input name="name" autocomplete="name" placeholder="Your Name" required />
+          </div>
 
-      <div class="form-item">
-        <label class="form-label">Message</label>
-        <textarea name="message" rows="6" required minlength="10"></textarea>
-      </div>
+          <div class="form-item">
+            <label class="form-label">Email</label>
+            <input name="email" type="email" autocomplete="email" placeholder="email@example.com" required />
+          </div>
 
-      <div style="position:absolute;top:auto;left:-9999px;width:1px;height:1px;overflow:hidden;">
-        <label>Company</label>
-        <input name="company" tabindex="-1" autocomplete="off" />
-      </div>
+          <div class="form-item">
+            <label class="form-label">Message</label>
+            <textarea name="message" rows="6" required minlength="10" />
+          </div>
 
-      <Button as="button" type="submit" text="Send" icon={IconSend} />
-    </form>
-    {result?.error && <p class="msg msg-error">Failed: {result.error.message}</p>}
-    {result?.data?.ok && <p class="msg msg-success">Sent! Thanks.</p>}
+          <div style="position:absolute;top:auto;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label>Company</label>
+            <input name="company" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <Button as="button" type="submit" text="Send your signal" icon={IconSend} />
+        </form>
+      )
+    }
+    {result?.error && <p class="message">You lost signal: {result.error.message}</p>}
+    {result?.data?.ok && <p class="message">Your signal is on the way.</p>}
   </div>
 </section>
 
@@ -60,6 +67,10 @@ const result = Astro.getActionResult(actions.contact);
     @include inner;
     @include container-inner;
     @include box(large);
+
+    @include up(xlarge) {
+      @include box(xxxlarge);
+    }
   }
 
   .title {
@@ -121,5 +132,11 @@ const result = Astro.getActionResult(actions.contact);
         no-repeat right sp(normal) center;
       background-size: 16px;
     }
+  }
+
+  .message {
+    @include title(accent, medium, medium, uppercase);
+
+    text-align: center;
   }
 </style>
