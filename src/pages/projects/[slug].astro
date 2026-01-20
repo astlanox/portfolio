@@ -21,7 +21,7 @@ type Props = Project;
 const project = Astro.props;
 ---
 
-<Layout>
+<Layout title={`${project.title} (${project.label}) | Projects`}>
   <article>
     <div class="inner">
       <div>

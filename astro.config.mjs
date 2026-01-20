@@ -9,4 +9,14 @@ export default defineConfig({
     port: 4000,
   },
   output: "static",
+  redirects: {
+    "/ja": "/",
+    "/about": "/",
+    "/concept": "/",
+    "/works": "/projects",
+    "/ja/about": "/",
+    "/ja/concept": "/",
+    "/ja/works": "/projects",
+    "/ja/contact": "/contact",
+  },
 });
