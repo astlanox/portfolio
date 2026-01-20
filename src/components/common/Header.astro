@@ -48,24 +48,3 @@ const { enableAnimation = false } = Astro.props;
     }
   }
 </style>
-
-{enableAnimation && (
-  <script>
-    import { initAnimation } from "@/scripts/initAnimation";
-    import { initialFadeDown } from "@/scripts/initialAnimations";
-
-    initAnimation({
-      mode: "intro",
-      root: ".js-animateFadeDownRoot-hero",
-      buildTimeline: ({ master }) => {
-        const tlFadeDown = initialFadeDown(".js-animateFadeDownRoot-hero", {
-          delay: 4.5,
-        });
-
-        if (tlFadeDown) {
-          master.add(tlFadeDown, 0);
-        }
-      },
-    });
-  </script>
-)}
