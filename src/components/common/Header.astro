@@ -12,7 +12,7 @@ const { enableAnimation = false } = Astro.props;
   <nav class="nav">
     <div class="logo">
       <a href={Urls.BASE}>
-        <Image src={ImageLogo} alt={Titles.SITE} />
+        <Image src={ImageLogo} alt={Titles.SITE} width="280" />
       </a>
     </div>
   </nav>
@@ -41,10 +41,10 @@ const { enableAnimation = false } = Astro.props;
   }
 
   .logo {
-    width: 160px;
+    width: 200px;
 
     @include up(xlarge) {
-      width: 180px;
+      width: 240px;
     }
   }
 </style>
