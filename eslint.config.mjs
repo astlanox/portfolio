@@ -34,6 +34,7 @@ export default defineConfig([
     rules: {
       // disable warnings, since prettier should format on save
       "prettier/prettier": "off",
+      "no-descending-specificity": "off",
       "padding-line-between-statements": [
         "error",
         {

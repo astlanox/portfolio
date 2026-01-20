@@ -1,0 +1,125 @@
+---
+export const prerender = false;
+import { actions } from "astro:actions";
+import IconSend from "@/assets/icons/icon_send.svg";
+import Button from "@/elements/Button.astro";
+
+const result = Astro.getActionResult(actions.contact);
+---
+
+<section class="container">
+  <div class="inner">
+    <h1 class="title">Contact</h1>
+    <form method="POST" action={actions.contact} class="form">
+      <div class="form-item">
+        <label class="form-label">Topic</label>
+        <select name="topic" required>
+          <option value="" disabled selected>Select a topic</option>
+          <option value="general">General inquiry</option>
+          <option value="project">Request for CV</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label class="form-label">Name</label>
+        <input name="name" autocomplete="name" placeholder="Your Name" required />
+      </div>
+
+      <div class="form-item">
+        <label class="form-label">Email</label>
+        <input name="email" type="email" autocomplete="email" placeholder="email@example.com" required />
+      </div>
+
+      <div class="form-item">
+        <label class="form-label">Message</label>
+        <textarea name="message" rows="6" required minlength="10"></textarea>
+      </div>
+
+      <div style="position:absolute;top:auto;left:-9999px;width:1px;height:1px;overflow:hidden;">
+        <label>Company</label>
+        <input name="company" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <Button as="button" type="submit" text="Send" icon={IconSend} />
+    </form>
+    {result?.error && <p class="msg msg-error">Failed: {result.error.message}</p>}
+    {result?.data?.ok && <p class="msg msg-success">Sent! Thanks.</p>}
+  </div>
+</section>
+
+<style lang="scss">
+  @use "@/styles/tokens" as *;
+  @use "@/styles/utilities" as *;
+
+  .container {
+    @include container;
+  }
+
+  .inner {
+    @include inner;
+    @include container-inner;
+    @include box(large);
+  }
+
+  .title {
+    @include title(primary, xxxlarge, bold, uppercase);
+
+    text-align: center;
+  }
+
+  .form {
+    @include card;
+    @include box(medium);
+
+    padding: sp(xlarge) sp(medium);
+
+    @include up(xlarge) {
+      padding: sp(xxlarge);
+    }
+
+    &-item {
+      @include box(medium);
+    }
+
+    &-label {
+      @include title(primary, small, bold, uppercase);
+
+      display: block;
+    }
+
+    input,
+    textarea,
+    select {
+      display: block;
+      width: 560px;
+      max-width: 100%;
+      padding: sp(normal);
+      font-size: fs(normal);
+      color: t(text, primary);
+      appearance: none;
+      resize: vertical;
+      outline: none;
+      background: t(canvas, transparent);
+      border: 1px solid t(border, primary);
+      border-radius: 12px;
+
+      &::placeholder {
+        color: t(text, secondary);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 4px rgb(255 255 255 / 8%);
+      }
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    select {
+      cursor: pointer;
+      background: t(canvas, transparent)
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")
+        no-repeat right sp(normal) center;
+      background-size: 16px;
+    }
+  }
+</style>

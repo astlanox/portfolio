@@ -2,7 +2,17 @@
 import IconExternal from "@/assets/icons/icon_external.svg";
 import Text from "@/elements/Text.astro";
 
-const { url, text, label, icon: Icon, isExternal, isSmall = false, class: className = "" } = Astro.props;
+const {
+  url,
+  text,
+  label,
+  icon: Icon,
+  isExternal,
+  isSmall = false,
+  as = "a",
+  type = "button",
+  class: className = "",
+} = Astro.props;
 
 const classList = ["container"];
 
@@ -21,25 +31,40 @@ if (className) classList.push(className);
     )
   }
   <div class="button">
-    <a href={url} class="link" target={isExternal ? "_blank" : "_self"}>
-      <Icon width={isSmall ? 34 : 40} height={isSmall ? 32 : 40} />
+    {
+      as === "a" ? (
+        <a
+          href={url}
+          class="content"
+          target={isExternal ? "_blank" : "_self"}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+        >
+          <Icon width={isSmall ? 32 : 36} height={isSmall ? 32 : 36} />
 
-      {
-        text && !isSmall && (
-          <Text color="primary" weight="bold">
-            {text}
-          </Text>
-        )
-      }
+          {text && !isSmall && (
+            <Text color="primary" weight="bold">
+              {text}
+            </Text>
+          )}
 
-      {
-        isExternal && (
-          <div class="icon icon-external">
-            <IconExternal width={18} height={18} />
-          </div>
-        )
-      }
-    </a>
+          {isExternal && (
+            <div class="icon icon-external">
+              <IconExternal width={18} height={18} />
+            </div>
+          )}
+        </a>
+      ) : (
+        <button type={type} class="content">
+          <Icon width={isSmall ? 32 : 36} height={isSmall ? 32 : 36} />
+
+          {text && !isSmall && (
+            <Text color="primary" weight="bold">
+              {text}
+            </Text>
+          )}
+        </button>
+      )
+    }
   </div>
 </div>
 
@@ -64,13 +89,16 @@ if (className) classList.push(className);
     }
   }
 
-  .link {
+  .content {
     @include box(small);
 
     flex-direction: row;
     align-items: center;
     padding: sp(small) sp(normal) sp(small) sp(small);
     color: t(text, primary);
+    cursor: pointer;
+    background-color: unset;
+    border: none;
   }
 
   .icon {
@@ -80,7 +108,7 @@ if (className) classList.push(className);
   }
 
   .container-small {
-    .link {
+    .content {
       padding: sp(small);
     }
   }
