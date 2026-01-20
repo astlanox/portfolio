@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from "astro/config";
-import vercel from "@astrojs/vercel";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,7 +10,7 @@ export default defineConfig({
     port: 4000,
   },
   output: "static",
-  adapter: vercel(),
+  adapter: vercel({}),
   redirects: {
     "/ja": "/",
     "/about": "/",
