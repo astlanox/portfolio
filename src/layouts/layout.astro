@@ -2,7 +2,7 @@
 import IconSignal from "@/assets/icons/icon_signal.svg";
 import Footer from "@/components/common/Footer.astro";
 import Header from "@/components/common/Header.astro";
-import { Titles, Urls } from "@/constants/meta";
+import { Descriptions, Titles, Urls } from "@/constants/meta";
 import Button from "@/elements/Button.astro";
 
 const { title, enableAnimation = false } = Astro.props;
@@ -26,35 +26,23 @@ import "@/styles/style.scss";
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - UI Design & Web Development`}</title>
-    <meta
-      name="description"
-      content="Portfolio of Astlanox, a web designer and developer focused on thoughtful UI, scalable architecture, and long-term maintainability. Featuring projects across corporate sites, landing pages, and design-to-code web apps."
-    />
-    <!-- OGP -->
+    <title>{title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - ${Descriptions.TITLE}`}</title>
+    <meta name="description" content={Descriptions.SITE} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Astlanox" />
     <meta
       property="og:title"
-      content={title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - UI Design & Web Development`}
+      content={title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - ${Descriptions.TITLE}`}
     />
-    <meta
-      property="og:description"
-      content="Portfolio of Astlanox, a web designer and developer focused on thoughtful UI, scalable architecture, and long-term maintainability."
-    />
+    <meta property="og:description" content={Descriptions.SITE} />
     <meta property="og:url" content={Astro.site?.href ?? ""} />
     <meta property="og:image" content="/ogp.png" />
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content={title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - UI Design & Web Development`}
+      content={title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - ${Descriptions.TITLE}`}
     />
-    <meta
-      name="twitter:description"
-      content="Portfolio of Astlanox, a web designer and developer focused on thoughtful UI, scalable architecture, and long-term maintainability."
-    />
+    <meta name="twitter:description" content={Descriptions.SITE} />
     <meta name="twitter:image" content="/ogp.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

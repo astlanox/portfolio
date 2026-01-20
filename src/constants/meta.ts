@@ -12,3 +12,8 @@ export const Urls = {
 export const Titles = {
   SITE: "Astlanox",
 };
+
+export const Descriptions = {
+  TITLE: "UI Design & Web Development"
+  SITE: "Portfolio of Astlanox, a web designer and developer focused on thoughtful UI, scalable architecture, and long-term maintainability. Featuring projects across corporate sites, landing pages, and design-to-code web apps.",
+};
