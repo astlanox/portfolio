@@ -11,4 +11,14 @@ export default defineConfig({
   },
   output: "static",
   adapter: vercel(),
+  redirects: {
+    "/ja": "/",
+    "/about": "/",
+    "/concept": "/",
+    "/works": "/projects",
+    "/ja/about": "/",
+    "/ja/concept": "/",
+    "/ja/works": "/projects",
+    "/ja/contact": "/contact",
+  },
 });
