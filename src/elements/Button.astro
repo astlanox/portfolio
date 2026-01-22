@@ -1,6 +1,7 @@
 ---
 import IconExternal from "@/assets/icons/icon_external.svg";
 import Text from "@/elements/Text.astro";
+import Link from "./Link.astro";
 
 const {
   url,
@@ -33,8 +34,8 @@ if (className) classList.push(className);
   <div class="button">
     {
       as === "a" ? (
-        <a
-          href={url}
+        <Link
+          url={url}
           class="content"
           target={isExternal ? "_blank" : "_self"}
           rel={isExternal ? "noopener noreferrer" : undefined}
@@ -52,7 +53,7 @@ if (className) classList.push(className);
               <IconExternal width={18} height={18} />
             </div>
           )}
-        </a>
+        </Link>
       ) : (
         <button type={type} class="content">
           <Icon width={isSmall ? 32 : 36} height={isSmall ? 32 : 36} />
@@ -76,6 +77,24 @@ if (className) classList.push(className);
     @include box;
 
     align-items: center;
+
+    :global(.content) {
+      @include box(small);
+
+      flex-direction: row;
+      align-items: center;
+      padding: sp(small) sp(normal) sp(small) sp(small);
+      color: t(text, primary);
+      cursor: pointer;
+      background-color: unset;
+      border: none;
+    }
+
+    &-small {
+      :global(.content) {
+        padding: sp(small);
+      }
+    }
   }
 
   .button {
@@ -89,27 +108,9 @@ if (className) classList.push(className);
     }
   }
 
-  .content {
-    @include box(small);
-
-    flex-direction: row;
-    align-items: center;
-    padding: sp(small) sp(normal) sp(small) sp(small);
-    color: t(text, primary);
-    cursor: pointer;
-    background-color: unset;
-    border: none;
-  }
-
   .icon {
     &-external {
       opacity: 0.5;
-    }
-  }
-
-  .container-small {
-    .content {
-      padding: sp(small);
     }
   }
 </style>

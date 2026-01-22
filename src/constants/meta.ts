@@ -1,11 +1,9 @@
-const baseUrl = import.meta.env.PUBLIC_SITE_URL;
-
 const githubUrl = "https://github.com/astlanox";
 
 export const Urls = {
-  BASE: baseUrl,
-  PROJECT_LIST: baseUrl + "/projects",
-  CONTACT: baseUrl + "/contact",
+  BASE: "/",
+  PROJECT_LIST: "/projects",
+  CONTACT: "/contact",
   GITHUB: githubUrl,
   GITHUB_PORTFOLIO: githubUrl + "/portfolio",
 };
