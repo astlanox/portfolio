@@ -1,12 +1,20 @@
 {
   "redirects": [
-    { "source": "/ja", "destination": "/", "permanent": true },
     { "source": "/about", "destination": "/", "permanent": true },
     { "source": "/concept", "destination": "/", "permanent": true },
     { "source": "/works", "destination": "/projects", "permanent": true },
+    { "source": "/ja", "destination": "/", "permanent": true },
     { "source": "/ja/about", "destination": "/", "permanent": true },
     { "source": "/ja/concept", "destination": "/", "permanent": true },
     { "source": "/ja/works", "destination": "/", "permanent": true },
-    { "source": "/ja/contact", "destination": "/contact", "permanent": true }
+    { "source": "/ja/contact", "destination": "/contact", "permanent": true },
+    { "source": "/about/", "destination": "/", "permanent": true },
+    { "source": "/concept/", "destination": "/", "permanent": true },
+    { "source": "/works/", "destination": "/projects", "permanent": true },
+    { "source": "/ja/", "destination": "/", "permanent": true },
+    { "source": "/ja/about/", "destination": "/", "permanent": true },
+    { "source": "/ja/concept/", "destination": "/", "permanent": true },
+    { "source": "/ja/works/", "destination": "/", "permanent": true },
+    { "source": "/ja/contact/", "destination": "/contact", "permanent": true }
   ]
 }
