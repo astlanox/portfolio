@@ -1,11 +1,13 @@
-const githubUrl = "https://github.com/astlanox";
+const githubUrl = "https://github.com/astlanox/";
+
+const baseUrl = import.meta.env.PUBLIC_SITE_URL ?? "/";
 
 export const Urls = {
-  BASE: "/",
-  PROJECT_LIST: "/projects",
-  CONTACT: "/contact",
+  BASE: baseUrl,
+  PROJECT_LIST: baseUrl + "projects",
+  CONTACT: baseUrl + "contact",
   GITHUB: githubUrl,
-  GITHUB_PORTFOLIO: githubUrl + "/portfolio",
+  GITHUB_PORTFOLIO: githubUrl + "portfolio",
 };
 export const Titles = {
   SITE: "Astlanox",
