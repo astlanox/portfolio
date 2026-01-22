@@ -4,9 +4,11 @@ import Footer from "@/components/common/Footer.astro";
 import Header from "@/components/common/Header.astro";
 import { Descriptions, Titles, Urls } from "@/constants/meta";
 import Button from "@/elements/Button.astro";
+import "@/styles/style.scss";
 
 const { title, isDisplayCta = true, enableAnimation = false } = Astro.props;
-import "@/styles/style.scss";
+
+const opgUrl = Urls.BASE + "ogp.png";
 ---
 
 <html lang="en">
@@ -36,14 +38,14 @@ import "@/styles/style.scss";
     />
     <meta property="og:description" content={Descriptions.SITE} />
     <meta property="og:url" content={Astro.site?.href ?? ""} />
-    <meta property="og:image" content="/ogp.png" />
+    <meta property="og:image" content={opgUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
       content={title ? `${title} | ${Titles.SITE}` : `${Titles.SITE} - ${Descriptions.TITLE}`}
     />
     <meta name="twitter:description" content={Descriptions.SITE} />
-    <meta name="twitter:image" content="/ogp.png" />
+    <meta name="twitter:image" content={opgUrl} />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
