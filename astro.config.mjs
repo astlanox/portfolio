@@ -14,11 +14,18 @@ export default defineConfig({
   redirects: {
     "/ja": "/",
     "/about": "/",
+    "/about/": "/",
     "/concept": "/",
+    "/concept/": "/",
     "/works": "/projects",
+    "/works/": "/projects",
     "/ja/about": "/",
+    "/ja/about/": "/",
     "/ja/concept": "/",
+    "/ja/concept/": "/",
     "/ja/works": "/projects",
+    "/ja/works/": "/projects",
     "/ja/contact": "/contact",
+    "/ja/contact/": "/contact",
   },
 });
