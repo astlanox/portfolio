@@ -1,5 +1,4 @@
 import { defineAction, ActionError } from "astro:actions";
-import { z } from "astro:schema";
 import { Resend } from "resend";
 
 const resend = new Resend(import.meta.env.RESEND_API_KEY);
@@ -7,16 +6,12 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 export const server = {
   contact: defineAction({
     accept: "form",
-    input: z.object({
-      topic: z.enum(["general", "project", "estimate", "other"]),
-      name: z.string().min(1),
-      email: z.string().email(),
-      message: z.string().min(10),
-      company: z.string().optional(),
-    }),
-    handler: async (input) => {
+    handler: async (formData: FormData) => {
       // honeypot
-      if (input.company && input.company.trim().length > 0) {
+      const companyRaw = formData.get("company");
+
+      const company = typeof companyRaw === "string" ? companyRaw : "";
+      if (company.trim().length > 0) {
         return { ok: true } as const;
       }
 
@@ -31,24 +26,50 @@ export const server = {
         });
       }
 
-      const { name, email, message } = input;
+      const nameRaw = formData.get("name");
+
+      const emailRaw = formData.get("email");
+
+      const messageRaw = formData.get("message");
+
+      const topicRaw = formData.get("topic");
+
+      const name = typeof nameRaw === "string" ? nameRaw : "";
+
+      const email = typeof emailRaw === "string" ? emailRaw : "";
+
+      const message = typeof messageRaw === "string" ? messageRaw : "";
+
+      const topicStr = typeof topicRaw === "string" ? topicRaw : "other";
+
+      const topic = (
+        topicStr === "general" ||
+        topicStr === "project" ||
+        topicStr === "estimate" ||
+        topicStr === "other"
+          ? topicStr
+          : "other"
+      ) as "general" | "project" | "estimate" | "other";
 
       try {
-        const topicLabel: Record<typeof input.topic, string> = {
+        const topicLabel: Record<
+          "general" | "project" | "estimate" | "other",
+          string
+        > = {
           general: "General Inquiry",
           project: "Project Inquiry",
           estimate: "Estimate Request",
           other: "Other Inquiry",
         };
 
-        const subject = `[${topicLabel[input.topic]}] ${name}`;
+        const subject = `[${topicLabel[topic]}] ${name}`;
 
         const { error } = await resend.emails.send({
           from,
           to,
           subject,
           replyTo: email,
-          text: `Topic: ${topicLabel[input.topic]}\nName: ${name}\nEmail: ${email}\n\n${message}`,
+          text: `Topic: ${topicLabel[topic]}\nName: ${name}\nEmail: ${email}\n\n${message}`,
         });
 
         if (error) {
