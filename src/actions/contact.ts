@@ -1,37 +1,72 @@
-import { defineAction } from "astro:actions";
+import { defineAction, ActionError } from "astro:actions";
+import { z } from "astro:schema";
 import { Resend } from "resend";
-import { z } from "astro/zod";
+
+const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const server = {
   contact: defineAction({
     accept: "form",
-
+    input: z.object({
+      topic: z.enum(["general", "project", "estimate", "other"]),
+      name: z.string().min(1),
+      email: z.string().email(),
+      message: z.string().min(10),
+      company: z.string().optional(),
+    }),
     handler: async (input) => {
       // honeypot
-      //   if (input.company && input.company.trim().length > 0) {
-      //     return { ok: true } as const;
-      //   }
-
-      const apiKey = import.meta.env.RESEND_API_KEY;
-      if (!apiKey) {
-        return { ok: false, message: "RESEND_API_KEY is missing" } as const;
+      if (input.company && input.company.trim().length > 0) {
+        return { ok: true } as const;
       }
 
-      const resend = new Resend(apiKey);
+      const to = import.meta.env.CONTACT_TO;
 
-      const { data, error } = await resend.emails.send({
-        from: "Acme <onboarding@resend.dev>",
-        to: ["delivered@resend.dev"],
-        subject: "Hello world",
-        html: "<strong>It works!</strong>",
-      });
+      const from = import.meta.env.CONTACT_FROM;
 
-      if (error) {
-        console.error("[contact][resend]", error);
-        return { ok: false, message: error.message } as const;
+      if (!to || !from) {
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Server is not configured for email sending.",
+        });
       }
 
-      return { ok: true, data } as const;
+      const { name, email, message } = input;
+
+      try {
+        const topicLabel: Record<typeof input.topic, string> = {
+          general: "General Inquiry",
+          project: "Project Inquiry",
+          estimate: "Estimate Request",
+          other: "Other Inquiry",
+        };
+
+        const subject = `[${topicLabel[input.topic]}] ${name}`;
+
+        const { error } = await resend.emails.send({
+          from,
+          to,
+          subject,
+          replyTo: email,
+          text: `Topic: ${topicLabel[input.topic]}\nName: ${name}\nEmail: ${email}\n\n${message}`,
+        });
+
+        if (error) {
+          console.error("[contact][resend]", error);
+          throw new ActionError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to send message. Please try again later.",
+          });
+        }
+
+        return { ok: true } as const;
+      } catch (err) {
+        console.error("[contact]", err);
+        throw new ActionError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to send message. Please try again later.",
+        });
+      }
     },
   }),
 };
