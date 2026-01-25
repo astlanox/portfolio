@@ -29,14 +29,14 @@ const project = Astro.props;
         <Thumbnail src={project.thumbnail?.url} width={project.thumbnail?.width} height={project.thumbnail?.height} />
       </div>
 
-      <Description text={project.description} />
-      <Meta items={project.metas} />
-      <Stacks items={project.stacks} />
-      <Flow items={project.flows} />
+      <Description description={project.description} />
+      <Meta meta={project.metas} category={project.categories[0].name} />
+      <Stacks stacks={project.stacks} />
+      <Flow flows={project.flows} />
     </div>
 
-    <Requirements items={project.requirements} />
-    <Solutions items={project.solutions} />
+    <Requirements requirements={project.requirements} />
+    <Solutions solutions={project.solutions} />
   </article>
 </Layout>
 
