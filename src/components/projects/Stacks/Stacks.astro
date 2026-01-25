@@ -1,14 +1,14 @@
 ---
-import type { Category } from "@/types/project";
 import Text from "@/elements/Text.astro";
+import type { Category } from "@/types/project";
 
-const { items } = Astro.props as { items: Category[] };
+const { stacks } = Astro.props as { stacks: Category[] };
 ---
 
 <div class="container">
   <ul class="list">
     {
-      items.map((item) => (
+      stacks.map((item) => (
         <li class="list-item">
           <Text color="primary">{item.name}</Text>
         </li>

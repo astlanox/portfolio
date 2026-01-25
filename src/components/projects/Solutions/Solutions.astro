@@ -5,7 +5,7 @@ import ImageDefault from "./_image/solutions_img-default.png";
 import type { Solution } from "@/types/project";
 import { parseRichText } from "@/utils/parseRichText";
 
-const { items } = Astro.props as { items: Solution[] };
+const { solutions } = Astro.props as { solutions: Solution[] };
 ---
 
 <section class="container">
@@ -15,7 +15,7 @@ const { items } = Astro.props as { items: Solution[] };
     </h2>
 
     {
-      items.map((item) => (
+      solutions.map((item) => (
         <section class="item">
           <div class="item-content">
             <h3 class="item-title" set:html={parseRichText(item.title)} />
