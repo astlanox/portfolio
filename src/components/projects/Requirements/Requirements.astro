@@ -2,7 +2,7 @@
 import Text from "@/elements/Text.astro";
 import type { Requirement } from "@/types/project";
 
-const { items } = Astro.props as { items: Requirement[] };
+const { requirements } = Astro.props as { requirements: Requirement[] };
 ---
 
 <section class="container">
@@ -13,7 +13,7 @@ const { items } = Astro.props as { items: Requirement[] };
 
     <ul class="list">
       {
-        items.map((item) => (
+        requirements.map((item) => (
           <li class="list-item">
             <Text size="medium">{item.body}</Text>
           </li>

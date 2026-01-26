@@ -1,14 +1,14 @@
 ---
 import Text from "@/elements/Text.astro";
-import type { Meta } from "@/types/project";
+import type { Category, Meta } from "@/types/project";
 
-const { items } = Astro.props as { items: Meta[] };
+const { meta, category } = Astro.props as { meta: Meta[]; category: Category };
 ---
 
 <div class="container">
   <div class="inner">
     {
-      items.map((item) => (
+      meta.map((item) => (
         <dl class="list">
           <Text tag="dt" size="small" height="thin">
             {item.title}
@@ -20,6 +20,11 @@ const { items } = Astro.props as { items: Meta[] };
         </dl>
       ))
     }
+    <dl class="list">
+      <Text tag="dt" size="small" height="thin"> Type </Text>
+
+      <Text tag="dd" color="primary" size="medium" height="thin">{category}</Text>
+    </dl>
   </div>
 </div>
 

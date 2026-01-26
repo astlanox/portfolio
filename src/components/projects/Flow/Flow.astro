@@ -2,13 +2,13 @@
 import Text from "@/elements/Text.astro";
 import type { Flow } from "@/types/project";
 
-const { items } = Astro.props as { items: Flow[] };
+const { flows } = Astro.props as { flows: Flow[] };
 ---
 
 <div class="container">
   <ol class="list">
     {
-      items.map((item) => (
+      flows.map((item) => (
         <li class="list-item">
           <dl class="description">
             <dt class="description-title">
@@ -44,6 +44,7 @@ const { items } = Astro.props as { items: Flow[] };
 
     &-item {
       position: relative;
+      flex: 1;
 
       @include up("xlarge") {
         padding-left: 0;
